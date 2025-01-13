@@ -7,7 +7,6 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import FlightIcon from '@mui/icons-material/Flight';
-// import ScheduleIcon from '@mui/icons-material/Schedule';
 
 //DATE PICKER
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -30,17 +29,22 @@ const places = [
     {
         id: 3,
         name: "Tulum",
-        key: "TUL",
+        key: "TQO",
     },
     {
         id: 4,
         name: "Playa del Carmen",
-        key: "PDC",
+        key: "PCE",
     },
     {
         id: 5,
         name: "Mérida",
-        key: "MER",
+        key: "MID",
+    },
+    {
+        id: 6,
+        name: 'Cozumel',
+        key: 'CZM',
     }
 ]
 
@@ -85,14 +89,13 @@ export default function ReservationsForm() {
             backgroundColor: "#f5f5f5",
             alignItems: "center",
             minHeight: "60vh",
-            height: "60vh",
+            height: { xs: "fit-content", md: "60vh" },
             width: "100%",
             paddingY: "20px",
         }}>
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "blue",
                 justifyContent: "center",
                 width: "80%",
                 height: "100%",

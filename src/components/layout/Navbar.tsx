@@ -19,7 +19,7 @@ const menuItems = [
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
     { name: "Gallery", route: "/gallery" },
-    { name: "Flight Details", route: "/flights" },
+    { name: "Flight Deals", route: "/flights" },
     { name: "Blog", route: "/blog" },
     { name: "Contact", route: "/contact" },
 ];
@@ -111,6 +111,11 @@ export default function NavbarLayout(props: NavbarProps) {
                         WhatsApp
                     </Button>
                 </NavbarItem> */}
+                <Button>
+                    <NavLink to="/myTrips">
+                        My Trips
+                    </NavLink>
+                </Button>
                 <Button
                     href="https://wa.me/529982756932"
                     target="_blank"
