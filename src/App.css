@@ -3,7 +3,27 @@
 }
 
 .Oswald{
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', serif !important;
+}
+
+.Lato{
+  font-family: 'Lato', serif !important;
+}
+
+.Shrikhand{
+  font-family: "Shrikhand", serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.Lobster{
+  font-family: "Lobster", serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.Oleo{
+  font-family: 'Oleo Script', serif !important;
 }
 
 .relative.w-full.inline-flex {

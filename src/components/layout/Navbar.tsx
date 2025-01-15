@@ -9,7 +9,7 @@ import {
     NavbarMenuItem,
     NavbarMenuToggle,
     Divider,
-} from "@nextui-org/react"; 
+} from "@nextui-org/react";
 import { Box, Button } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import FlightIcon from "@mui/icons-material/Flight";
@@ -19,6 +19,7 @@ const menuItems = [
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
     { name: "Gallery", route: "/gallery" },
+    { name: "My Trips", route: "/myTrips" },
     { name: "Flight Deals", route: "/flights" },
     { name: "Blog", route: "/blog" },
     { name: "Contact", route: "/contact" },
@@ -111,11 +112,6 @@ export default function NavbarLayout(props: NavbarProps) {
                         WhatsApp
                     </Button>
                 </NavbarItem> */}
-                <Button>
-                    <NavLink to="/myTrips">
-                        My Trips
-                    </NavLink>
-                </Button>
                 <Button
                     href="https://wa.me/529982756932"
                     target="_blank"

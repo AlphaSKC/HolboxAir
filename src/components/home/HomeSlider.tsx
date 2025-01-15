@@ -70,16 +70,16 @@ export default function HomeSlider() {
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
                     }}>
-                        <Typography className="Oswald" sx={{
+                        <Typography className="Shrikhand" sx={{
                             color: "#fff",
                             position: "absolute",
                             left: "50%",
                             transform: "translateX(-50%)",
                             zIndex: 1,
                             textShadow: "0 4px 4px rgba(0, 0, 0, 0.25)",
-                            bottom: { xs: "14%", sm: "20%" },
+                            bottom: "30%",
                             textAlign: "center",
-                            fontSize: { xs: "2.5rem", sm: "3.5rem" },
+                            fontSize: "6vh",
                         }}>
                             {slide.title}
                         </Typography>

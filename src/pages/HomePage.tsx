@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import HeroContainer from "../components/home/HeroContainer";
 import ExtraServices from "../components/home/ExtraServices";
 import ImageDivider from "../components/home/ImageDivider";
+import AddedValue from "../components/home/AddedValue";
+import Airports from "../components/home/Airports";
 
 export default function HomePage() {
     return (
@@ -15,6 +17,8 @@ export default function HomePage() {
             <HeroContainer />
             <ExtraServices />
             <ImageDivider />
+            <AddedValue />
+            <Airports />
         </Box>
     );
 }

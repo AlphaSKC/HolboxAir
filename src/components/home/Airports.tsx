@@ -1,58 +1,73 @@
-import { Box, Grid2, Typography, Button } from "@mui/material";
-import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
+import { Box, Button, Typography } from "@mui/material";
+// import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 
-import Holbox from '../../assets/img/Holbox24Hrs.jpg'
-import Cancun from '../../assets/img/CancunOverflight.jpg'
-import CancunAirport from '../../assets/img/CancunAirport.jpg'
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation } from "swiper/modules";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import styles from "../../assets/css/slider.module.css";
 
-const Services = [
-    {
-        id: 1,
-        img: Cancun,
-        title: "Cancun Overflight",
-        price: 200
-    },
-    {
-        id: 2,
-        img: Holbox,
-        title: "Holbox 24 hrs",
-        price: 480
-    },
-    {
-        id: 3,
-        img: CancunAirport,
-        title: "Stay at Cancun Airport",
-        price: 0
-    }
-]
+// import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+// import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-export default function ExtraServices() {
+// import Holbox from '../../assets/img/Holbox24Hrs.jpg'
+// import Cancun from '../../assets/img/CancunOverflight.jpg'
+// import CancunAirport from '../../assets/img/CancunAirport.jpg'
+
+// const Services = [
+//     {
+//         id: 1,
+//         img: Cancun,
+//         title: "Cancun Overflight",
+//         price: 200
+//     },
+//     {
+//         id: 2,
+//         img: Holbox,
+//         title: "Holbox 24 hrs",
+//         price: 480
+//     },
+//     {
+//         id: 3,
+//         img: CancunAirport,
+//         title: "Stay at Cancun Airport",
+//         price: 0
+//     }
+// ]
+
+export default function Airports() {
     return (
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
             alignItems: 'center',
-            width: '80%',
-            marginY: '2rem',
-            // backgroundColor: 'green'
+            width: '100%',
+            marginBottom: '2rem',
+            justifyContent: 'center',
+            background: 'blue'
         }}>
             <Typography className="Oswald" sx={{
                 fontSize: '4vh',
-                fontWeight: 'bold',
                 color: 'black',
+                fontWeight: 'bold',
             }}>
-                Extra Services
+                Find out some departing points.
             </Typography>
-            <Grid2 container spacing={2} sx={{ marginY: '1rem', justifyContent: 'center' }}>
+            {/* <div className={styles.nextAirport}>
+                <ArrowForwardIosIcon />
+            </div>
+            <div className={styles.prevAirport}>
+                <ArrowBackIosNewIcon />
+            </div> */}
+            {/* <Swiper
+                spaceBetween={30}
+                slidesPerView={3}
+                loop={true}
+                navigation={{ nextEl: `.${styles.nextAirport}`, prevEl: `.${styles.prevAirport}` }}
+                modules={[Navigation]}
+            >
                 {Services.map((service) => (
-                    <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={service.id} sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        width: '100%',
-                        maxWidth: '300px',
-                    }}>
+                    <SwiperSlide>
                         <Card key={service.id} isFooterBlurred className="col-span-12 sm:col-span-4" style={{
                             height: '50vh',
                             width: '100%',
@@ -95,9 +110,9 @@ export default function ExtraServices() {
                                 </Button>
                             </CardFooter>
                         </Card>
-                    </Grid2>
+                    </SwiperSlide>
                 ))}
-            </Grid2>
+            </Swiper> */}
         </Box>
     );
 }
