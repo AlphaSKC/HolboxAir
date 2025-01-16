@@ -5,6 +5,7 @@ import NavbarLayout from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
 import Slogan from './components/layout/Slogan'
+import AboutPage from './pages/AboutPage'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
       <NavbarLayout />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/about' element={<Button>About</Button>} />
+        <Route path='/about' element={<AboutPage/>} />
         <Route path='/gallery' element={<Button>Gallery</Button>} />
         <Route path='/myTrips' element={<Button>My Trips</Button>} />
         <Route path='/flights' element={<Button>Flight Deals</Button>} />

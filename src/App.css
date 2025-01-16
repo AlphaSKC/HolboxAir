@@ -71,6 +71,15 @@
   width: fit-content !important;
 }
 
+.image-hover-effect {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-hover-effect:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
   .card {
     max-width: 20vw !important;

@@ -14,7 +14,6 @@ export default function HomePage() {
             flexDirection: "column",
             alignItems: "center",
             minHeight: "100vh",
-            backgroundColor:'white'
         }}>
             <HeroContainer />
             <ExtraServices />
