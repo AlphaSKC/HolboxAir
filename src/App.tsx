@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import NavbarLayout from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
+import Slogan from './components/layout/Slogan'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/blog' element={<Button>Blog</Button>} />
         <Route path='/contact' element={<Button>Contact</Button>} />
       </Routes>
+      <Slogan />
       <Footer />
     </NextUIProvider>
   )

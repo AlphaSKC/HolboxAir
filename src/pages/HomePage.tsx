@@ -5,6 +5,7 @@ import ImageDivider from "../components/home/ImageDivider";
 import AddedValue from "../components/home/AddedValue";
 import Airports from "../components/home/Airports";
 import PopularTopics from "../components/home/PopularTopics";
+import PaymentMethods from "../components/home/PaymentMethods";
 
 export default function HomePage() {
     return (
@@ -13,7 +14,7 @@ export default function HomePage() {
             flexDirection: "column",
             alignItems: "center",
             minHeight: "100vh",
-            backgroundColor:'#e6e6e6'
+            backgroundColor:'white'
         }}>
             <HeroContainer />
             <ExtraServices />
@@ -21,6 +22,7 @@ export default function HomePage() {
             <AddedValue />
             <Airports />
             <PopularTopics />
+            <PaymentMethods />
         </Box>
     );
 }
