@@ -1,39 +1,58 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation } from "swiper/modules";
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import styles from "../../assets/css/slider.module.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 
 // import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-// import Holbox from '../../assets/img/Holbox24Hrs.jpg'
-// import Cancun from '../../assets/img/CancunOverflight.jpg'
-// import CancunAirport from '../../assets/img/CancunAirport.jpg'
+import Holbox from '../../assets/img/Holbox24Hrs.jpg'
+import Cancun from '../../assets/img/CancunOverflight.jpg'
+import CancunAirport from '../../assets/img/CancunAirport.jpg'
+import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 
-// const Services = [
-//     {
-//         id: 1,
-//         img: Cancun,
-//         title: "Cancun Overflight",
-//         price: 200
-//     },
-//     {
-//         id: 2,
-//         img: Holbox,
-//         title: "Holbox 24 hrs",
-//         price: 480
-//     },
-//     {
-//         id: 3,
-//         img: CancunAirport,
-//         title: "Stay at Cancun Airport",
-//         price: 0
-//     }
-// ]
+const Services = [
+    {
+        id: 1,
+        img: Cancun,
+        title: "Cancun Overflight",
+        price: 200
+    },
+    {
+        id: 2,
+        img: Holbox,
+        title: "Holbox 24 hrs",
+        price: 480
+    },
+    {
+        id: 3,
+        img: CancunAirport,
+        title: "Stay at Cancun Airport",
+        price: 0
+    },
+    {
+        id: 4,
+        img: Cancun,
+        title: "Cancun Overflight",
+        price: 200
+    },
+    {
+        id: 5,
+        img: Holbox,
+        title: "Holbox 24 hrs",
+        price: 480
+    },
+    {
+        id: 6,
+        img: CancunAirport,
+        title: "Stay at Cancun Airport",
+        price: 0
+    }
+]
 
 export default function Airports() {
     return (
@@ -44,75 +63,66 @@ export default function Airports() {
             width: '100%',
             marginBottom: '2rem',
             justifyContent: 'center',
-            background: 'blue'
         }}>
             <Typography className="Oswald" sx={{
                 fontSize: '4vh',
                 color: 'black',
+                textAlign: 'center',
                 fontWeight: 'bold',
             }}>
                 Find out some departing points.
             </Typography>
-            {/* <div className={styles.nextAirport}>
-                <ArrowForwardIosIcon />
-            </div>
-            <div className={styles.prevAirport}>
-                <ArrowBackIosNewIcon />
-            </div> */}
-            {/* <Swiper
-                spaceBetween={30}
-                slidesPerView={3}
-                loop={true}
-                navigation={{ nextEl: `.${styles.nextAirport}`, prevEl: `.${styles.prevAirport}` }}
-                modules={[Navigation]}
-            >
-                {Services.map((service) => (
-                    <SwiperSlide>
-                        <Card key={service.id} isFooterBlurred className="col-span-12 sm:col-span-4" style={{
-                            height: '50vh',
-                            width: '100%',
-                        }} onPress={() => console.log("item pressed")}>
-                            <CardHeader className="absolute z-10 top-1 flex-col !items-start" style={{
-                                backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                                width: '100%',
-                                borderRadius: '1rem'
-                            }}>
-                                <Typography className="text-white font-bold Lato" sx={{ fontSize: '1.2rem' }}>
-                                    {service.title}
-                                </Typography>
-                            </CardHeader>
-                            <Image
-                                removeWrapper
-                                alt="Card background"
-                                className="z-0 w-full h-full object-cover"
-                                src={service.img}
-                            />
-                            <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                <Box>
-                                    <Typography className="Lato" sx={{
-                                        color: 'black',
-                                        fontSize: '1rem',
-                                        fontWeight: 'bold',
+            <Box className="container">
+                <Box className="swiperContainer" position={"relative"}>
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: true
+                        }}
+                        pagination={{
+                            el: ".pagination",
+                            clickable: true,
+                        }}
+                        loop={true}
+                        slidesPerView="auto"
+                        spaceBetween={25}
+                    >
+                        {Services.map((service) => (
+                            <SwiperSlide key={service.id} className="swiperSlide">
+                                <Card isPressable isFooterBlurred className="border-none card" radius="lg">
+                                    {/* <CardHeader className="absolute z-10 flex-col !items-center" style={{
+                                        background:'rgba(255,255,255,0.8)',
+                                        padding: '1rem',
+                                        width:'justify-content',
+                                        top: "15vh",
+                                        borderRadius: '1rem',
                                     }}>
-                                        {service.price === 0 ? "Contact Us" : "$" + service.price + " USD"}
-                                    </Typography>
-                                </Box>
-                                <Button className="Lato" sx={{
-                                    backgroundColor: '#e68a00',
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                    padding: '0.5rem 1rem',
-                                    borderRadius: '50px',
-                                    textTransform: 'none',
-                                    ":hover": { backgroundColor: 'white', color: '#e68a00' }
-                                }}>
-                                    See more
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    </SwiperSlide>
-                ))}
-            </Swiper> */}
+                                        <Typography>
+                                            dsgajdka
+                                        </Typography>
+                                    </CardHeader> */}
+                                    <Image
+                                        removeWrapper
+                                        alt={service.title}
+                                        className="z-0 w-full h-full object-cover"
+                                        height="40vh"
+                                        src={service.img}
+                                        width="20vw"
+                                    />
+                                    <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                                        <Typography>
+                                            {service.title}
+                                        </Typography>
+
+                                    </CardFooter>
+                                </Card>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <div className="pagination" />
+                </Box>
+            </Box>
         </Box>
     );
 }

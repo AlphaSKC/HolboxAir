@@ -1,40 +1,112 @@
-.p-relative{
+.p-relative {
   position: relative;
 }
 
-.Oswald{
+.Oswald {
   font-family: 'Oswald', serif !important;
 }
 
-.Lato{
+.Lato {
   font-family: 'Lato', serif !important;
 }
 
-.Shrikhand{
+.Shrikhand {
   font-family: "Shrikhand", serif !important;
   font-weight: 400 !important;
   font-style: normal !important;
 }
 
-.Lobster{
+.Lobster {
   font-family: "Lobster", serif !important;
   font-weight: 400 !important;
   font-style: normal !important;
 }
 
-.Oleo{
+.Oleo {
   font-family: 'Oleo Script', serif !important;
 }
 
-.relative.w-full.inline-flex {
-  background-color: #ffffff !important; /* Color normal */
-  border: 1px solid #ccc !important; /* Color normal */
-  &:hover{
-    border: 1px solid #e68a00 !important; /* Color hover */
-    color: #e68a00 !important; /* Color hover */
+.container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.swiperContainer {
+  overflow-x: hidden;
+  margin-top: 25px;
+  padding: 0 2rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  .swiper-pagination-bullet {
+    background-color: black;
+    height: 10px;
+    width: 10px;
+    margin-right: 6px;
+    opacity: 0.5;
+    cursor: pointer;
+    border-radius: 100%;
   }
-  &:focus-within{
-    border: 1px solid #e68a00 !important; /* Color focus */
-    color: #e68a00 !important; /* Color focus */
+
+  .swiper-pagination-bullet-active {
+    background-color: rgb(255, 162, 0);
+    opacity: 1;
+  }
+}
+
+.card {
+  min-width: 15vw !important;
+  width: 100% !important;
+}
+
+.swiperSlide {
+  min-width: 15vw !important;
+  width: fit-content !important;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card {
+    max-width: 20vw !important;
+  }
+  .swiperSlide{
+    min-width: none !important;
+  }
+}
+
+@media (min-width:400px) and (max-width: 767px) {
+  .card {
+    max-width: none !important;
+  }
+  .swiperSlide{
+    width: fit-content !important;
+    min-width: 20vw !important;
+  }
+}
+
+.relative.w-full.inline-flex {
+  background-color: #ffffff !important;
+  /* Color normal */
+  border: 1px solid #ccc !important;
+
+  /* Color normal */
+  &:hover {
+    border: 1px solid #e68a00 !important;
+    /* Color hover */
+    color: #e68a00 !important;
+    /* Color hover */
+  }
+
+  &:focus-within {
+    border: 1px solid #e68a00 !important;
+    /* Color focus */
+    color: #e68a00 !important;
+    /* Color focus */
   }
 }
