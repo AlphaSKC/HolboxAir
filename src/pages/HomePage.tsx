@@ -4,6 +4,7 @@ import ExtraServices from "../components/home/ExtraServices";
 import ImageDivider from "../components/home/ImageDivider";
 import AddedValue from "../components/home/AddedValue";
 import Airports from "../components/home/Airports";
+import PopularTopics from "../components/home/PopularTopics";
 
 export default function HomePage() {
     return (
@@ -19,6 +20,7 @@ export default function HomePage() {
             <ImageDivider />
             <AddedValue />
             <Airports />
+            <PopularTopics />
         </Box>
     );
 }

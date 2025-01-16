@@ -61,7 +61,6 @@ export default function Airports() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
-            marginBottom: '2rem',
             justifyContent: 'center',
         }}>
             <Typography className="Oswald" sx={{
