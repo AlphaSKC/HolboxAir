@@ -94,24 +94,7 @@ export default function NavbarLayout(props: NavbarProps) {
                 ))}
             </NavbarContent>
 
-            <NavbarContent justify="end">
-                {/* <NavbarItem className="ml-2 !flex gap-2">
-                    <Button
-                        href="https://wa.me/529982756932"
-                        target="_blank"
-                        sx={{
-                            backgroundColor: "gray",
-                            color: "white",
-                            padding: "10px",
-                            gap: "10px",
-                            ":hover": { backgroundColor: "#25d366", color: "black" },
-                            textDecoration: "none",
-                        }}
-                    >
-                        <WhatsAppIcon />
-                        WhatsApp
-                    </Button>
-                </NavbarItem> */}
+            <NavbarContent justify="end">   
                 <Button
                     href="https://wa.me/529982756932"
                     target="_blank"
