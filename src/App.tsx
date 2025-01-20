@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import Slogan from './components/layout/Slogan'
 import AboutPage from './pages/AboutPage'
 import GalleryPage from './pages/GalleryPage'
+import ContactPage from './pages/ContactPage'
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         <Route path='/myTrips' element={<Button>My Trips</Button>} />
         <Route path='/flights' element={<Button>Flight Deals</Button>} />
         <Route path='/blog' element={<Button>Blog</Button>} />
-        <Route path='/contact' element={<Button>Contact</Button>} />
+        <Route path='/contact' element={<ContactPage />} />
       </Routes>
       <Slogan />
       <Footer />

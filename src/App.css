@@ -101,22 +101,16 @@
 
 .relative.w-full.inline-flex {
   background-color: #ffffff !important;
-  /* Color normal */
   border: 1px solid #ccc !important;
 
-  /* Color normal */
   &:hover {
     border: 1px solid #e68a00 !important;
-    /* Color hover */
     color: #e68a00 !important;
-    /* Color hover */
   }
 
   &:focus-within {
     border: 1px solid #e68a00 !important;
-    /* Color focus */
     color: #e68a00 !important;
-    /* Color focus */
   }
 }
 
