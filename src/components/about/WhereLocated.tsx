@@ -1,6 +1,6 @@
 import { Box, Grid2, Typography } from "@mui/material";
 
-import WhereHolbox from '../../assets/img/WhereHolbox.jpg';
+import WhereHolbox from '../../assets/img/others/WhereHolbox.jpg';
 
 const Texts = [
     {

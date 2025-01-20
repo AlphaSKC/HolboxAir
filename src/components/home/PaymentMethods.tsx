@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import PaymentMethodsImg from '../../assets/img/PaymentMethods.jpg';
+import PaymentMethodsImg from '../../assets/img/others/PaymentMethods.jpg';
 
 export default function PaymentMethods() {
     return (

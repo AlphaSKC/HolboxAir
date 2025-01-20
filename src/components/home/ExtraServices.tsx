@@ -1,9 +1,9 @@
 import { Box, Grid2, Typography, Button } from "@mui/material";
 import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 
-import Holbox from '../../assets/img/Holbox24Hrs.jpg'
-import Cancun from '../../assets/img/CancunOverflight.jpg'
-import CancunAirport from '../../assets/img/CancunAirport.jpg'
+import Holbox from '../../assets/img/extraServices/Holbox24Hrs.jpg'
+import Cancun from '../../assets/img/extraServices/CancunOverflight.jpg'
+import CancunAirport from '../../assets/img/extraServices/CancunAirport.jpg'
 
 const Services = [
     {

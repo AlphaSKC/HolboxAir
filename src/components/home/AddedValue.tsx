@@ -1,10 +1,10 @@
 import { Box, Grid2, Typography } from "@mui/material";
 import { Image } from "@nextui-org/react";
 
-import FlightTime from '../../assets/img/FlightTime.png'
-import NoHiddenFees from '../../assets/img/NoHiddenFees.png'
-import Safe from '../../assets/img/Safe.png'
-import RoadblockFree from '../../assets/img/RoadblockFree.png'
+import FlightTime from '../../assets/img/addedValue/FlightTime.png'
+import NoHiddenFees from '../../assets/img/addedValue/NoHiddenFees.png'
+import Safe from '../../assets/img/addedValue/Safe.png'
+import RoadblockFree from '../../assets/img/addedValue/RoadblockFree.png'
 
 
 const AddedValues = [

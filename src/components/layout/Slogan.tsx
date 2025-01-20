@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import Banner from '../../assets/img/Holbox-Sunset.jpg';
+import Banner from '../../assets/img/others/Holbox-Sunset.jpg';
 
 export default function Slogan() {
     return (

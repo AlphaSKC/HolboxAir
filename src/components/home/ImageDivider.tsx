@@ -1,6 +1,6 @@
 import { Box, Grid2, Typography } from "@mui/material";
 
-import Banner from '../../assets/img/Banner2.jpg';
+import Banner from '../../assets/img/others/Banner2.jpg';
 
 export default function ImageDivider() {
     return (

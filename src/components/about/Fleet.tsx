@@ -1,8 +1,8 @@
 import { Box, Grid2, Typography } from "@mui/material";
 
-import Fleet1 from '../../assets/img/Cessna-182.jpg';
-import Fleet2 from '../../assets/img/Seneca.jpg';
-import Fleet3 from '../../assets/img/Kodiak.jpg';
+import Fleet1 from '../../assets/img/fleet/Cessna-182.jpg';
+import Fleet2 from '../../assets/img/fleet/Seneca.jpg';
+import Fleet3 from '../../assets/img/fleet/Kodiak.jpg';
 import Fancybox from "../../utils/Fancybox";
 
 const Fleets = [

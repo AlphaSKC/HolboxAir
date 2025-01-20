@@ -10,10 +10,10 @@ import 'swiper/css/pagination';
 // import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
-import Holbox from '../../assets/img/Holbox24Hrs.jpg'
-import Cancun from '../../assets/img/CancunOverflight.jpg'
-import CancunAirport from '../../assets/img/CancunAirport.jpg'
-import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
+import Holbox from '../../assets/img/extraServices/Holbox24Hrs.jpg'
+import Cancun from '../../assets/img/extraServices/CancunOverflight.jpg'
+import CancunAirport from '../../assets/img/extraServices/CancunAirport.jpg'
+import { Card, CardFooter, Image } from "@nextui-org/react";
 
 const Services = [
     {

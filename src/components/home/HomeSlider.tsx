@@ -7,11 +7,12 @@ import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 
 import styles from '../../assets/css/slider.module.css'
 
-import img1 from '../../assets/img/Holbox1.jpg'
-import img2 from '../../assets/img/Holbox2.jpg'
-import img3 from '../../assets/img/Holbox3.jpg'
-import img4 from '../../assets/img/Holbox4.jpg'
-import img5 from '../../assets/img/Holbox5.jpg'
+import img1 from '../../assets/img/slider/Beach.jpg'
+import img2 from '../../assets/img/slider/Sunset.jpg'
+import img3 from '../../assets/img/slider/Holbox.jpg'
+import img4 from '../../assets/img/slider/Mural.jpg'
+import img5 from '../../assets/img/slider/Fly.jpg'
+import img6 from '../../assets/img/slider/Holbox-street.jpg'
 
 const slides = [
     {
@@ -38,6 +39,11 @@ const slides = [
         id: 5,
         img: img5,
         title: "Discover"
+    },
+    {
+        id: 6,
+        img: img6,
+        title: "Holbox street"
     }
 ]
 
