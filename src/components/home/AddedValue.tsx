@@ -32,7 +32,7 @@ const AddedValues = [
 
 export default function AddedValue() {
     return (
-        <Box sx={{
+        <Box className="block2" sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

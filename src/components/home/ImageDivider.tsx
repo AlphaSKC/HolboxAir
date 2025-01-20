@@ -12,7 +12,7 @@ export default function ImageDivider() {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
         }}>
-            <Grid2 container spacing={2} sx={{
+            <Grid2 className="block" container spacing={2} sx={{
                 minHeight: '45vh',
                 height: '100%',
                 paddingY: '3rem',

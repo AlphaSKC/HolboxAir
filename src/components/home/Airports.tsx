@@ -56,7 +56,7 @@ const Services = [
 
 export default function Airports() {
     return (
-        <Box sx={{
+        <Box className="block" sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

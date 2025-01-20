@@ -51,41 +51,49 @@ export default function PopularTopics() {
             width: '100%',
             paddingY: '1rem',
         }}>
-            <Typography className="Oswald" sx={{
-                fontSize: '4vh',
-                fontWeight: 'bold',
-                color: 'white',
+            <Box className="block2" sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}>
-                Popular Topics
-            </Typography>
-            <Grid2 container spacing={5} sx={{ marginY: '1rem', justifyContent: 'center', width: '70%' }}>
-                {Topics.map((topic) => (
-                    <Grid2 size={{ xs: 6, md: 4 }} key={topic.id} sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '1.2vh',
-                    }}>
-                        <Box sx={{
-                            width: 'fit-content',
-                            padding: '1rem',
-                            borderRadius: '100%',
-                            backgroundColor: 'white',
+                <Typography className="Oswald" sx={{
+                    fontSize: '4vh',
+                    fontWeight: 'bold',
+                    color: 'white',
+                }}>
+                    Popular Topics
+                </Typography>
+                <Grid2 container spacing={5} sx={{ marginY: '1rem', justifyContent: 'center', width: '70%' }}>
+                    {Topics.map((topic) => (
+                        <Grid2 size={{ xs: 6, md: 4 }} key={topic.id} sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '1.2vh',
                         }}>
-                            <topic.icon sx={{ fontSize: '5vh' }} />
-                        </Box>
-                        <Typography className="Lato" sx={{
-                            color: 'white',
-                            textAlign: 'center',
-                            fontSize: '2.5vh',
-                            fontWeight: '300',
-                        }}>
-                            {topic.title}
-                        </Typography>
-                    </Grid2>
-                ))}
-            </Grid2>
+                            <Box sx={{
+                                width: 'fit-content',
+                                padding: '1rem',
+                                borderRadius: '100%',
+                                backgroundColor: 'white',
+                            }}>
+                                <topic.icon sx={{ fontSize: '5vh' }} />
+                            </Box>
+                            <Typography className="Lato" sx={{
+                                color: 'white',
+                                textAlign: 'center',
+                                fontSize: '2.5vh',
+                                fontWeight: '300',
+                            }}>
+                                {topic.title}
+                            </Typography>
+                        </Grid2>
+                    ))}
+                </Grid2>
+            </Box>
 
         </Box>
     );

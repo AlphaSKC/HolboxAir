@@ -18,8 +18,8 @@ export default function HomePage() {
             <HeroContainer />
             <ExtraServices />
             <ImageDivider />
-            <AddedValue />
-            <Airports />
+            <AddedValue  />
+            <Airports  />
             <PopularTopics />
             <PaymentMethods />
         </Box>
