@@ -5,7 +5,9 @@ import FlightTime from '../../assets/img/addedValue/FlightTime.png'
 import NoHiddenFees from '../../assets/img/addedValue/NoHiddenFees.png'
 import Safe from '../../assets/img/addedValue/Safe.png'
 import RoadblockFree from '../../assets/img/addedValue/RoadblockFree.png'
-
+import { useEffect } from "react";
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 const AddedValues = [
     {
@@ -31,14 +33,21 @@ const AddedValues = [
 ]
 
 export default function AddedValue() {
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
-        <Box className="block2" sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
             justifyContent: 'center',
-        }}>
+        }}
+            data-aos="fade-left"
+        >
             <Grid2 container spacing={1} sx={{
                 width: '70%',
                 minHeight: '45vh',

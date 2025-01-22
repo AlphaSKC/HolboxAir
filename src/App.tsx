@@ -8,6 +8,7 @@ import Slogan from './components/layout/Slogan'
 import AboutPage from './pages/AboutPage'
 import GalleryPage from './pages/GalleryPage'
 import ContactPage from './pages/ContactPage'
+import MyTripsPage from './pages/MyTripsPage'
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/gallery' element={<GalleryPage />} />
-        <Route path='/myTrips' element={<Button>My Trips</Button>} />
+        <Route path='/myTrips' element={<MyTripsPage/>} />
         <Route path='/flights' element={<Button>Flight Deals</Button>} />
         <Route path='/blog' element={<Button>Blog</Button>} />
         <Route path='/contact' element={<ContactPage />} />

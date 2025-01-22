@@ -1,5 +1,8 @@
 import { Box } from "@mui/material";
 import Fancybox from "../../utils/Fancybox";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from "react";
 
 import img1 from "../../assets/img/gallery/Gallery1.jpg";
 import img2 from "../../assets/img/gallery/Gallery2.jpg";
@@ -16,6 +19,7 @@ import img12 from "../../assets/img/gallery/Gallery12.jpg";
 import img13 from "../../assets/img/gallery/Gallery13.jpg";
 import img14 from "../../assets/img/gallery/Gallery14.jpg";
 import img15 from "../../assets/img/gallery/Gallery15.jpg";
+
 
 
 const images = [
@@ -97,6 +101,11 @@ const images = [
 ]
 
 export default function GalleryDesktop() {
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
+    
     return (
         <Box paddingX={{ xs: 2, sm: 2, md: 10 }} paddingY={3}>
             <Fancybox
@@ -108,11 +117,12 @@ export default function GalleryDesktop() {
             >
                 <Box className="galleryDesktop">
                     {images.map((image) => (
-                        <Box className={'div' + image.id}>
+                        <Box className={'div' + image.id} data-aos="fade-up">
                             <a data-fancybox="gallery" href={image.img}>
                                 <img className="imgGallery"
                                     alt={image.title}
                                     src={image.img}
+                                    loading="lazy"
                                 />
                             </a>
                         </Box>

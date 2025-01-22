@@ -48,17 +48,6 @@
   } 
 }
 
-@keyframes appearImg{
-  from{
-    opacity: 0;
-    transform: translateX(-100px);
-  }
-  to{
-    opacity: 1;
-    transform: translateX(0);
-  } 
-}
-
 .block{
   animation: appearLeft linear;
   animation-timeline: view();

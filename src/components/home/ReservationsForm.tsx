@@ -7,13 +7,13 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import FlightIcon from '@mui/icons-material/Flight';
+import { AccountCircle } from "@mui/icons-material";
 
 //DATE PICKER
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker, DateTimePickerProps } from '@mui/x-date-pickers/DateTimePicker';
-import { AccountCircle } from "@mui/icons-material";
 
 const places = [
     {

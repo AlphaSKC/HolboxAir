@@ -7,6 +7,10 @@ import "swiper/css";
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
+import { useEffect } from "react";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+
 // import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -55,14 +59,20 @@ const Services = [
 ]
 
 export default function Airports() {
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
-        <Box className="block" sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             width: '100%',
             justifyContent: 'center',
-        }}>
+        }}
+        data-aos="fade-right">
             <Typography className="Oswald" sx={{
                 fontSize: '4vh',
                 color: 'black',

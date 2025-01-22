@@ -6,6 +6,9 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import HelpIcon from '@mui/icons-material/Help';
+import { useEffect } from "react";
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 const Topics = [
     {
@@ -41,6 +44,11 @@ const Topics = [
 ]
 
 export default function PopularTopics() {
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
         <Box sx={{
             display: 'flex',
@@ -51,13 +59,15 @@ export default function PopularTopics() {
             width: '100%',
             paddingY: '1rem',
         }}>
-            <Box className="block2" sx={{
+            <Box sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-            }}>
+            }}
+                data-aos="fade-left"
+            >
                 <Typography className="Oswald" sx={{
                     fontSize: '4vh',
                     fontWeight: 'bold',
