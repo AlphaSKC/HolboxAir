@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Input, Tooltip } from "@nextui-org/react";
 import FlightIcon from '@mui/icons-material/Flight';
+import HelpIcon from '@mui/icons-material/Help';
 
 export default function TripForm() {
     return (
@@ -18,8 +19,7 @@ export default function TripForm() {
                 justifyContent: "center",
                 width: { xs: "90%", md: "80%" },
                 height: "100%",
-                paddingX: "20px",
-                backgroundColor: "red",
+                paddingLeft: "60px",
                 gap: "20px",
             }}>
                 <Box sx={{
@@ -31,7 +31,7 @@ export default function TripForm() {
                         color: "black",
                         fontWeight: '700'
                     }}>
-                        Manage your quote
+                        Manage your trips
                     </Typography>
                     <Box sx={{
                         display: "flex",
@@ -42,37 +42,49 @@ export default function TripForm() {
                         <Typography className="Lato" sx={{
                             fontSize: "0.9rem",
                         }}>
-                            Check the status of your quote
+                            Check the status of your trip
                         </Typography>
-                        <Tooltip>
-                            <Button
-                                sx={{
-                                    minWidth: "15px",
-                                    height: "15px",
-                                    fontSize: "0.25rem",
-                                    borderRadius: "50%",
-                                    backgroundColor: "#e68a00",
-                                    color: "white",
-                                    ":hover": {
-                                        backgroundColor: "white",
-                                        color: "#e68a00",
-                                    },
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                ?
-                            </Button>
+                        <Tooltip
+                            size="sm"
+                            showArrow={true}
+                            placement="right"
+                            content={
+                                <Box sx={{
+                                    display: 'flex',
+                                    width: '20vw',
+                                    flexDirection: 'column',
+                                    gap: '10px',
+                                    padding: '10px',
+                                }}>
+                                    <Typography className="Lato" sx={{
+                                        fontSize: "1.7vh",
+                                        color: "black",
+                                    }}>
+                                        The "trip code" is a random combination of letters and numbers. For example: R6GTGP
+                                    </Typography>
+                                    <Typography className="Lato" sx={{
+                                        fontSize: "1.7vh",
+                                        color: "black",
+                                        fontWeight: '700'
+                                    }}>
+                                        Where can I find the trip code?
+                                    </Typography>
+                                    <Typography className="Lato" sx={{
+                                        fontSize: "1.7vh",
+                                        color: "black",
+                                    }}>
+                                        You can find it in your confirmation email that was sent to the contact email at the time of making your quote.
+                                    </Typography>
+                                </Box>
+                            }
+                        >
+                            <HelpIcon sx={{ fontSize: "1rem", color: '#E68A00' }} />
                         </Tooltip>
                     </Box>
                 </Box>
                 <Box sx={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "blue",
                     gap: "20px",
                 }}>
                     <Box sx={{ width: "80%" }}>
@@ -98,7 +110,7 @@ export default function TripForm() {
                                     "!cursor-text",
                                 ],
                             }}
-                            label="Quote code"
+                            label="Trip code"
                             radius="sm"
                         />
                     </Box>
@@ -146,7 +158,7 @@ export default function TripForm() {
                                 }
                             }}
                         >
-                            Go to my quote
+                            Go to my Trip
                             <FlightIcon sx={{ marginLeft: "10px" }} />
                         </Button>
                     </Box>

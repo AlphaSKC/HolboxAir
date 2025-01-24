@@ -6,8 +6,14 @@ import AddedValue from "../components/home/AddedValue";
 import Airports from "../components/home/Airports";
 import PopularTopics from "../components/home/PopularTopics";
 import PaymentMethods from "../components/home/PaymentMethods";
+import { useEffect } from "react";
 
 export default function HomePage() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <Box sx={{
             display: "flex",
@@ -19,8 +25,8 @@ export default function HomePage() {
             <HeroContainer />
             <ExtraServices />
             <ImageDivider />
-            <AddedValue  />
-            <Airports  />
+            <AddedValue />
+            <Airports />
             <PopularTopics />
             <PaymentMethods />
         </Box>

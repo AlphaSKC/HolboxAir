@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage'
 import GalleryPage from './pages/GalleryPage'
 import ContactPage from './pages/ContactPage'
 import MyTripsPage from './pages/MyTripsPage'
+import NotFound from './pages/NotFound'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/flights' element={<Button>Flight Deals</Button>} />
         <Route path='/blog' element={<Button>Blog</Button>} />
         <Route path='/contact' element={<ContactPage />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Slogan />
       <Footer />

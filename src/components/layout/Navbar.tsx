@@ -34,6 +34,8 @@ export default function NavbarLayout(props: NavbarProps) {
         const currentRoute = menuItems.find(item => item.route === location.pathname);
         if (currentRoute) {
             setActiveItem(currentRoute.name);
+        } else {
+            setActiveItem("");
         }
     }, [location]);
 
