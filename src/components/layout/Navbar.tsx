@@ -96,7 +96,7 @@ export default function NavbarLayout(props: NavbarProps) {
                 ))}
             </NavbarContent>
 
-            <NavbarContent justify="end">   
+            <NavbarContent justify="end">
                 <Button
                     href="https://wa.me/529982756932"
                     target="_blank"
