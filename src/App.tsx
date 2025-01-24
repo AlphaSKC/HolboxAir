@@ -10,6 +10,7 @@ import GalleryPage from './pages/GalleryPage'
 import ContactPage from './pages/ContactPage'
 import MyTripsPage from './pages/MyTripsPage'
 import NotFound from './pages/NotFound'
+import BlogPage from './pages/BlogPage'
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         <Route path='/gallery' element={<GalleryPage />} />
         <Route path='/myTrips' element={<MyTripsPage/>} />
         <Route path='/flights' element={<Button>Flight Deals</Button>} />
-        <Route path='/blog' element={<Button>Blog</Button>} />
+        <Route path='/blog' element={<BlogPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
