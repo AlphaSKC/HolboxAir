@@ -1,5 +1,5 @@
 import './App.css'
-import { Button, NextUIProvider } from '@nextui-org/react'
+import { NextUIProvider } from '@nextui-org/react'
 import { Routes, Route } from 'react-router-dom'
 import NavbarLayout from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -11,6 +11,7 @@ import ContactPage from './pages/ContactPage'
 import MyTripsPage from './pages/MyTripsPage'
 import NotFound from './pages/NotFound'
 import BlogPage from './pages/BlogPage'
+import FlightDealsPage from './pages/FlightDealsPage'
 
 function App() {
 
@@ -21,8 +22,8 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/gallery' element={<GalleryPage />} />
-        <Route path='/myTrips' element={<MyTripsPage/>} />
-        <Route path='/flights' element={<Button>Flight Deals</Button>} />
+        <Route path='/myTrips' element={<MyTripsPage />} />
+        <Route path='/flights' element={<FlightDealsPage />} />
         <Route path='/blog' element={<BlogPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='*' element={<NotFound />} />
