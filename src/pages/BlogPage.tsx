@@ -14,6 +14,7 @@ export default function BlogPage() {
             flexDirection: 'column',
             alignItems: 'center',
             minHeight: '100vh',
+            overflowX: 'hidden',
         }}>
             <Posts />
         </Box>

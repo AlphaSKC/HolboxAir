@@ -1,6 +1,8 @@
 import { Box, Pagination, Stack, styled, Typography } from "@mui/material";
 import { Card, CardBody, Image } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AOS from "aos";
+import 'aos/dist/aos.css';
 
 const StyledPagination = styled(Pagination)(() => ({
     "& .MuiPaginationItem-root": {
@@ -50,6 +52,10 @@ const posts = [
 
 export default function Posts() {
 
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     const [page, setPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -77,6 +83,10 @@ export default function Posts() {
                     key={post.id}
                     className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
                     shadow="sm"
+                    data-aos={post.id % 2 === 0 ? "fade-left" : "fade-right"}
+                    style={{
+                        width: '85%',
+                    }}
                 >
                     <CardBody>
                         <Box className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">

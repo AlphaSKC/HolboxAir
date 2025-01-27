@@ -1,10 +1,6 @@
 import { Box, Grid2, Typography } from "@mui/material";
 import { Image } from "@nextui-org/react";
 
-import FlightTime from '../../assets/img/addedValue/FlightTime.png'
-import NoHiddenFees from '../../assets/img/addedValue/NoHiddenFees.png'
-import Safe from '../../assets/img/addedValue/Safe.png'
-import RoadblockFree from '../../assets/img/addedValue/RoadblockFree.png'
 import { useEffect } from "react";
 import AOS from "aos";
 import 'aos/dist/aos.css';
@@ -12,22 +8,22 @@ import 'aos/dist/aos.css';
 const AddedValues = [
     {
         id: 1,
-        img: FlightTime,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa4a143e68be24aa5926ef3752960db2e&methods=resize%2C600%2C5000',
         title: "Flight Time",
     },
     {
         id: 2,
-        img: NoHiddenFees,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F99d6a15055ce4da5ad37b9ede0e6b8a9&methods=resize%2C600%2C5000',
         title: "The price provided based on your requirements will be the final price.",
     },
     {
         id: 3,
-        img: Safe,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F59a09084bdef4c7b9d44ff65643137e6&methods=resize%2C600%2C5000',
         title: "Safe",
     },
     {
         id: 4,
-        img: RoadblockFree,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F5524bea8955f494eb2399520a12b8ff5&methods=resize%2C600%2C5000',
         title: "Roadblock free",
     }
 ]
@@ -65,7 +61,6 @@ export default function AddedValue() {
                         }}>
                             <Image src={value.img} alt="Image" removeWrapper style={{
                                 width: '40%',
-                                height: '40%',
                             }} />
                             <Typography className="Lato" sx={{
                                 fontSize: '3vh',

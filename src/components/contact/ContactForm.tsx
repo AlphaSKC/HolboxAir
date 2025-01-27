@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControlLabel, Grid2 } from "@mui/material";
+import { Box, Button, Grid2 } from "@mui/material";
 import { Form, Input, Textarea } from "@nextui-org/react";
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
@@ -12,7 +12,6 @@ export default function ContactForm() {
     const onSubmit = (e: any) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
-
         setSubmitted(data);
     }
     return (
@@ -85,18 +84,7 @@ export default function ContactForm() {
                     </Grid2>
                 </Grid2>
                 <Grid2 container spacing={2} sx={{ width: '100%' }}>
-                    <Grid2 size={{ xs: 12, md: 6 }}>
-                        <FormControlLabel
-                            control={<Checkbox sx={{
-                                color: "#e68a00",
-                                '&.Mui-checked': {
-                                    color: "#e68a00",
-                                }
-                            }} />}
-                            label=" I give my permission to be contact by Holbox Air."
-                        />
-                    </Grid2>
-                    <Grid2 size={{ xs: 12, md: 6 }} sx={{
+                    <Grid2 size={12} sx={{
                         display: 'flex',
                         justifyContent: 'flex-end'
                     }}>

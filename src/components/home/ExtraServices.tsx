@@ -1,26 +1,22 @@
 import { Box, Grid2, Typography, Button } from "@mui/material";
 import { Card, CardFooter, CardHeader, Image } from "@nextui-org/react";
 
-import Holbox from '../../assets/img/extraServices/Holbox24Hrs.jpg'
-import Cancun from '../../assets/img/extraServices/CancunOverflight.jpg'
-import CancunAirport from '../../assets/img/extraServices/CancunAirport.jpg'
-
 const Services = [
     {
         id: 1,
-        img: Cancun,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F86c44bab247b4e6da0684588641b4ea1&methods=resize%2C600%2C5000',
         title: "Cancun Overflight",
         price: 200
     },
     {
         id: 2,
-        img: Holbox,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F03c68569f56a43aa8c635b7f553b1d88&methods=resize%2C600%2C5000',
         title: "Holbox 24 hrs",
         price: 480
     },
     {
         id: 3,
-        img: CancunAirport,
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1613252086325-ac35531fc326%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DM3w1NTEzfDB8MXxzZWFyY2h8NDN8fGJlZHxlbnwwfHx8fDE3MDA2MTc2MjR8MA%26ixlib%3Drb-4.0.3%26q%3D80%26w%3D600%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral',
         title: "Stay at Cancun Airport",
         price: 0
     }

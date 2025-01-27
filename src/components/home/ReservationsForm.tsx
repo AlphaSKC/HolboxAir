@@ -89,7 +89,7 @@ export default function ReservationsForm() {
             backgroundColor: "#f5f5f5",
             alignItems: {xs: "center", md: "flex-end"},
             minHeight: "60vh",
-            height: { xs: "fit-content", md: "60vh" },
+            height: { xs: "fit-content", md: "70vh" },
             width: "100%",
             paddingY: "20px",
             paddingX: { xs: "10px", md: "20px" },

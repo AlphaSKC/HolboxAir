@@ -11,6 +11,7 @@ export default function SideLeft() {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
+            minHeight: "30vh",
             height: "100%",
             background: `url(${imgBg})`,
             backgroundSize: "cover",
@@ -21,7 +22,7 @@ export default function SideLeft() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "left",
-                background: "rgba(230, 138, 0, 0.8)",
+                background: "rgba(230, 138, 0, 0.9)",
                 width: "fit-content",
                 borderRadius: "10px",
                 border: "1px solid #ddd",
@@ -32,7 +33,7 @@ export default function SideLeft() {
                     color: "white",
                     fontWeight: '700',
                 }}>
-                    Aqui puedes:
+                    Here you can:
                 </Typography>
                 <Box sx={{
                     display: "flex",
@@ -43,22 +44,22 @@ export default function SideLeft() {
                         fontSize: "1rem",
                         color: "white",
                     }}>
-                        <CheckCircleIcon sx={{marginRight:'0.3vw'}}/>
-                        Ver el estado de tu cotización
+                        <CheckCircleIcon sx={{ marginRight: '0.3vw' }} />
+                        See the status of your quote
                     </Typography>
                     <Typography className="Lato" sx={{
                         fontSize: "1rem",
                         color: "white",
                     }}>
-                        <CheckCircleIcon sx={{marginRight:'0.3vw'}}/>
-                        Ver tus viajes
+                        <CheckCircleIcon sx={{ marginRight: '0.3vw' }} />
+                        See your trips
                     </Typography>
                     <Typography className="Lato" sx={{
                         fontSize: "1rem",
                         color: "white",
                     }}>
-                        <CheckCircleIcon sx={{marginRight:'0.3vw'}}/>
-                        Ver tus reservas
+                        <CheckCircleIcon sx={{ marginRight: '0.3vw' }} />
+                        See your reservations
                     </Typography>
                 </Box>
             </Box>

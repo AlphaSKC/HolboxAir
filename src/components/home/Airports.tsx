@@ -11,50 +11,38 @@ import { useEffect } from "react";
 import AOS from "aos";
 import 'aos/dist/aos.css';
 
-// import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-// import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-import Holbox from '../../assets/img/extraServices/Holbox24Hrs.jpg'
-import Cancun from '../../assets/img/extraServices/CancunOverflight.jpg'
-import CancunAirport from '../../assets/img/extraServices/CancunAirport.jpg'
 import { Card, CardFooter, Image } from "@nextui-org/react";
 
-const Services = [
+const Airporst = [
     {
         id: 1,
-        img: Cancun,
-        title: "Cancun Overflight",
-        price: 200
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa20ff6f21c424066ab91c8d80214f6ad&methods=resize%2C600%2C5000',
+        name: 'Cancun FBO',
     },
     {
         id: 2,
-        img: Holbox,
-        title: "Holbox 24 hrs",
-        price: 480
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F9f5a3cb966d44935b1bc73951b903f30&methods=resize%2C600%2C5000',
+        name: 'Holbox Airport',
     },
     {
         id: 3,
-        img: CancunAirport,
-        title: "Stay at Cancun Airport",
-        price: 0
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fc600a75bbb6645aaa828b06cf911a465&methods=resize%2C600%2C5000',
+        name: 'Playa del Carmen',
     },
     {
         id: 4,
-        img: Cancun,
-        title: "Cancun Overflight",
-        price: 200
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F912babe8e87e4e758cea39cad46d63d2&methods=resize%2C600%2C5000',
+        name: 'Tulum FBO',
     },
     {
         id: 5,
-        img: Holbox,
-        title: "Holbox 24 hrs",
-        price: 480
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa20ff6f21c424066ab91c8d80214f6ad&methods=resize%2C600%2C5000',
+        name: 'Cozumel Airport',
     },
     {
         id: 6,
-        img: CancunAirport,
-        title: "Stay at Cancun Airport",
-        price: 0
+        img: 'https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F912babe8e87e4e758cea39cad46d63d2&methods=resize%2C600%2C5000',
+        name: 'Merida Airport',
     }
 ]
 
@@ -72,7 +60,7 @@ export default function Airports() {
             width: '100%',
             justifyContent: 'center',
         }}
-        data-aos="fade-right">
+            data-aos="fade-right">
             <Typography className="Oswald" sx={{
                 fontSize: '4vh',
                 color: 'black',
@@ -97,33 +85,21 @@ export default function Airports() {
                         slidesPerView="auto"
                         spaceBetween={25}
                     >
-                        {Services.map((service) => (
-                            <SwiperSlide key={service.id} className="swiperSlide">
-                                <Card isPressable isFooterBlurred className="border-none card" radius="lg">
-                                    {/* <CardHeader className="absolute z-10 flex-col !items-center" style={{
-                                        background:'rgba(255,255,255,0.8)',
-                                        padding: '1rem',
-                                        width:'justify-content',
-                                        top: "15vh",
-                                        borderRadius: '1rem',
-                                    }}>
-                                        <Typography>
-                                            dsgajdka
-                                        </Typography>
-                                    </CardHeader> */}
+                        {Airporst.map((airport) => (
+                            <SwiperSlide key={airport.id} className="swiperSlide">
+                                <Card isPressable isFooterBlurred className="border-none" radius="lg">
                                     <Image
                                         removeWrapper
-                                        alt={service.title}
+                                        loading="lazy"
+                                        alt={`Image of ${airport.name}`}
                                         className="z-0 w-full h-full object-cover"
-                                        height="40vh"
-                                        src={service.img}
-                                        width="20vw"
+                                        height="30vh"
+                                        src={airport.img}
                                     />
-                                    <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-                                        <Typography>
-                                            {service.title}
+                                    <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                                        <Typography className="Oswald" sx={{ fontSize: '1.5rem', textAlign: 'center' }}>
+                                            {airport.name}
                                         </Typography>
-
                                     </CardFooter>
                                 </Card>
                             </SwiperSlide>

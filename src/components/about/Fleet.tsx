@@ -44,7 +44,7 @@ export default function Fleet() {
                 width: '60%', justifyContent: 'center'
             }}>
                 <Fancybox>
-                    <Grid2 container spacing={4}>
+                    <Grid2 container spacing={4} sx={{ justifyContent: 'center' }}>
                         {Fleets.map((fleet) => (
                             <Grid2 key={fleet.id} size={{ xs: 6, md: 4 }}>
                                 <a data-fancybox="gallery" href={fleet.img}>

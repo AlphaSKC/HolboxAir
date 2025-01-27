@@ -9,8 +9,8 @@ export default function TripForm() {
             display: "flex",
             flexDirection: "column",
             alignItems: { xs: "center", md: "flex-start" },
-            minHeight: "60vh",
             height: { xs: "fit-content", md: "60vh" },
+            py: { xs: "20px", md: "40px" },
             width: "100%",
         }}>
             <Box sx={{

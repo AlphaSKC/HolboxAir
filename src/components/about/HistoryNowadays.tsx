@@ -1,8 +1,16 @@
 import { Box, Grid2, Typography } from "@mui/material";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+import { useEffect } from "react";
 
 export default function HistoryNowadays() {
+
+    useEffect(() => {
+        AOS.init();
+    },[]);
+
     return (
-        <Box sx={{
+        <Box data-aos="fade-up" sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
