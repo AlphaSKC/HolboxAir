@@ -24,6 +24,19 @@
   color: #e68a00 !important;
 }
 
+.paymentMethods {
+  animation: slide 7s linear infinite;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .container {
   height: fit-content;
   display: flex;

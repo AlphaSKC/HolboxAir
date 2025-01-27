@@ -23,12 +23,12 @@ export default function HomePage() {
             overflowX: "hidden",
         }}>
             <HeroContainer />
+            <PaymentMethods />
             <ExtraServices />
             <ImageDivider />
             <AddedValue />
             <Airports />
             <PopularTopics />
-            <PaymentMethods />
         </Box>
     );
 }

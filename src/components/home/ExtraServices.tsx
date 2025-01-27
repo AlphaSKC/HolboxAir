@@ -11,7 +11,7 @@ export default function ExtraServices() {
             justifyContent: 'center',
             alignItems: 'center',
             width: '80%',
-            marginY: '2rem',
+            marginY: '1vh',
         }}>
             <Typography className="Oswald" sx={{
                 fontSize: '4vh',
