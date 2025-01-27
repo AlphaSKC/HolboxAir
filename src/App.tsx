@@ -12,6 +12,7 @@ import MyTripsPage from './pages/MyTripsPage'
 import NotFound from './pages/NotFound'
 import BlogPage from './pages/BlogPage'
 import FlightDealsPage from './pages/FlightDealsPage'
+import ExtraServicesTemplate from './components/templates/ExtraServicesTemplate'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/blog' element={<BlogPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/extraServices/:name' element={<ExtraServicesTemplate/>} />
       </Routes>
       <Slogan />
       <Footer />

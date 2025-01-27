@@ -16,7 +16,7 @@ export default function Slogan() {
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
         }}>
-            <Typography className="Shrikhand" sx={{
+            <Typography className="India" sx={{
                 color: 'white',
                 textAlign: 'center',
                 fontSize: '4vh',

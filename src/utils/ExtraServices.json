@@ -1,0 +1,31 @@
+{
+  "extraServices": [
+    {
+      "id": 1,
+      "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F86c44bab247b4e6da0684588641b4ea1&methods=resize%2C600%2C5000",
+      "title": "Cancun Overflight",
+      "price": 200,
+      "route": "/extraServices/cancun-overflight",
+      "content": "Enjoy this amazing experience and see cancun from a new perspective. Fly over Cancun Hotel Zone and Bahia Mujeres where you will enjoy a beautiful view and an amazing blue color.",
+      "additionalInfo": "Cost: <b>$200 USD per person</b><br>Two Person minimum<br><br>Flight Time: 20 min<br>Departure point: Cancun Airport"
+    },
+    {
+      "id": 2,
+      "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F03c68569f56a43aa8c635b7f553b1d88&methods=resize%2C600%2C5000",
+      "title": "Holbox 24 hrs",
+      "price": 480,
+      "route": "/extraServices/holbox-24-hrs",
+      "content": "No matter if you are arriving late our service 24 hrs let you reach Holbox even at night by land.<br><br>In case you don't want overnight in cancun and you desire go to Holbox the same day this is excellent option.<br><br>What does include?<br>- Ground Transportation to Chiquila<br>- Private boat from Chiquila to Holbox",
+      "additionalInfo": "Cost: <b>$480 USD</b> up to 5 people"
+    },
+    {
+      "id": 3,
+      "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1613252086325-ac35531fc326%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DM3w1NTEzfDB8MXxzZWFyY2h8NDN8fGJlZHxlbnwwfHx8fDE3MDA2MTc2MjR8MA%26ixlib%3Drb-4.0.3%26q%3D80%26w%3D600%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral",
+      "title": "Stay at Cancun Airport",
+      "price": 0,
+      "route": "/extraServices/stay-at-cancun-airport",
+      "content": "If your arrival at Cancun airport is very late or your departure is very early, you have the option of spending the night at Cancun Airport and catching your flight early the next day. You will be just minutes away from the 4 terminals. We offer the best rooms.<br><br>Breakfast included.",
+      "additionalInfo": "Make your reservation with us through whatsApp or email at info@holboxair.com."
+    }
+  ]
+}

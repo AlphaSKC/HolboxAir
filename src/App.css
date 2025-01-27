@@ -6,6 +6,10 @@
   font-family: 'Oswald', serif !important;
 }
 
+.India {
+  font-family: "Playwrite IN", serif !important;
+}
+
 .Lato {
   font-family: 'Lato', serif !important;
 }
@@ -14,16 +18,6 @@
   font-family: "Shrikhand", serif !important;
   font-weight: 400 !important;
   font-style: normal !important;
-}
-
-.Lobster {
-  font-family: "Lobster", serif !important;
-  font-weight: 400 !important;
-  font-style: normal !important;
-}
-
-.Oleo {
-  font-family: 'Oleo Script', serif !important;
 }
 
 .container {

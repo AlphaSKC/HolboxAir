@@ -335,7 +335,7 @@ export default function Deals() {
                                                                         </Grid2>
                                                                         <Grid2 size={6}>
                                                                             <Typography variant="body1" className="text-justify Lato">
-                                                                                <GroupIcon sx={{ color: '#e6a800' }} /> {deal.passengers} {deal.passengers > 1 ? "passengers" : "passenger"}
+                                                                                <GroupIcon sx={{ color: '#e6a800' }} /> {deal.passengers} {deal.passengers > 1 ? "seats" : "seat"} left
                                                                             </Typography>
                                                                         </Grid2>
                                                                         <Grid2 size={6}>
