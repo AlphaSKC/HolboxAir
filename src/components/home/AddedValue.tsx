@@ -51,7 +51,7 @@ export default function AddedValue() {
                 alignItems: 'center',
             }}>
                 {AddedValues.map((value) => (
-                    <Grid2 size={{ xs: 12, md: 6 }} sx={{
+                    <Grid2 key={value.id} size={{ xs: 12, md: 6 }} sx={{
                         width: '100%',
                     }}>
                         <Box sx={{

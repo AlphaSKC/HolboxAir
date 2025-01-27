@@ -14,6 +14,7 @@ import BlogPage from "./pages/BlogPage";
 import FlightDealsPage from "./pages/FlightDealsPage";
 import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate";
 import LoginPage from "./pages/LoginPage";
+import AddedValueTemplate from "./components/templates/AddedValueTemplate";
 
 function App() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function App() {
           path="/extraServices/:name"
           element={<ExtraServicesTemplate />}
         />
+        <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/admin" element={<LoginPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

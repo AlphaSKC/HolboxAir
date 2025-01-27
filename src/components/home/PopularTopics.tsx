@@ -9,37 +9,44 @@ import HelpIcon from "@mui/icons-material/Help";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { NavLink } from "react-router-dom";
 
 const Topics = [
   {
     id: 1,
     icon: LuggageIcon,
     title: "Baggage Allowance",
+    route: "/topics/baggage-allowance",
   },
   {
     id: 2,
     icon: EventBusyIcon,
     title: "Cancellation policy",
+    route: "/topics/cancellation-policy",
   },
   {
     id: 3,
     icon: CalendarMonthOutlinedIcon,
     title: "Change Flight",
+    route: "/topics/change-flight",
   },
   {
     id: 4,
     icon: AttachMoneyIcon,
     title: "Exchange Rate",
+    route: "https://www.bbva.mx/personas/informacion-financiera-al-dia.html",
   },
   {
     id: 5,
     icon: BedtimeOutlinedIcon,
     title: "Night Arrival",
+    route: "/topics/night-arrival",
   },
   {
     id: 6,
     icon: HelpIcon,
     title: "Help",
+    route: "/topics/faq",
   },
 ];
 
@@ -97,21 +104,23 @@ export default function PopularTopics() {
                 gap: "1.2vh",
               }}
             >
-              <Box
-                sx={{
-                  width: "fit-content",
-                  padding: "1rem",
-                  borderRadius: "100%",
-                  backgroundColor: "white",
-                  ":hover": {
-                    backgroundColor: "#e6a800",
-                    cursor: "pointer",
-                    color: "white",
-                  },
-                }}
-              >
-                <topic.icon sx={{ fontSize: "5vh" }} />
-              </Box>
+              <NavLink to={topic.route}>
+                <Box
+                  sx={{
+                    width: "fit-content",
+                    padding: "1rem",
+                    borderRadius: "100%",
+                    backgroundColor: "white",
+                    ":hover": {
+                      backgroundColor: "#e6a800",
+                      cursor: "pointer",
+                      color: "white",
+                    },
+                  }}
+                >
+                  <topic.icon sx={{ fontSize: "5vh" }} />
+                </Box>
+              </NavLink>
               <Typography
                 className="Lato"
                 sx={{

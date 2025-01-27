@@ -55,7 +55,7 @@ export default function ExtraServicesTemplate() {
                   {service.title}
                 </Typography>
                 <Typography
-                  className="Oswald"
+                  className="Lato"
                   sx={{
                     fontSize: "3vh",
                     color: "black",
@@ -64,7 +64,7 @@ export default function ExtraServicesTemplate() {
                 />
                 <Divider sx={{ width: "100%", bgcolor: "#ccc" }} />
                 <Typography
-                  className="Oswald"
+                  className="Lato"
                   sx={{
                     fontSize: "3vh",
                     color: "black",

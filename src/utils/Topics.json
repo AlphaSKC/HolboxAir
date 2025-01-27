@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "title": "Baggage Allowance",
+        "route": "/topics/baggage-allowance",
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Ff2fb7e4d2f3d4d2a971f9e6c2b3e1c83&methods=resize%2C1000%2C5000",
+        "content": "If you are not sure how much luggage you can bring to holbox this post will help you. Our luggage is our little piece of home that we bring with us. Some people need more space than others and we understand it. We would like take you with all what you can bring but we must take into consideration the following points. <br><br> <b>Volume</b> <br>Aircraft space for luggage is small 0.31 cu mt (11 cu ft). Considering this, dimension of your baggage must not exceed the measurements of 127 linear centimeters or 50 linear inches, preferably non-rigid suitcase.<br><br><b>Weight</b> <br>Holbox has a short not-asphalted airstrip which limits the weight of loads that may be carried. For this reason, baggage weight allowance is up to 20kgs (44lbs) per person. <br><br>Additionally, one Carry-on is permitted up to 5 kgs (11lbs) per person."
+    },
+    {
+        "id": 2,
+        "title": "Cancellation policy",
+        "route": "/topics/cancellation-policy",
+        "img":"https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1668165441697-98e96bc99f20%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DM3w1NTEzfDB8MXxzZWFyY2h8NzV8fGJhZ2dhZ2V8ZW58MHx8fHwxNzAxMDkzMTkwfDA%26ixlib%3Drb-4.0.3%26q%3D80%26w%3D1000%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral",
+        "content": "Please notify us at least <b>72 hours</b> in advance should you need to cancel your flight in order to receive a 100 % refund. Please note that even though the refund is processed at 100%, bank fees may reduce the final amount. All reserved flights on peak season (Dec 24 - Jan 7) and cancellations made with less than 72 hours before your flight departure time are not subject to refunds.<br><br><b>How long does it take?</b><br><br>Please note that the company processes the refund immediately, but the time it takes is beyond the company's control and depends on the banking system.<br><br>Payments made by credit card, the refund may take up to <b>30 days</b> to complete.<br><br>Payments made through a wire transfer, the refund may take up to <b>10 days</b> to complete. In this case, we will need your bank details from which you made the payment to return the money to the same account.<br><br><b>Whats happen if I pay my remaining balance by cash?</b><br><br>With this method of payment refunds are faster. If you paid your remaining balance by cash we can give you back your money as soon as you are at your departure terminal at Cancun airport on your return home. While for down payment waiting times described above apply."
+    },
+    {
+        "id": 3,
+        "title": "Change Flight",
+        "route": "/topics/change-flight",
+        "img":"https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1633526543814-9718c8922b7a%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DM3w1NTEzfDB8MXxzZWFyY2h8M3x8Y2FsZW5kYXJ8ZW58MHx8fHwxNjk1Mzk1NzQ0fDA%26ixlib%3Drb-4.0.3%26q%3D80%26w%3D1000%26utm_source%3Dendurance-innovation%26utm_medium%3Dreferral",
+        "content":"Changing your flight is possible, but it is subject to availability. If there is no availability on the new date and time you desire, we will suggest the nearest available schedule.<br><br>Request must be received 72hrs before your flight's departure via WhatsApp or email info@holboxair.com."
+    },
+    {
+        "id": 4,
+        "title": "Exchange Rate",
+        "route": "https://www.bbva.mx/personas/informacion-financiera-al-dia.html"
+    },
+    {
+        "id": 5,
+        "title": "Night Arrival",
+        "route": "/topics/night-arrival",
+        "img":"https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1547312667-da746e5a78c7%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DM3w1NTEzfDB8MXxzZWFyY2h8NXx8bmlnaHQlMjBmbGlnaHR8ZW58MHx8fHwxNjk1Mzk3OTc0fDA%26ixlib%3Drb-4.0.3%26q%3D80%26w%3D1000",
+        "content":"Due Holbox's Airstrip only works with day light we can offer you 2 options.<br><br>Stay and fly<br>We can depart next day morning on our first  flight.<br><br>Ground Service<br>Our night service let you reach holbox by ground even at night."
+    },
+    {
+        "id": 6,
+        "title": "Help",
+        "route": "/topics/faq"
+    }
+]
