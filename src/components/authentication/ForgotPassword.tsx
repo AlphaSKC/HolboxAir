@@ -1,15 +1,8 @@
-import { Form, Input } from "@nextui-org/react";
-import { useState } from "react";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button } from "@mui/material";
+import { Form, Input } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 
-export default function LoginForm() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
-
+export default function ForgotPassword() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("handleSubmit");
@@ -33,6 +26,14 @@ export default function LoginForm() {
           validationBehavior="native"
           onSubmit={handleSubmit}
         >
+          <Box sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1vh" }}>
+            <p style={{ fontSize: "4vh", fontWeight: "bold" }}>
+              Forgot your password?
+            </p>
+            <p style={{ fontSize: "2.5vh", color: "#333333" }}>
+              Enter your email to reset your password
+            </p>
+          </Box>
           <Input
             isRequired
             label="Email"
@@ -42,27 +43,13 @@ export default function LoginForm() {
             type="email"
             variant="bordered"
           />
-          <Input
-            isRequired
-            endContent={
-              <button type="button" onClick={toggleVisibility}>
-                {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-              </button>
-            }
-            label="Password"
-            labelPlacement="outside"
-            name="password"
-            placeholder="Enter your password"
-            type={isVisible ? "text" : "password"}
-            variant="bordered"
-          />
           <Box className="flex w-full items-center justify-end px-1 py-2">
             <NavLink
-              to={"/forgotPassword"}
+              to={"/admin"}
               className="text-default-500 nav-link"
               style={{ fontSize: "2.5vh" }}
             >
-              Forgot your password?
+              Remember your password? Login here
             </NavLink>
           </Box>
           <Button
@@ -82,7 +69,7 @@ export default function LoginForm() {
               },
             }}
           >
-            Log in
+            Reset Password
           </Button>
         </Form>
       </Box>

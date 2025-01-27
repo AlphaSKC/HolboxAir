@@ -15,10 +15,11 @@ import FlightDealsPage from "./pages/FlightDealsPage";
 import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate";
 import LoginPage from "./pages/LoginPage";
 import AddedValueTemplate from "./components/templates/AddedValueTemplate";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/admin";
+  const hideNavbarFooter = location.pathname === "/admin" || location.pathname === "/forgotPassword";
 
   return (
     <NextUIProvider>
@@ -37,6 +38,7 @@ function App() {
         />
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/admin" element={<LoginPage />} />
+        <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}
