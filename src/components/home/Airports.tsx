@@ -3,9 +3,8 @@ import { Box, Typography } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import 'swiper/css/effect-fade';
-import 'swiper/css/pagination';
+import "swiper/swiper-bundle.css";
+import 'swiper/modules';
 
 import { useEffect } from "react";
 import AOS from "aos";

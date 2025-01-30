@@ -13,6 +13,7 @@ export default function ContactForm() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
         setSubmitted(data);
+        console.log(submitted);
     }
     return (
         <Box sx={{
