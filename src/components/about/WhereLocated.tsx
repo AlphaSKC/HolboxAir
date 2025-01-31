@@ -21,9 +21,9 @@ export default function WhereLocated() {
             flexDirection: "column",
             alignItems: "center",
             width: "100%",
-            marginTop:'3vh',
+            marginTop: '3vh',
         }}>
-            <Grid2 container spacing={3} sx={{ width: '70%', padding: '2vh', border: '1px solid #ccc', borderRadius: '5px', boxShadow: '0 0 10px #d4d4d4' }}>
+            <Grid2 container spacing={3} sx={{ width: { xs: '90%', md: '70%' }, padding: '2vh', border: '1px solid #ccc', borderRadius: '5px', boxShadow: '0 0 10px #d4d4d4' }}>
                 <Grid2 size={{ xs: 12, md: 7 }} sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -51,7 +51,7 @@ export default function WhereLocated() {
                     </Box>
                 </Grid2>
                 <Grid2 size={{ xs: 12, md: 5 }}>
-                    <img src={WhereHolbox} alt="Where Holbox" style={{ width: '100%', height: '100%', borderRadius:'5px' }} />
+                    <img src={WhereHolbox} alt="Where Holbox" style={{ width: '100%', height: '100%', borderRadius: '5px' }} />
                 </Grid2>
             </Grid2>
         </Box>

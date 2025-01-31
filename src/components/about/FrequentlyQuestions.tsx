@@ -9,7 +9,7 @@ export default function FrequentlyQuestions() {
             width: "100%",
             marginY: '3vh',
         }}>
-            <Grid2 container sx={{ width: '70%', boxShadow: '0 0 10px #ccc' }}>
+            <Grid2 container sx={{ width: { xs: '90%', md: '70%' }, boxShadow: '0 0 10px #ccc' }}>
                 <Grid2 size={{ xs: 12, md: 6 }} sx={{
                     display: 'flex',
                     padding: '1rem 2rem',

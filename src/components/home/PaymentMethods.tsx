@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
 import Bitcoin from "../../assets/img/paymentMethods/Bitcoin S.png";
 import MasterCard from "../../assets/img/paymentMethods/MastercardS.png";
@@ -9,6 +9,8 @@ import American from "../../assets/img/paymentMethods/American Express.png";
 import Marquee from "react-fast-marquee";
 
 export default function PaymentMethods() {
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
   return (
     <Box sx={{ width: "100%", display: "grid", placeItems: "center" }}>
       <Box
@@ -28,92 +30,92 @@ export default function PaymentMethods() {
         >
           <Marquee speed={20}>
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Bitcoin}
               alt="Bitcoin"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={MasterCard}
               alt="MasterCard"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Visa}
               alt="Visa"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Transfer}
               alt="Transfer"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Cash}
               alt="Cash"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={American}
               alt="American"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Bitcoin}
               alt="Bitcoin"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={MasterCard}
               alt="MasterCard"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Visa}
               alt="Visa"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Transfer}
               alt="Transfer"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Cash}
               alt="Cash"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={American}
               alt="American"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Bitcoin}
               alt="Bitcoin"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={MasterCard}
               alt="MasterCard"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Visa}
               alt="Visa"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Transfer}
               alt="Transfer"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={Cash}
               alt="Cash"
             />
             <img
-              style={{ width: "5vw", margin: "0 25px" }}
+              style={{ width: isSmallScreen ? "8vh" : "7vh", margin: "0 25px" }}
               src={American}
               alt="American"
             />

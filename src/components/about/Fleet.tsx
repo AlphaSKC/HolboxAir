@@ -41,7 +41,7 @@ export default function Fleet() {
                 Fleet
             </Typography>
             <Box sx={{
-                width: '60%', justifyContent: 'center'
+                width: {xs:'90%', md:'60%'}, justifyContent: 'center'
             }}>
                 <Fancybox>
                     <Grid2 container spacing={4} sx={{ justifyContent: 'center' }}>

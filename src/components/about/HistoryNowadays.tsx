@@ -7,7 +7,7 @@ export default function HistoryNowadays() {
 
     useEffect(() => {
         AOS.init();
-    },[]);
+    }, []);
 
     return (
         <Box data-aos="fade-up" sx={{
@@ -17,7 +17,7 @@ export default function HistoryNowadays() {
             width: "100%",
             marginTop: '3vh',
         }}>
-            <Grid2 container spacing={6} sx={{ width: '70%', padding: '2vh', border: '1px solid #ccc', borderRadius: '5px', boxShadow: '0 0 10px #d4d4d4' }}>
+            <Grid2 container spacing={6} sx={{ width: { xs: '90%', md: '70%' }, padding: '2vh', border: '1px solid #ccc', borderRadius: '5px', boxShadow: '0 0 10px #d4d4d4' }}>
                 <Grid2 size={{ xs: 12, md: 6 }} sx={{
                     display: 'flex',
                     flexDirection: 'column',
