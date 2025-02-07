@@ -47,7 +47,7 @@ export default function ForgotPassword() {
             <NavLink
               to={"/admin"}
               className="text-default-500 nav-link"
-              style={{ fontSize: "2.5vh" }}
+              style={{ fontSize: "2.2vh" }}
             >
               Remember your password? Login here
             </NavLink>
@@ -59,7 +59,7 @@ export default function ForgotPassword() {
               backgroundColor: "#e68a00",
               borderRadius: "50px",
               padding: "10px",
-              fontSize: "2.5vh",
+              fontSize: "2.2vh",
               color: "white",
               fontWeight: "bold",
               textTransform: "none",

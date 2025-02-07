@@ -2,18 +2,60 @@ import { Form, Input } from "@nextui-org/react";
 import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Box, Button } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Alert, Box, Button, Slide, SlideProps, Snackbar } from "@mui/material";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AdminLogin } from "../../services/AuthService";
 
 export default function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+    "success"
+  );
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("handleSubmit");
+    setIsLoading(true);
+    const data = {
+      email: email,
+      password: password
+    }
+    try {
+      const response = await AdminLogin(data);
+      setAlertMessage(response.message);
+      setAlertSeverity(response.success ? 'success' : 'error');
+      setAlertOpen(true);
+      if (response.success) {
+        localStorage.setItem('profile', JSON.stringify(response.result));
+        navigate('/dashboard');
+      }
+    }
+    catch (error) {
+      setAlertMessage('Error al iniciar sesión. Inténtalo de nuevo.');
+      setAlertSeverity('error');
+      setAlertOpen(true);
+    }
+    finally {
+      setIsLoading(false);
+    }
   };
+
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
+
+  function SlideTransition(props: SlideProps) {
+    return <Slide {...props} direction="left" />;
+  }
 
   return (
     <Box className="flex h-full w-full items-center justify-center">
@@ -41,6 +83,8 @@ export default function LoginForm() {
             placeholder="Enter your email"
             type="email"
             variant="bordered"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             isRequired
@@ -55,12 +99,14 @@ export default function LoginForm() {
             placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
             variant="bordered"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Box className="flex w-full items-center justify-end px-1 py-2">
             <NavLink
               to={"/forgotPassword"}
               className="text-default-500 nav-link"
-              style={{ fontSize: "2.5vh" }}
+              style={{ fontSize: "2.2vh" }}
             >
               Forgot your password?
             </NavLink>
@@ -72,7 +118,7 @@ export default function LoginForm() {
               backgroundColor: "#e68a00",
               borderRadius: "50px",
               padding: "10px",
-              fontSize: "2.5vh",
+              fontSize: "2.2vh",
               color: "white",
               fontWeight: "bold",
               textTransform: "none",
@@ -80,12 +126,33 @@ export default function LoginForm() {
                 backgroundColor: "white",
                 color: "#e68a00",
               },
+              ':disabled': {
+                backgroundColor: '#A0A0A0',
+                color: '#000',
+                cursor: 'not-allowed',
+              }
             }}
+            disabled={isLoading}
           >
             Log in
           </Button>
         </Form>
       </Box>
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={6000}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        TransitionComponent={SlideTransition}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity={alertSeverity}
+          sx={{ width: '100%' }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

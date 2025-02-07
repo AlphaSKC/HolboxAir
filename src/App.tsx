@@ -1,6 +1,6 @@
 import "./App.css";
 import { NextUIProvider } from "@nextui-org/react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import NavbarLayout from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
@@ -16,10 +16,19 @@ import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate"
 import LoginPage from "./pages/LoginPage";
 import AddedValueTemplate from "./components/templates/AddedValueTemplate";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import { Button } from "@mui/material";
+
+const PrivateRoute = ({ element: Element, ...rest }: { element: any }) => {
+  return localStorage.getItem('profile') ? (
+    <Element {...rest} />
+  ) : (
+    <Navigate to="/404" />
+  );
+};
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/admin" || location.pathname === "/forgotPassword";
+  const hideNavbarFooter = location.pathname === "/admin" || location.pathname === "/forgotPassword" || location.pathname === "/dashboard";
 
   return (
     <NextUIProvider>
@@ -39,6 +48,7 @@ function App() {
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
+        <Route path="/dashboard" element={<PrivateRoute element={<Button>Hola</Button>} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}
