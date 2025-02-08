@@ -1,16 +1,44 @@
 import { Box, Button } from "@mui/material";
 import { Form, Input } from "@nextui-org/react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SendCode } from "../../services/AuthService";
 
 export default function ForgotPassword() {
+
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const naviagte = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("handleSubmit");
   };
 
+  const handleSendCode = async () => {
+    setIsLoading(true);
+    try {
+      const data = {
+        emailAdmin: email,
+      }
+      const response = await SendCode(data);
+      if (response.success) {
+        localStorage.setItem("ForgotPasswordEmail", email);
+        naviagte("/verify-code");
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <Box className="flex h-full w-full items-center justify-center">
-      <Box className="flex w-full max-w-sm flex-col gap-4 bg-content1 rounded-large px-8 pb-10 pt-6">
+      <Box className="flex w-full max-w-md flex-col gap-4 bg-content1 rounded-large px-8 pb-10 pt-6 mx-4">
         <NavLink to={"/"}>
           <Box className="flex justify-center">
             <img
@@ -31,7 +59,7 @@ export default function ForgotPassword() {
               Forgot your password?
             </p>
             <p style={{ fontSize: "2.5vh", color: "#333333" }}>
-              Enter your email to reset your password
+              Enter your email to send a code to reset your password
             </p>
           </Box>
           <Input
@@ -42,6 +70,8 @@ export default function ForgotPassword() {
             placeholder="Enter your email"
             type="email"
             variant="bordered"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Box className="flex w-full items-center justify-end px-1 py-2">
             <NavLink
@@ -67,7 +97,13 @@ export default function ForgotPassword() {
                 backgroundColor: "white",
                 color: "#e68a00",
               },
+              ":disabled": {
+                backgroundColor: "#c4c4c4",
+                color: "black",
+              }
             }}
+            onClick={handleSendCode}
+            disabled={isLoading}
           >
             Reset Password
           </Button>

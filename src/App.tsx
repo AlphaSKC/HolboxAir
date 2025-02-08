@@ -17,6 +17,7 @@ import LoginPage from "./pages/LoginPage";
 import AddedValueTemplate from "./components/templates/AddedValueTemplate";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import { Button } from "@mui/material";
+import VerifyCodePage from "./pages/VerifyCodePage";
 
 const PrivateRoute = ({ element: Element, ...rest }: { element: any }) => {
   return localStorage.getItem('profile') ? (
@@ -28,7 +29,11 @@ const PrivateRoute = ({ element: Element, ...rest }: { element: any }) => {
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/admin" || location.pathname === "/forgotPassword" || location.pathname === "/dashboard";
+  const hideNavbarFooter = location.pathname === "/admin" 
+  || location.pathname === "/forgotPassword" 
+  || location.pathname === "/dashboard"
+  || location.pathname === "/verify-code"
+  ;
 
   return (
     <NextUIProvider>
@@ -49,6 +54,7 @@ function App() {
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/dashboard" element={<PrivateRoute element={<Button>Hola</Button>} />} />
+        <Route path="/verify-code" element={<VerifyCodePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}
