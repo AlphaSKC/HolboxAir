@@ -24,6 +24,7 @@ export default function ForgotPassword() {
       }
       const response = await SendCode(data);
       if (response.success) {
+        localStorage.setItem("forgotPasswordCompleted", 'true');
         localStorage.setItem("ForgotPasswordEmail", email);
         naviagte("/verify-code");
       }

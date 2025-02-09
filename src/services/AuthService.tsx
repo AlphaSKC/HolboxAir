@@ -21,7 +21,7 @@ const SendCode = async (data: any) => {
 };
 
 
-const VerifyCode = async (data: any) => {
+const VerifyCodePassword = async (data: any) => {
     try {
         const response = await axios.post('https://localhost:7278/Codigo/VerificarCodigo', data);
         return response.data;
@@ -31,4 +31,14 @@ const VerifyCode = async (data: any) => {
     }
 }
 
-export { AdminLogin, SendCode, VerifyCode };
+const ChangePassword = async (data: any) => {
+    try {
+        const response = await axios.put('https://localhost:7278/Administrador/ChangePassword', data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export { AdminLogin, SendCode, VerifyCodePassword, ChangePassword };

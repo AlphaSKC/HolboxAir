@@ -1,8 +1,8 @@
 import { Box, Button } from "@mui/material";
 import { Form, Input } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { SendCode } from "../../services/AuthService";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SendCode, VerifyCodePassword } from "../../services/AuthService";
 
 export default function VerifyCode() {
     const [code, setCode] = useState(Array(6).fill(""));
@@ -11,12 +11,22 @@ export default function VerifyCode() {
 
     const [email, setEmail] = useState("");
 
+    const navigate = useNavigate();
+
     const isCodeComplete = code.every(digit => digit !== "");
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const fullCode = code.join("");
-        console.log("handleSubmit", fullCode);
+        const data = {
+            emailAdmin: email,
+            code: fullCode,
+        }
+        const response = await VerifyCodePassword(data);
+        if (response.success){
+            localStorage.setItem("verifyCodeCompleted", 'true');
+            navigate("/reset-password");
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -46,7 +56,10 @@ export default function VerifyCode() {
     const handleResend = async () => {
         if (canResend) {
             try {
-                const response = await SendCode(email);
+                const data = {
+                    emailAdmin: email,
+                }
+                const response = await SendCode(data);
                 if (response.result) {
                     setTimeLeft(300);
                     setCanResend(false);

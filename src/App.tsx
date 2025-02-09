@@ -16,24 +16,31 @@ import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate"
 import LoginPage from "./pages/LoginPage";
 import AddedValueTemplate from "./components/templates/AddedValueTemplate";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import { Button } from "@mui/material";
 import VerifyCodePage from "./pages/VerifyCodePage";
-
-const PrivateRoute = ({ element: Element, ...rest }: { element: any }) => {
-  return localStorage.getItem('profile') ? (
-    <Element {...rest} />
-  ) : (
-    <Navigate to="/404" />
-  );
-};
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import DashboardPage from "./pages/DashboardPage";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/admin" 
-  || location.pathname === "/forgotPassword" 
-  || location.pathname === "/dashboard"
-  || location.pathname === "/verify-code"
-  ;
+  const { isAuthenticated, forgotPasswordCompleted, verifyCodeCompleted } = useAuth();
+  const hideNavbarFooter = location.pathname === "/admin"
+    || location.pathname === "/forgotPassword"
+    || location.pathname === "/dashboard"
+    || location.pathname === "/verify-code"
+    || location.pathname === "/reset-password"
+    ;
+
+  const RequireAuth = ({ children }: any) => {
+    return isAuthenticated ? children : <Navigate to="/admin" />;
+  };
+  const RequireForgotPassword = ({ children }: any) => {
+    return forgotPasswordCompleted ? children : <Navigate to="/forgotPassword" />;
+  };
+
+  const RequireVerifyCode = ({ children }: any) => {
+    return verifyCodeCompleted ? children : <Navigate to="/verify-code" />;
+  };
 
   return (
     <NextUIProvider>
@@ -53,8 +60,9 @@ function App() {
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route path="/dashboard" element={<PrivateRoute element={<Button>Hola</Button>} />} />
-        <Route path="/verify-code" element={<VerifyCodePage />} />
+        <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+        <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
+        <Route path="/reset-password" element={<RequireVerifyCode><ResetPasswordPage /></RequireVerifyCode>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}
