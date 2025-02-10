@@ -20,6 +20,18 @@ import VerifyCodePage from "./pages/VerifyCodePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 import { useAuth } from "./hooks/useAuth";
+import HeaderAdmin from "./components/layout/AppBarAdmin";
+import ReservationsPage from "./pages/ReservationsPage";
+import QuotesPage from "./pages/QuotesPage";
+import DealsPage from "./pages/DealsPage";
+
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <HeaderAdmin />
+    {children}
+  </>
+);
+
 
 function App() {
   const location = useLocation();
@@ -28,6 +40,9 @@ function App() {
     || location.pathname === "/dashboard"
     || location.pathname === "/verify-code"
     || location.pathname === "/reset-password"
+    || location.pathname === "/dashboard/reservations"
+    || location.pathname === "/dashboard/quotes"
+    || location.pathname === "/dashboard/deals"
     ;
 
   const RequireAuth = ({ children }: any) => {
@@ -71,9 +86,12 @@ function App() {
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
         <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
         <Route path="/reset-password" element={<RequireVerifyCode><ResetPasswordPage /></RequireVerifyCode>} />
+        <Route path="/dashboard" element={<RequireAuth><DashboardLayout><DashboardPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/reservations" element={<RequireAuth><DashboardLayout><ReservationsPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/quotes" element={<RequireAuth><DashboardLayout><QuotesPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/deals" element={<RequireAuth><DashboardLayout><DealsPage /></DashboardLayout></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}

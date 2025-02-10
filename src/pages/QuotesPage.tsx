@@ -1,17 +1,17 @@
 import { Box, Typography } from "@mui/material";
 
-export default function DashboardPage() {
+export default function QuotesPage() {
     return (
         <Box sx={{
             display: "flex",
             minHeight: "100vh",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: "red",
+            bgcolor: "green",
         }}>
             <Typography>
-                Dashboard
+                Quotes
             </Typography>
         </Box>
-    );
+    )
 }

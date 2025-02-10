@@ -1,17 +1,17 @@
 import { Box, Typography } from "@mui/material";
 
-export default function DashboardPage() {
+export default function DealsPage() {
     return (
         <Box sx={{
             display: "flex",
             minHeight: "100vh",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: "red",
+            bgcolor: "yellow",
         }}>
             <Typography>
-                Dashboard
+                Deals
             </Typography>
         </Box>
-    );
+    )
 }

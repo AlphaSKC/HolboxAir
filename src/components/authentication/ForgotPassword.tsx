@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Alert, Box, Button, Slide, SlideProps, Snackbar } from "@mui/material";
 import { Form, Input } from "@nextui-org/react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -7,6 +7,11 @@ import { SendCode } from "../../services/AuthService";
 export default function ForgotPassword() {
 
   const [email, setEmail] = useState("");
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+    "success"
+  );
+  const [alertOpen, setAlertOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const naviagte = useNavigate();
@@ -23,6 +28,9 @@ export default function ForgotPassword() {
         emailAdmin: email,
       }
       const response = await SendCode(data);
+      setAlertMessage(response.message);
+      setAlertSeverity(response.success ? 'success' : 'error');
+      setAlertOpen(true);
       if (response.success) {
         localStorage.setItem("forgotPasswordCompleted", 'true');
         localStorage.setItem("ForgotPasswordEmail", email);
@@ -35,6 +43,15 @@ export default function ForgotPassword() {
     finally {
       setIsLoading(false);
     }
+  }
+
+
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
+
+  function SlideTransition(props: SlideProps) {
+    return <Slide {...props} direction="left" />;
   }
 
   return (
@@ -110,6 +127,21 @@ export default function ForgotPassword() {
           </Button>
         </Form>
       </Box>
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={6000}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        TransitionComponent={SlideTransition}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity={alertSeverity}
+          sx={{ width: '100%' }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

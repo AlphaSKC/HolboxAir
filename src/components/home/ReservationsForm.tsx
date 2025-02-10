@@ -146,7 +146,6 @@ export default function ReservationsForm() {
                             defaultItems={places}
                             defaultSelectedKey={"CUN"}
                             label="Origin"
-                            placeholder="Where are you traveling from?"
                             size="lg"
                             startContent={<FlightTakeoffIcon />}
                         >
@@ -170,7 +169,6 @@ export default function ReservationsForm() {
                             defaultItems={places}
                             label="Destination"
                             size="lg"
-                            placeholder="Where are you traveling to?"
                             startContent={<FlightLandIcon />}
                         >
                             {(item) => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
