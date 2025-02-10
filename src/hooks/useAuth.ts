@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -6,13 +6,9 @@ export const useAuth = () => {
     const [verifyCodeCompleted, setVerifyCodeCompleted] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    const checkAuthStatus = useCallback(() => {
         const profile = localStorage.getItem("profile");
-        if (profile) {
-            setIsAuthenticated(true);
-        } else {
-            setIsAuthenticated(false);
-        }
+        setIsAuthenticated(!!profile);
 
         const forgotPasswordStatus = localStorage.getItem("forgotPasswordCompleted");
         setForgotPasswordCompleted(forgotPasswordStatus === "true");
@@ -22,6 +18,10 @@ export const useAuth = () => {
 
         setLoading(false);
     }, []);
+
+    useEffect(() => {
+        checkAuthStatus();
+    }, [checkAuthStatus]);
 
     return {
         isAuthenticated,

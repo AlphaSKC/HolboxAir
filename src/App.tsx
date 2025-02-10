@@ -23,7 +23,6 @@ import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const location = useLocation();
-  const { isAuthenticated, forgotPasswordCompleted, verifyCodeCompleted } = useAuth();
   const hideNavbarFooter = location.pathname === "/admin"
     || location.pathname === "/forgotPassword"
     || location.pathname === "/dashboard"
@@ -32,13 +31,25 @@ function App() {
     ;
 
   const RequireAuth = ({ children }: any) => {
+    const { isAuthenticated, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
     return isAuthenticated ? children : <Navigate to="/admin" />;
   };
   const RequireForgotPassword = ({ children }: any) => {
+    const { forgotPasswordCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
     return forgotPasswordCompleted ? children : <Navigate to="/forgotPassword" />;
   };
 
   const RequireVerifyCode = ({ children }: any) => {
+    const { verifyCodeCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
     return verifyCodeCompleted ? children : <Navigate to="/verify-code" />;
   };
 
