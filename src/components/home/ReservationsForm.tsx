@@ -1,6 +1,7 @@
 import { Box, Button, Grid2 } from "@mui/material";
 import React, { useState } from "react";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 //ICONOS
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -81,13 +82,33 @@ const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
 
 export default function ReservationsForm() {
     const [isSencillo, setIsSencillo] = useState(false);
+    const navigate = useNavigate();
+
+    const [origin, setOrigin] = useState(places[0].name);
+    const [destination, setDestination] = useState("");
+    const [departure, setDeparture] = useState<any>(null);
+    const [returnDate, setReturnDate] = useState<any>(null);
+    const [passengers, setPassengers] = useState(0);
+
+
+    const sendData = () => {
+        const data = {
+            origen: origin,
+            destino: destination,
+            fechaSalida: departure ? departure.format() : null,
+            fechaRegreso: returnDate ? returnDate.format() : null,
+            numeroPasajeros: passengers,
+            precioEstimado: 150 * passengers
+        };
+        navigate('/checkout', { state: data });
+    };
 
     return (
         <Box sx={{
             display: "flex",
             flexDirection: "column",
             backgroundColor: "#f5f5f5",
-            alignItems: {xs: "center", md: "flex-end"},
+            alignItems: { xs: "center", md: "flex-end" },
             minHeight: "60vh",
             height: { xs: "fit-content", md: "70vh" },
             width: "100%",
@@ -148,6 +169,11 @@ export default function ReservationsForm() {
                             label="Origin"
                             size="lg"
                             startContent={<FlightTakeoffIcon />}
+                            value={origin}
+                            onSelectionChange={(key) => {
+                                const selectedPlace = places.find(place => place.key === key);
+                                setOrigin(selectedPlace ? selectedPlace.name : "");
+                            }}
                         >
                             {(item) => <AutocompleteItem key={item.key}>{item.name}</AutocompleteItem>}
                         </Autocomplete>
@@ -170,8 +196,13 @@ export default function ReservationsForm() {
                             label="Destination"
                             size="lg"
                             startContent={<FlightLandIcon />}
+                            value={destination}
+                            onSelectionChange={(key) => {
+                                const selectedPlace = places.find(place => place.key === key);
+                                setDestination(selectedPlace ? selectedPlace.name : "");
+                            }}
                         >
-                            {(item) => <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>}
+                            {(item) => <AutocompleteItem key={item.key}>{item.name}</AutocompleteItem>}
                         </Autocomplete>
                     </Grid2>
                 </Grid2>
@@ -179,14 +210,23 @@ export default function ReservationsForm() {
                     <Grid2 size={{ xs: 6 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateTimePicker']}>
-                                <CustomDateTimePicker label="Departure" />
+                                <CustomDateTimePicker
+                                    label="Departure"
+                                    value={departure}
+                                    onChange={(newValue) => setDeparture(newValue)}
+                                />
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid2>
                     <Grid2 size={{ xs: 6 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateTimePicker']}>
-                                <CustomDateTimePicker label="Return" disabled={isSencillo} />
+                                <CustomDateTimePicker
+                                    label="Return"
+                                    disabled={isSencillo}
+                                    value={returnDate}
+                                    onChange={(newValue) => setReturnDate(newValue)}
+                                />
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid2>
@@ -217,11 +257,15 @@ export default function ReservationsForm() {
                             }}
                             label="Passengers"
                             type="number"
-                            placeholder="0"
+                            placeholder="1"
                             radius="lg"
                             startContent={
                                 <AccountCircle />
                             }
+                            value={passengers === 0 ? "" : passengers.toString()}
+                            onChange={(e) => setPassengers(parseInt(e.target.value))}
+                            min={1}
+                            max={10}
                         />
                     </Grid2>
                 </Grid2>
@@ -236,11 +280,12 @@ export default function ReservationsForm() {
                         fontWeight: "bold",
                         textTransform: "none",
                         marginTop: "20px",
-                        ":hover":{
+                        ":hover": {
                             backgroundColor: "white",
                             color: "#e68a00",
                         }
                     }}
+                    onClick={sendData}
                 >
                     Quote Flight
                     <FlightIcon sx={{ marginLeft: "10px" }} />

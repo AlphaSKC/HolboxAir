@@ -24,6 +24,7 @@ import HeaderAdmin from "./components/layout/AppBarAdmin";
 import ReservationsPage from "./pages/ReservationsPage";
 import QuotesPage from "./pages/QuotesPage";
 import DealsPage from "./pages/DealsPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -84,6 +85,9 @@ function App() {
           element={<ExtraServicesTemplate />}
         />
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+
+
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
