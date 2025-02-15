@@ -25,6 +25,7 @@ import ReservationsPage from "./pages/ReservationsPage";
 import QuotesPage from "./pages/QuotesPage";
 import DealsPage from "./pages/DealsPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import ConfirmationQuote from "./pages/ConfirmationQuotePage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -69,6 +70,14 @@ function App() {
     return verifyCodeCompleted ? children : <Navigate to="/verify-code" />;
   };
 
+  const RequireConfirmQuote = ({ children }: any) => {
+    const { confirmQuoteCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    return confirmQuoteCompleted ? children : <Navigate to="/" />;
+  };
+
   return (
     <NextUIProvider>
       {!hideNavbarFooter && <NavbarLayout />}
@@ -87,6 +96,11 @@ function App() {
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
         <Route path="/checkout" element={<CheckoutPage />} />
 
+        <Route path="/confirmationQuote" element={
+          <RequireConfirmQuote>
+            <ConfirmationQuote />
+          </RequireConfirmQuote>
+        } />
 
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />

@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Input } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { CreateCotizacion } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 interface CheckoutFormProps {
     origen: string;
@@ -33,6 +34,7 @@ const iconStyle = { color: '#e68a00', mr: '0.5vw' };
 
 export default function CheckoutForm(props: CheckoutFormProps) {
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
@@ -45,6 +47,8 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         correoPasajero: "",
         telefonoPasajero: ""
     });
+
+    const navigate = useNavigate();
 
     const isValidEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,14 +82,14 @@ export default function CheckoutForm(props: CheckoutFormProps) {
     };
 
     const handleQuote = async () => {
+        setIsLoading(true);
         const combinedData = { ...props, ...formData };
         console.log(combinedData);
         try {
             const response = await CreateCotizacion(combinedData);
             if (response.success) {
-                setAlertMessage('Cotización creada con éxito.');
-                setAlertSeverity('success');
-                setAlertOpen(true);
+                localStorage.setItem("quoteCompleted", 'true');
+                navigate('/confirmationQuote');
             }
             else {
                 setAlertMessage('Error al crear cotización. Inténtalo de nuevo.');
@@ -95,6 +99,9 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         }
         catch (error) {
             console.log(error);
+        }
+        finally {
+            setIsLoading(false);
         }
     };
 
@@ -217,7 +224,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                                     backgroundColor: 'gray',
                                     color: 'white',
                                 }
-                            }} onClick={handleQuote} disabled={isDisabled}>
+                            }} onClick={handleQuote} disabled={isDisabled || isLoading}>
                                 Quote
                             </Button>
                         </Box>

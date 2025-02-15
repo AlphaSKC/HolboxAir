@@ -14,7 +14,7 @@ export default function ForgotPassword() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ export default function ForgotPassword() {
       if (response.success) {
         localStorage.setItem("forgotPasswordCompleted", 'true');
         localStorage.setItem("ForgotPasswordEmail", email);
-        naviagte("/verify-code");
+        navigate("/verify-code");
       }
     }
     catch (error) {
