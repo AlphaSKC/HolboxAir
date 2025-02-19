@@ -2,6 +2,7 @@ import { Box, Button, Grid2 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import dayjs from 'dayjs';
 
 //ICONOS
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -68,12 +69,14 @@ const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
                 "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                     borderColor: "#e68a00",
                 },
-
                 "& .MuiInputLabel-root": {
                     color: "#52525b",
                     "&.Mui-focused": {
                         color: "#e68a00"
                     },
+                },
+                "& .MuiFormHelperText-root.Mui-error": {
+                    color: "transparent",
                 },
             }}
         />
@@ -86,16 +89,28 @@ export default function ReservationsForm() {
 
     const [origin, setOrigin] = useState(places[0].name);
     const [destination, setDestination] = useState("");
-    const [departure, setDeparture] = useState<any>(null);
-    const [returnDate, setReturnDate] = useState<any>(null);
+    const [departure, setDeparture] = useState<any>(dayjs().add(1, 'day'));
+    const [returnDate, setReturnDate] = useState<any>(dayjs().add(1, 'day').add(4, 'hour'));
     const [passengers, setPassengers] = useState(0);
     const [promoCode, setPromoCode] = useState("");
+    const [filteredDestinations, setFilteredDestinations] = useState(places);
+
+    useEffect(() => {
+        setDeparture(dayjs().add(1, 'day'));
+        setReturnDate(dayjs().add(1, 'day').add(4, 'hour'));
+    }, []);
 
     useEffect(() => {
         if (isSencillo) {
             setReturnDate(null);
+        } else {
+            setReturnDate(dayjs(departure).add(4, 'hour'));
         }
-    }, [isSencillo]);
+    }, [isSencillo, departure]);
+
+    useEffect(() => {
+        setFilteredDestinations(places.filter(place => place.name !== origin));
+    }, [origin]);
 
     const sendData = () => {
         const data = {
@@ -108,6 +123,28 @@ export default function ReservationsForm() {
         };
         console.log(data);
         navigate('/checkout', { state: data });
+    };
+
+    const handlePassengersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value);
+        if (value >= 1 && value <= 10) {
+            setPassengers(value);
+        } else if (value > 10) {
+            setPassengers(10);
+        } else {
+            setPassengers(1);
+        }
+    };
+
+    const isFormValid = () => {
+        return origin && destination && departure && (isSencillo || returnDate) && passengers >= 1 && passengers <= 10;
+    };
+
+    const handleSwap = () => {
+        const tempOrigin = origin;
+        const tempDestination = destination;
+        setOrigin(tempDestination);
+        setDestination(tempOrigin);
     };
 
     return (
@@ -186,20 +223,23 @@ export default function ReservationsForm() {
                         </Autocomplete>
                     </Grid2>
                     <Grid2 size={{ xs: 12, md: 2 }} sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginY: "5px" }}>
-                        <Button sx={{
-                            width: "fit-content",
-                            backgroundColor: "white",
-                            borderRadius: "10px",
-                            border: "1px solid #ccc",
-                            color: "#595959",
-                        }}>
+                        <Button
+                            sx={{
+                                width: "fit-content",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                border: "1px solid #ccc",
+                                color: "#595959",
+                            }}
+                            onClick={handleSwap}
+                        >
                             <SwapHorizIcon sx={{ height: '5vh' }} />
                         </Button>
                     </Grid2>
                     <Grid2 size={{ xs: 12, md: 5 }} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <Autocomplete
                             className="max-w-lg"
-                            defaultItems={places}
+                            defaultItems={filteredDestinations}
                             label="Destination"
                             size="lg"
                             startContent={<FlightLandIcon />}
@@ -220,7 +260,8 @@ export default function ReservationsForm() {
                                 <CustomDateTimePicker
                                     label="Departure"
                                     value={departure}
-                                    onChange={(newValue) => setDeparture(newValue)}
+                                    onChange={(newValue) => setDeparture(dayjs(newValue))}
+                                    minDate={dayjs().add(1, 'day')} 
                                 />
                             </DemoContainer>
                         </LocalizationProvider>
@@ -232,7 +273,8 @@ export default function ReservationsForm() {
                                     label="Return"
                                     disabled={isSencillo}
                                     value={returnDate}
-                                    onChange={(newValue) => setReturnDate(newValue)}
+                                    onChange={(newValue) => setReturnDate(dayjs(newValue))}
+                                    minDateTime={dayjs(departure).add(4, 'hour')}
                                 />
                             </DemoContainer>
                         </LocalizationProvider>
@@ -270,7 +312,7 @@ export default function ReservationsForm() {
                                 <AccountCircle />
                             }
                             value={passengers === 0 ? "" : passengers.toString()}
-                            onChange={(e) => setPassengers(parseInt(e.target.value))}
+                            onChange={handlePassengersChange}
                             min={1}
                             max={10}
                         />
@@ -318,7 +360,7 @@ export default function ReservationsForm() {
                 <Button
                     sx={{
                         width: "100%",
-                        backgroundColor: "#e68a00",
+                        backgroundColor: isFormValid() ? "#e68a00" : "#ccc",
                         borderRadius: "50px",
                         padding: "15px",
                         fontSize: "1.1rem",
@@ -327,11 +369,12 @@ export default function ReservationsForm() {
                         textTransform: "none",
                         marginTop: "20px",
                         ":hover": {
-                            backgroundColor: "white",
-                            color: "#e68a00",
+                            backgroundColor: isFormValid() ? "white" : "#ccc",
+                            color: isFormValid() ? "#e68a00" : "white",
                         }
                     }}
                     onClick={sendData}
+                    disabled={!isFormValid()}
                 >
                     Quote Flight
                     <FlightIcon sx={{ marginLeft: "10px" }} />
