@@ -1,5 +1,5 @@
 import { Box, Button, Grid2 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
@@ -89,17 +89,24 @@ export default function ReservationsForm() {
     const [departure, setDeparture] = useState<any>(null);
     const [returnDate, setReturnDate] = useState<any>(null);
     const [passengers, setPassengers] = useState(0);
+    const [promoCode, setPromoCode] = useState("");
 
+    useEffect(() => {
+        if (isSencillo) {
+            setReturnDate(null);
+        }
+    }, [isSencillo]);
 
     const sendData = () => {
         const data = {
             origen: origin,
             destino: destination,
             fechaSalida: departure ? departure.format() : null,
-            fechaRegreso: returnDate ? returnDate.format() : null,
+            fechaRegreso: isSencillo ? null : (returnDate ? returnDate.format() : null),
             numeroPasajeros: passengers,
             precioEstimado: 150 * passengers
         };
+        console.log(data);
         navigate('/checkout', { state: data });
     };
 
@@ -207,7 +214,7 @@ export default function ReservationsForm() {
                     </Grid2>
                 </Grid2>
                 <Grid2 container spacing={2} width={"100%"} sx={{ marginTop: "20px" }}>
-                    <Grid2 size={{ xs: 6 }}>
+                    <Grid2 size={12}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateTimePicker']}>
                                 <CustomDateTimePicker
@@ -218,7 +225,7 @@ export default function ReservationsForm() {
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid2>
-                    <Grid2 size={{ xs: 6 }}>
+                    <Grid2 size={12}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateTimePicker']}>
                                 <CustomDateTimePicker
@@ -266,6 +273,45 @@ export default function ReservationsForm() {
                             onChange={(e) => setPassengers(parseInt(e.target.value))}
                             min={1}
                             max={10}
+                        />
+                    </Grid2>
+                    <Grid2 size={{ xs: 12, md: 6 }}>
+                        <Input
+                            classNames={{
+                                label: "text-black/50 dark:text-white/90",
+                                input: [
+                                    "bg-transparent",
+                                    "text-black/90 dark:text-white/90",
+                                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                                ],
+                                innerWrapper: "bg-transparent",
+                                inputWrapper: [
+                                    "shadow-xl",
+                                    "bg-default-200/50",
+                                    "dark:bg-default/60",
+                                    "backdrop-blur-xl",
+                                    "backdrop-saturate-200",
+                                    "hover:bg-default-200/70",
+                                    "dark:hover:bg-default/70",
+                                    "group-data-[focus=true]:bg-default-200/50",
+                                    "dark:group-data-[focus=true]:bg-default/60",
+                                    "!cursor-text",
+                                ],
+                            }}
+                            label="Promo Code"
+                            placeholder="Enter promo code"
+                            radius="lg"
+                            value={promoCode}
+                            onChange={(e) => setPromoCode(e.target.value)}
+                            endContent={
+                                promoCode && (
+                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
+                                        <Button sx={{ fontSize: '1.3vh', color: '#E38A00' }}>
+                                            Validate Code
+                                        </Button>
+                                    </Box>
+                                )
+                            }
                         />
                     </Grid2>
                 </Grid2>

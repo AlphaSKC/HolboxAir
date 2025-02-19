@@ -19,7 +19,8 @@ interface CheckoutFormProps {
     precioEstimado: number;
 }
 
-const formatDateTime = (dateTime: string) => {
+const formatDateTime = (dateTime: string | null) => {
+    if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
     const optionsDate: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
@@ -27,6 +28,12 @@ const formatDateTime = (dateTime: string) => {
         date: date.toLocaleDateString('en-US', optionsDate),
         time: date.toLocaleTimeString('en-US', optionsTime)
     };
+};
+
+const toUTCString = (dateTime: string) => {
+    const date = new Date(dateTime);
+    const localTime = date.getTime() - (date.getTimezoneOffset() * 60000);
+    return new Date(localTime).toISOString();
 };
 
 const labelStyle = { fontWeight: 'bold', color: '#e68a00', mr: '0.5vw' };
@@ -99,6 +106,8 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         setIsLoading(true);
         const combinedData = { 
             ...props, 
+            fechaSalida: toUTCString(props.fechaSalida),
+            fechaRegreso: props.fechaRegreso ? toUTCString(props.fechaRegreso) : null,
             ...formData, 
             notas: additionalPassengers 
         };
