@@ -1,8 +1,9 @@
 import axios from "axios";
+const apiURL = import.meta.env.VITE_API_URL;
 
 const CreateCotizacion = async (cotizacion: any) => {
     try {
-        const response = await axios.post('https://localhost:7278/Cotizacion', cotizacion);
+        const response = await axios.post(`${apiURL}/Cotizacion`, cotizacion);
         return response.data;
     }
     catch (error) {
@@ -12,7 +13,7 @@ const CreateCotizacion = async (cotizacion: any) => {
 
 const GetCotizaciones = async () => {
     try {
-        const response = await axios.get('https://localhost:7278/Cotizacion');
+        const response = await axios.get(`${apiURL}/Cotizacion`);
         return response.data;
     }
     catch (error) {

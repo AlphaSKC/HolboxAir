@@ -1,8 +1,9 @@
 import axios from "axios";
+const apiURL = import.meta.env.VITE_API_URL;
 
 const AdminLogin = async (data: any) => {
     try {
-        const response = await axios.post('https://localhost:7278/Administrador/Login', data);
+        const response = await axios.post(`${apiURL}/Administrador/Login`, data);
         return response.data;
     }
     catch (error) {
@@ -12,7 +13,7 @@ const AdminLogin = async (data: any) => {
 
 const SendCode = async (data: any) => {
     try {
-        const response = await axios.post('https://localhost:7278/Administrador/ForgotPassword', data);
+        const response = await axios.post(`${apiURL}/Administrador/ForgotPassword`, data);
         return response.data;
     }
     catch (error) {
@@ -23,7 +24,7 @@ const SendCode = async (data: any) => {
 
 const VerifyCodePassword = async (data: any) => {
     try {
-        const response = await axios.post('https://localhost:7278/Codigo/VerificarCodigo', data);
+        const response = await axios.post(`${apiURL}/Codigo/VerificarCodigo`, data);
         return response.data;
     }
     catch (error) {
@@ -33,7 +34,7 @@ const VerifyCodePassword = async (data: any) => {
 
 const ChangePassword = async (data: any) => {
     try {
-        const response = await axios.put('https://localhost:7278/Administrador/ChangePassword', data);
+        const response = await axios.put(`${apiURL}/Administrador/ChangePassword`, data);
         return response.data;
     }
     catch (error) {
