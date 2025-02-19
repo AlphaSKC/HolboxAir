@@ -48,6 +48,12 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         telefonoPasajero: ""
     });
 
+    const [additionalPassengers, setAdditionalPassengers] = useState<string[]>([]);
+
+    useEffect(() => {
+        setAdditionalPassengers(Array(props.numeroPasajeros - 1).fill(""));
+    }, [props.numeroPasajeros]);
+
     const navigate = useNavigate();
 
     const isValidEmail = (email: string) => {
@@ -61,10 +67,12 @@ export default function CheckoutForm(props: CheckoutFormProps) {
     };
 
     const handleDisable = () => {
+        const allAdditionalPassengersFilled = additionalPassengers.length === (props.numeroPasajeros - 1) && additionalPassengers.every(passenger => passenger !== "" && passenger.trim().length !== 0);
         if (
             formData.pasajeroPrincipal !== "" &&
             isValidEmail(formData.correoPasajero) &&
-            isValidPhone(formData.telefonoPasajero)
+            isValidPhone(formData.telefonoPasajero) &&
+            allAdditionalPassengersFilled
         ) {
             setIsDisabled(false);
         } else {
@@ -74,16 +82,26 @@ export default function CheckoutForm(props: CheckoutFormProps) {
 
     useEffect(() => {
         handleDisable();
-    }, [formData]);
+    }, [formData, additionalPassengers]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleAdditionalPassengerChange = (index: number, value: string) => {
+        const updatedPassengers = [...additionalPassengers];
+        updatedPassengers[index] = value;
+        setAdditionalPassengers(updatedPassengers);
+    };
+
     const handleQuote = async () => {
         setIsLoading(true);
-        const combinedData = { ...props, ...formData };
+        const combinedData = { 
+            ...props, 
+            ...formData, 
+            notas: additionalPassengers 
+        };
         console.log(combinedData);
         try {
             const response = await CreateCotizacion(combinedData);
@@ -123,7 +141,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                     <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", marginBottom: "30px" }}>
                         <Typography component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
                             <PermIdentityOutlinedIcon />
-                            Pasajero principal
+                            Principal Passenger Information
                         </Typography>
                         <Divider />
                         <Grid2 container marginY={2} spacing={2}>
@@ -154,15 +172,17 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                     <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", marginBottom: "30px", display: props.numeroPasajeros > 1 ? 'block' : 'none' }}>
                         <Typography component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
                             <PermIdentityOutlinedIcon />
-                            Información de pasajeros
+                            Additional Passengers Information
                         </Typography>
                         <Divider />
                         <Grid2 container marginY={2} spacing={2}>
                             {Array.from({ length: props.numeroPasajeros - 1 }).map((_, index) => (
                                 <Grid2 key={index} size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                                     <Input
-                                        label={`Passenger ${index + 2} Name`}
-                                        radius="lg" />
+                                        label={`Name of Passenger ${index + 2}`}
+                                        radius="lg"
+                                        onChange={(e) => handleAdditionalPassengerChange(index, e.target.value)}
+                                    />
                                 </Grid2>
                             ))}
                         </Grid2>
@@ -225,7 +245,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                                     color: 'white',
                                 }
                             }} onClick={handleQuote} disabled={isDisabled || isLoading}>
-                                Quote
+                                Request Flight
                             </Button>
                         </Box>
                     </Box>
