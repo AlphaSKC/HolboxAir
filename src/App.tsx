@@ -16,24 +16,67 @@ import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate"
 import LoginPage from "./pages/LoginPage";
 import AddedValueTemplate from "./components/templates/AddedValueTemplate";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import { Button } from "@mui/material";
 import VerifyCodePage from "./pages/VerifyCodePage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import DashboardPage from "./pages/DashboardPage";
+import { useAuth } from "./hooks/useAuth";
+import HeaderAdmin from "./components/layout/AppBarAdmin";
+import ReservationsPage from "./pages/ReservationsPage";
+import QuotesPage from "./pages/QuotesPage";
+import DealsPage from "./pages/DealsPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import ConfirmationQuote from "./pages/ConfirmationQuotePage";
 
-const PrivateRoute = ({ element: Element, ...rest }: { element: any }) => {
-  return localStorage.getItem('profile') ? (
-    <Element {...rest} />
-  ) : (
-    <Navigate to="/404" />
-  );
-};
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <HeaderAdmin />
+    {children}
+  </>
+);
+
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/admin" 
-  || location.pathname === "/forgotPassword" 
-  || location.pathname === "/dashboard"
-  || location.pathname === "/verify-code"
-  ;
+  const hideNavbarFooter = location.pathname === "/admin"
+    || location.pathname === "/forgotPassword"
+    || location.pathname === "/dashboard"
+    || location.pathname === "/verify-code"
+    || location.pathname === "/reset-password"
+    || location.pathname === "/dashboard/reservations"
+    || location.pathname === "/dashboard/quotes"
+    || location.pathname === "/dashboard/deals"
+    ;
+
+  const RequireAuth = ({ children }: any) => {
+    const { isAuthenticated, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    return isAuthenticated ? children : <Navigate to="/admin" />;
+  };
+  const RequireForgotPassword = ({ children }: any) => {
+    const { forgotPasswordCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    return forgotPasswordCompleted ? children : <Navigate to="/forgotPassword" />;
+  };
+
+  const RequireVerifyCode = ({ children }: any) => {
+    const { verifyCodeCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    return verifyCodeCompleted ? children : <Navigate to="/verify-code" />;
+  };
+
+  const RequireConfirmQuote = ({ children }: any) => {
+    const { confirmQuoteCompleted, loading } = useAuth();
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    return confirmQuoteCompleted ? children : <Navigate to="/" />;
+  };
 
   return (
     <NextUIProvider>
@@ -51,10 +94,22 @@ function App() {
           element={<ExtraServicesTemplate />}
         />
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+
+        <Route path="/confirmationQuote" element={
+          <RequireConfirmQuote>
+            <ConfirmationQuote />
+          </RequireConfirmQuote>
+        } />
+
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route path="/dashboard" element={<PrivateRoute element={<Button>Hola</Button>} />} />
-        <Route path="/verify-code" element={<VerifyCodePage />} />
+        <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
+        <Route path="/reset-password" element={<RequireVerifyCode><ResetPasswordPage /></RequireVerifyCode>} />
+        <Route path="/dashboard" element={<RequireAuth><DashboardLayout><DashboardPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/reservations" element={<RequireAuth><DashboardLayout><ReservationsPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/quotes" element={<RequireAuth><DashboardLayout><QuotesPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/deals" element={<RequireAuth><DashboardLayout><DealsPage /></DashboardLayout></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}
