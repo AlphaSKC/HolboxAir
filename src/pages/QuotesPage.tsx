@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { GetCotizaciones } from "../services/UserService";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Input } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Input, Image, CardFooter } from "@nextui-org/react";
+import { CancelCircleIcon, CheckmarkCircle03Icon, MessageEdit01Icon, ViewIcon } from "hugeicons-react";
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import FlightLandIcon from '@mui/icons-material/FlightLand';
+import { AccountCircle } from "@mui/icons-material";
 
 interface Quote {
     cotizacionID: number;
@@ -54,10 +58,10 @@ const formatDateTime = (dateTime: string | null) => {
     if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
     const optionsDate: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
     return {
-        date: date.toLocaleDateString('en-US', optionsDate),
-        time: date.toLocaleTimeString('en-US', optionsTime)
+        date: date.toLocaleDateString('es-ES', optionsDate),
+        time: date.toLocaleTimeString('es-ES', optionsTime),
     };
 };
 
@@ -133,34 +137,99 @@ export default function QuotesPage() {
                                 <Grid2 container spacing={2}>
                                     {quotesByStatus[status].map((quote: Quote) => (
                                         <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={quote.cotizacionID}>
-                                            <ListItem sx={{ width: "100%" }}>
-                                                {/* Este se reemplaza por una card más bonita */}
-                                                <Box sx={{
-                                                    width: "100%",
-                                                    bgcolor: "white",
-                                                    padding: "20px",
-                                                    borderRadius: "10px"
-                                                }}>
-                                                    <Typography variant="h6">{quote.pasajeroPrincipal}</Typography>
-                                                    <Typography variant="body2">{quote.correoPasajero}</Typography>
-                                                    <Typography variant="body2">{quote.telefonoPasajero}</Typography>
-                                                    <Typography variant="body2">{quote.origen}</Typography>
-                                                    <Typography variant="body2">{quote.destino}</Typography>
-                                                    <Typography variant="body2">{quote.fechaSalida}</Typography>
-                                                    <Typography variant="body2">{quote.fechaRegreso}</Typography>
-                                                    <Typography variant="body2">{quote.numeroPasajeros}</Typography>
-                                                    <Typography variant="body2">{quote.precioEstimado}</Typography>
-                                                    <Typography variant="body2">{quote.estado}</Typography>
-                                                    <Typography variant="body2">{quote.codigoCotizacion}</Typography>
-                                                    <Typography variant="body2">{quote.fechaCreacion}</Typography>
-                                                    <Typography variant="body2">{quote.notas.join(", ")}</Typography>
-                                                    <Button onClick={() => {
-                                                        setSelectedQuote(quote);
-                                                        setModalOpen(true);
-                                                    }}>
-                                                        Modal
-                                                    </Button>
-                                                </Box>
+                                            <ListItem sx={{ width: "100%", justifyContent: "center" }}>
+                                                <Card className="py-4">
+                                                    <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                                                        <Typography sx={{
+                                                            fontSize: "2.5vh",
+                                                            fontWeight: "bold",
+                                                            color: "#2E2E2E"
+                                                        }}>
+                                                            {quote.pasajeroPrincipal}
+                                                        </Typography>
+                                                        <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                                                            <Typography sx={{
+                                                                fontSize: "2vh",
+                                                                fontWeight: "bold",
+                                                                color: "#7D7D7D"
+                                                            }}>
+                                                                {quote.origen} - {quote.destino}
+                                                            </Typography>
+                                                        </Box>
+                                                        <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                                                            <FlightTakeoffIcon sx={{ color: '#E38A00' }} />
+                                                            <Typography sx={{
+                                                                fontSize: "1.8vh",
+                                                                fontWeight: "bold",
+                                                                color: "#7D7D7D"
+                                                            }}>
+                                                                {formatDateTime(quote.fechaSalida).date} - {formatDateTime(quote.fechaSalida).time}
+                                                            </Typography>
+                                                        </Box>
+                                                        <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                                                            <FlightLandIcon sx={{ color: '#E38A00' }} />
+                                                            <Typography sx={{
+                                                                fontSize: "1.8vh",
+                                                                fontWeight: "bold",
+                                                                color: "#7D7D7D"
+                                                            }}>
+                                                                {formatDateTime(quote.fechaRegreso).date} - {formatDateTime(quote.fechaRegreso).time}
+                                                            </Typography>
+                                                        </Box>
+                                                        <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                                                            <AccountCircle sx={{ color: '#E38A00' }} />
+                                                            <Typography sx={{
+                                                                fontSize: "1.8vh",
+                                                                fontWeight: "bold",
+                                                                color: "#7D7D7D"
+                                                            }}>
+                                                                {quote.numeroPasajeros} {quote.numeroPasajeros > 1 ? "Pasajeros" : "Pasajero"}
+                                                            </Typography>
+                                                        </Box>
+                                                    </CardHeader>
+                                                    <CardBody className="overflow-visible py-2">
+                                                        <Image
+                                                            alt="Card background"
+                                                            className="object-cover rounded-xl"
+                                                            src="https://heroui.com/images/hero-card-complete.jpeg"
+                                                            width={'100%'}
+                                                        />
+                                                    </CardBody>
+                                                    <CardFooter className="text-small justify-between">
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            style={{ borderRadius: '20px', color: '#a8a8a8', borderColor: '#a8a8a8' }}
+                                                            onClick={() => {
+                                                                setSelectedQuote(quote);
+                                                                setModalOpen(true);
+                                                            }}>
+                                                            <ViewIcon />
+                                                        </Button>
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
+                                                            onClick={() => {
+                                                                setSelectedQuote(quote);
+                                                                setModalOpen(true);
+                                                            }}
+                                                        >
+                                                            <CheckmarkCircle03Icon />
+                                                        </Button>
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
+                                                            onClick={() => {
+                                                                setSelectedQuote(quote);
+                                                                setModalOpen(true);
+                                                            }}
+                                                        >
+                                                            <CancelCircleIcon />
+                                                        </Button>
+                                                    </CardFooter>
+                                                </Card>
                                             </ListItem>
                                         </Grid2>
                                     ))}
@@ -349,10 +418,46 @@ export default function QuotesPage() {
                                 </Grid2>
                             ))}
                         </Grid2>
-                        <Button onClick={openSecondModal}>
-                            Abrir Segundo Modal
-                        </Button>
                     </Grid2>
+
+                    {/* Buttons */}
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "20px",
+                            padding: "20px",
+                        }}
+                    >
+                        <Button 
+                            variant="outlined"
+                            size="small"
+                            style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }}
+                            onClick={openSecondModal}
+                        >
+                            <MessageEdit01Icon />
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
+                            onClick={() => {
+                                setModalOpen(true);
+                            }}
+                        >
+                            <CheckmarkCircle03Icon />
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
+                            onClick={() => {
+                                setModalOpen(true);
+                            }}
+                        >
+                            <CancelCircleIcon />
+                        </Button>
+                    </Box>
                 </Box>
             </Modal>
 
