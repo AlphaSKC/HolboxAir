@@ -147,7 +147,7 @@ export default function HeaderAdmin() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h1" sx={{ fontSize: '3vh' }} noWrap component="div" display={'flex'} alignItems={'center'} gap={2} flexWrap={'wrap'}>
+                    <Typography variant="h1" sx={{ fontSize: { xs: '2vh', md: '3vh' } }} noWrap component="div" display={'flex'} alignItems={'center'} gap={2} flexWrap={'wrap'}>
                         <img src="https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fc9930c02910c48f79abbd96f757f76c2&methods=resize%2C500%2C5000"
                             alt="Holbox Air Logo" style={{ width: isSmallScreen ? "60px" : "90px" }} />
                         Bienvenido {admin?.nombre}

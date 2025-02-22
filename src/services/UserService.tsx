@@ -13,7 +13,7 @@ const CreateCotizacion = async (cotizacion: any) => {
 
 const GetCotizaciones = async () => {
     try {
-        const response = await axios.get(`https://localhost:7278/Cotizacion`);
+        const response = await axios.get(`${apiURL}/Cotizacion`);
         return response.data.result;
     }
     catch (error) {
