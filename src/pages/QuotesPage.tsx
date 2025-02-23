@@ -1,6 +1,6 @@
-import { Box, Grid2, List, ListItem, ListSubheader, Collapse, IconButton, Typography, Modal, Button } from "@mui/material";
+import { Box, Grid2, List, ListItem, ListSubheader, Collapse, IconButton, Typography, Modal, Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, Slide, SlideProps, Snackbar, Alert, } from "@mui/material";
 import { useEffect, useState } from "react";
-import { GetCotizaciones } from "../services/UserService";
+import { ChangeStatutCotizacion, GetCotizaciones } from "../services/UserService";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Card, CardBody, CardHeader, Input, Image, CardFooter } from "@nextui-org/react";
@@ -68,9 +68,22 @@ const formatDateTime = (dateTime: string | null) => {
 export default function QuotesPage() {
     const [quotes, setQuotes] = useState<Quote[]>([]);
     const [selectedQuote, setSelectedQuote] = useState<Quote>(defaulQuote);
-    const [open, setOpen] = useState<{ [key: string]: boolean }>({ "Pendiente": true, "Aprobada": true, "Cancelada": true });
+    const [open, setOpen] = useState<{ [key: string]: boolean }>({ "Pendiente": true, "Aprobada": false, "Cancelada": false });
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [secondModalOpen, setSecondModalOpen] = useState<boolean>(false);
+    const [openDialog, setOpenDialog] = useState<boolean>(false);
+    const [dialogContent, setDialogContent] = useState<string>("");
+    const [changeStatus, setChangeStatus] = useState<string>("");
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+        "success"
+    );
+
+    function SlideTransition(props: SlideProps) {
+        return <Slide {...props} direction="left" />;
+    }
 
     const fetchQuotes = async () => {
         try {
@@ -97,23 +110,54 @@ export default function QuotesPage() {
         setSecondModalOpen(true);
     };
 
+    const changeStatusQuote = async (id: number, status: any) => {
+        try {
+            const data = { status: status };
+            const response = await ChangeStatutCotizacion(id, data);
+            setAlertMessage(response.message);
+            setAlertSeverity(response.success ? 'success' : 'error');
+            setAlertOpen(true);
+            await fetchQuotes();
+        }
+        catch (error) {
+            setAlertMessage('Error al cambiar el estado de la cotización. Inténtalo de nuevo.');
+            setAlertSeverity('error');
+            setAlertOpen(true);
+        }
+    }
+
     const closeSecondModal = () => setSecondModalOpen(false);
 
+    const closeDialog = () => setOpenDialog(false);
+
+    const closeAll = () => {
+        setModalOpen(false);
+        setSecondModalOpen(false);
+        setOpenDialog(false);
+    }
+
+    const handleAlertClose = () => {
+        setAlertOpen(false);
+    };
+
+
     return (
-        <Box sx={{
-            display: "flex",
-            minHeight: "100vh",
-            justifyContent: "center",
-            bgcolor: "#F3F4F9",
-            padding: {
-                xs: "100px 40px 100px 100px",
-                sm: "100px 40px 100px 100px",
-                md: "100px 40px 100px 100px",
-                lg: "100px",
-            },
-            width: "100%",
-            boxSizing: "border-box",
-        }}>
+        <Box
+            sx={{
+                display: "flex",
+                minHeight: "100vh",
+                justifyContent: "center",
+                bgcolor: "#F3F4F9",
+                padding: {
+                    xs: "100px 40px 100px 100px",
+                    sm: "100px 40px 100px 100px",
+                    md: "100px 40px 100px 100px",
+                    lg: "100px",
+                },
+                width: "100%",
+                boxSizing: "border-box",
+            }}
+        >
             <Box sx={{ width: "100%" }}>
                 {Object.keys(quotesByStatus).map(status => (
                     <Box key={status} sx={{ marginBottom: "20px", width: "100%" }}>
@@ -137,8 +181,8 @@ export default function QuotesPage() {
                                 <Grid2 container spacing={2}>
                                     {quotesByStatus[status].map((quote: Quote) => (
                                         <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={quote.cotizacionID}>
-                                            <ListItem sx={{ width: "100%", justifyContent: "center" }}>
-                                                <Card className="py-4">
+                                            <ListItem sx={{ width: "100%", minWidth: '22vw', justifyContent: "center", height: '100%' }}>
+                                                <Card className="py-4" style={{ height: '100%' }}>
                                                     <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                                                         <Typography sx={{
                                                             fontSize: "2.5vh",
@@ -173,7 +217,8 @@ export default function QuotesPage() {
                                                                 fontWeight: "bold",
                                                                 color: "#7D7D7D"
                                                             }}>
-                                                                {formatDateTime(quote.fechaRegreso).date} - {formatDateTime(quote.fechaRegreso).time}
+                                                                {formatDateTime(quote.fechaRegreso).date}
+                                                                {formatDateTime(quote.fechaRegreso).date !== "N/A" && ` - ${formatDateTime(quote.fechaRegreso).time}`}
                                                             </Typography>
                                                         </Box>
                                                         <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
@@ -195,7 +240,7 @@ export default function QuotesPage() {
                                                             width={'100%'}
                                                         />
                                                     </CardBody>
-                                                    <CardFooter className="text-small justify-between">
+                                                    <CardFooter className={`text-small ${quote.estado === "Pendiente" ? "justify-between" : "justify-center"}`}>
                                                         <Button
                                                             variant="outlined"
                                                             size="small"
@@ -206,28 +251,36 @@ export default function QuotesPage() {
                                                             }}>
                                                             <ViewIcon />
                                                         </Button>
-                                                        <Button
-                                                            variant="outlined"
-                                                            size="small"
-                                                            style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
-                                                            onClick={() => {
-                                                                setSelectedQuote(quote);
-                                                                setModalOpen(true);
-                                                            }}
-                                                        >
-                                                            <CheckmarkCircle03Icon />
-                                                        </Button>
-                                                        <Button
-                                                            variant="outlined"
-                                                            size="small"
-                                                            style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
-                                                            onClick={() => {
-                                                                setSelectedQuote(quote);
-                                                                setModalOpen(true);
-                                                            }}
-                                                        >
-                                                            <CancelCircleIcon />
-                                                        </Button>
+                                                        {quote.estado === "Pendiente" && (
+                                                            <>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    size="small"
+                                                                    style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
+                                                                    onClick={() => {
+                                                                        setSelectedQuote(quote);
+                                                                        setDialogContent("cancelar");
+                                                                        setChangeStatus("Cancelada");
+                                                                        setOpenDialog(true);
+                                                                    }}
+                                                                >
+                                                                    <CancelCircleIcon />
+                                                                </Button>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    size="small"
+                                                                    style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
+                                                                    onClick={() => {
+                                                                        setSelectedQuote(quote);
+                                                                        setDialogContent("aprobar");
+                                                                        setChangeStatus("Aceptada");
+                                                                        setOpenDialog(true);
+                                                                    }}
+                                                                >
+                                                                    <CheckmarkCircle03Icon />
+                                                                </Button>
+                                                            </>
+                                                        )}
                                                     </CardFooter>
                                                 </Card>
                                             </ListItem>
@@ -421,45 +474,73 @@ export default function QuotesPage() {
                     </Grid2>
 
                     {/* Buttons */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: "20px",
-                            padding: "20px",
-                        }}
-                    >
-                        <Button 
-                            variant="outlined"
-                            size="small"
-                            style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }}
-                            onClick={openSecondModal}
-                        >
-                            <MessageEdit01Icon />
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
-                            onClick={() => {
-                                setModalOpen(true);
+                    {selectedQuote.estado === "Pendiente" && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "20px",
+                                padding: "20px",
                             }}
                         >
-                            <CheckmarkCircle03Icon />
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
-                            onClick={() => {
-                                setModalOpen(true);
-                            }}
-                        >
-                            <CancelCircleIcon />
-                        </Button>
-                    </Box>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }}
+                                onClick={openSecondModal}
+                            >
+                                <MessageEdit01Icon />
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                style={{ borderRadius: '20px', color: '#FF4D4F', borderColor: '#FF4D4F' }}
+                                onClick={() => {
+                                    setDialogContent("cancelar");
+                                    setChangeStatus("Cancelada");
+                                    setOpenDialog(true);
+                                }}
+                            >
+                                <CancelCircleIcon />
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                style={{ borderRadius: '20px', color: '#10E5A5', borderColor: '#10E5A5' }}
+                                onClick={() => {
+                                    setDialogContent("aprobar");
+                                    setChangeStatus("Aceptada");
+                                    setOpenDialog(true);
+                                }}
+                            >
+                                <CheckmarkCircle03Icon />
+                            </Button>
+                        </Box>
+                    )}
                 </Box>
             </Modal>
+
+            <Dialog open={openDialog} onClose={closeDialog}>
+                <DialogTitle>
+                    {dialogContent === "aprobar" ? "Aprobar" : "Cancelar"} Cotización
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        ¿Estás seguro de que deseas {dialogContent} esta cotización?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button sx={{ borderRadius: '20px', color: '#FF4D4F' }} onClick={closeDialog}>
+                        Cancelar
+                    </Button>
+                    <Button sx={{ borderRadius: '20px', color: '#10E5A5' }} onClick={() => {
+                        changeStatusQuote(selectedQuote.cotizacionID, changeStatus);
+                        closeAll();
+                    }}>
+                        Confirmar
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             <Modal open={secondModalOpen} onClose={closeSecondModal}>
                 <Box
@@ -480,6 +561,21 @@ export default function QuotesPage() {
                     <Button onClick={closeSecondModal}>Cerrar</Button>
                 </Box>
             </Modal>
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={handleAlertClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                TransitionComponent={SlideTransition}
+            >
+                <Alert
+                    onClose={handleAlertClose}
+                    severity={alertSeverity}
+                    sx={{ width: '100%' }}
+                >
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }

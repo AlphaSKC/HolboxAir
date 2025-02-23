@@ -21,4 +21,14 @@ const GetCotizaciones = async () => {
     }
 }
 
-export { CreateCotizacion, GetCotizaciones };
+const ChangeStatutCotizacion = async (id: number, status: any) => {
+    try {
+        const response = await axios.put(`${apiURL}/Cotizacion/${id}`, status);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export { CreateCotizacion, GetCotizaciones, ChangeStatutCotizacion };
