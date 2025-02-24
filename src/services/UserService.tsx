@@ -11,14 +11,4 @@ const CreateCotizacion = async (cotizacion: any) => {
     }
 }
 
-const GetCotizaciones = async () => {
-    try {
-        const response = await axios.get(`https://localhost:7278/Cotizacion`);
-        return response.data.result;
-    }
-    catch (error) {
-        console.log(error);
-    }
-}
-
-export { CreateCotizacion, GetCotizaciones };
+export { CreateCotizacion };
