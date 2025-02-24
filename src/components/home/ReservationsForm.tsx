@@ -57,6 +57,7 @@ const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
   return (
     <DateTimePicker
       {...props}
+      ampm={false}
       sx={{
         "& .MuiOutlinedInput-root": {
           borderRadius: "12px",
