@@ -365,22 +365,6 @@ export default function Deals() {
                                                                 </Box>
                                                             </CardBody>
                                                         </Card>
-                                                        {/* <Card>
-                                                            <CardContent>
-                                                                <Typography variant="h6">
-                                                                    {deal.departure} to {deal.arrival}
-                                                                </Typography>
-                                                                <Typography variant="body2">
-                                                                    Date and Time: {deal.dateTime}
-                                                                </Typography>
-                                                                <Typography variant="body2">
-                                                                    Price: {deal.price}
-                                                                </Typography>
-                                                                <Typography variant="body2">
-                                                                    Passengers: {deal.passengers}
-                                                                </Typography>
-                                                            </CardContent>
-                                                        </Card> */}
                                                     </ListItem>
                                                 ))}
                                             </List>
