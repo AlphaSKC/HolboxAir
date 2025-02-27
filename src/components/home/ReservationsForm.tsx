@@ -116,12 +116,16 @@ const calculateFlightPrice = (costos: any[], numeroPasajeros: number) => {
   return totalPrice;
 };
 
-const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: number) => {
+const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: number, isSencillo: boolean) => {
   try {
     const response = await GetCostos(origen, destino);
     if (response.success) {
       const costos = response.result;
-      return calculateFlightPrice(costos, numeroPasajeros);
+      let precio = calculateFlightPrice(costos, numeroPasajeros);
+      if (!isSencillo) {
+        precio *= 2;
+      }
+      return precio;
     } else {
       console.log("Error al obtener costos de vuelo.");
       return 0;
@@ -166,7 +170,7 @@ export default function ReservationsForm() {
 
   const sendData = async () => {
     setIsSending(true);
-    const precioEstimado = await getPrecioVuelo(origin, destination, passengers);
+    const precioEstimado = await getPrecioVuelo(origin, destination, passengers, isSencillo);
     const data = {
       origen: origin,
       destino: destination,
