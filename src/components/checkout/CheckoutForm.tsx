@@ -111,7 +111,6 @@ export default function CheckoutForm(props: CheckoutFormProps) {
             ...formData, 
             notas: additionalPassengers 
         };
-        console.log(combinedData);
         try {
             const response = await CreateCotizacion(combinedData);
             if (response.success) {

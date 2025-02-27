@@ -20,6 +20,8 @@ import {
   DateTimePickerProps,
 } from "@mui/x-date-pickers/DateTimePicker";
 
+import { GetCostos } from "../../services/UserService"; // Add import for GetCostos
+
 const places = [
   {
     id: 1,
@@ -89,6 +91,47 @@ const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
   );
 };
 
+const calculateFlightPrice = (costos: any[], numeroPasajeros: number) => {
+  const sortedCostos = costos.sort((a, b) => a.precio - b.precio);
+  let totalPrice = 0;
+  let remainingPassengers = numeroPasajeros;
+
+  while (remainingPassengers > 0) {
+    for (let i = 0; i < sortedCostos.length; i++) {
+      const costo = sortedCostos[i];
+      const avionetaCapacity = costo.capacidadAvioneta;
+      const avionetaPrice = costo.precio;
+
+      if (remainingPassengers <= avionetaCapacity) {
+        totalPrice += avionetaPrice;
+        remainingPassengers = 0;
+        break;
+      } else if (i === sortedCostos.length - 1) {
+        totalPrice += avionetaPrice;
+        remainingPassengers -= avionetaCapacity;
+      }
+    }
+  }
+
+  return totalPrice;
+};
+
+const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: number) => {
+  try {
+    const response = await GetCostos(origen, destino);
+    if (response.success) {
+      const costos = response.result;
+      return calculateFlightPrice(costos, numeroPasajeros);
+    } else {
+      console.log("Error al obtener costos de vuelo.");
+      return 0;
+    }
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+};
+
 export default function ReservationsForm() {
   const [isSencillo, setIsSencillo] = useState(false);
   const navigate = useNavigate();
@@ -102,6 +145,7 @@ export default function ReservationsForm() {
   const [passengers, setPassengers] = useState(0);
   const [promoCode, setPromoCode] = useState("");
   const [filteredDestinations, setFilteredDestinations] = useState(places);
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     setDeparture(dayjs().add(1, "day"));
@@ -120,17 +164,20 @@ export default function ReservationsForm() {
     setFilteredDestinations(places.filter((place) => place.name !== origin));
   }, [origin]);
 
-  const sendData = () => {
+  const sendData = async () => {
+    setIsSending(true);
+    const precioEstimado = await getPrecioVuelo(origin, destination, passengers);
     const data = {
       origen: origin,
       destino: destination,
       fechaSalida: departure ? departure.format() : null,
       fechaRegreso: isSencillo ? null : returnDate ? returnDate.format() : null,
       numeroPasajeros: passengers,
-      precioEstimado: 150 * passengers,
+      precioEstimado,
     };
     console.log(data);
     navigate("/checkout", { state: data });
+    setIsSending(false);
   };
 
   const handlePassengersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,6 +193,7 @@ export default function ReservationsForm() {
 
   const isFormValid = () => {
     return (
+      !isSending &&
       origin &&
       destination &&
       departure &&
