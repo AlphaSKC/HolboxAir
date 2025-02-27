@@ -188,7 +188,14 @@ export default function Footer() {
               align="center"
               sx={{ mt: "2vh", color: "#ccc" }}
             >
-              Terms of use | Environmental Policy
+              Terms of use | Environmental Policy - {" "}
+              <NavLink
+                key={"Admin"}
+                to={"/admin"}
+                style={{ color: "#ccc", textDecoration: "none" }}
+              >
+                Admin Login
+              </NavLink>
             </Typography>
             <Typography
               variant="body2"
