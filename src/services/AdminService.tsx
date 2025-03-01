@@ -51,4 +51,24 @@ const CreateReservacion = async (data: any) => {
     }
 }
 
-export { ChangeStatusCotizacion, GetCotizaciones, ChangeDateCotizacion, CreateReservacion, GetReservaciones };
+const SendEmailConfirmationQuote = async (data: any) => {
+    try {
+        const response = await axios.post(`${apiURL}/Cotizacion/ConfirmationQuote`, data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const SendEmailChangeDate = async (data: any) => {
+    try {
+        const response = await axios.post(`${apiURL}/Cotizacion/ChangeDateQuote`, data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export { ChangeStatusCotizacion, GetCotizaciones, ChangeDateCotizacion, CreateReservacion, GetReservaciones, SendEmailChangeDate, SendEmailConfirmationQuote };
