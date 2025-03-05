@@ -318,7 +318,7 @@ export default function QuoteList() {
     };
 
     return (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}>
             {loading ? (
                 <CircularProgress sx={{ color: "#E68A00" }} />
             ) : (
