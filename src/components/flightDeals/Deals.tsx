@@ -229,6 +229,25 @@ const classifyDealsByYearAndMonth = (deals: any) => {
     }, {});
 };
 
+const formatDateTime = (dateTime: string | null) => {
+    if (!dateTime) return { date: "N/A", time: "" };
+    const date = new Date(dateTime);
+    const optionsDate: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    const optionsTime: Intl.DateTimeFormatOptions = {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    };
+    return {
+        date: date.toLocaleDateString("en-US", optionsDate),
+        time: date.toLocaleTimeString("en-US", optionsTime),
+    };
+};
+
 export default function Deals() {
     const currentYear = new Date().getFullYear();
     const [open, setOpen] = useState<{ [key: string]: boolean }>({ [currentYear]: true });
@@ -325,12 +344,12 @@ export default function Deals() {
                                                                         </Grid2>
                                                                         <Grid2 size={6}>
                                                                             <Typography variant="body1" className="text-justify Lato">
-                                                                                <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {new Date(deal.dateTime).toLocaleDateString()}
+                                                                                <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {formatDateTime(deal.dateTime).date}
                                                                             </Typography>
                                                                         </Grid2>
                                                                         <Grid2 size={6}>
                                                                             <Typography variant="body1" className="text-justify Lato">
-                                                                                <ScheduleIcon sx={{ color: '#e68a00' }} />  {new Date(deal.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                                                <ScheduleIcon sx={{ color: '#e68a00' }} />  {formatDateTime(deal.dateTime).time}
                                                                             </Typography>
                                                                         </Grid2>
                                                                         <Grid2 size={6}>

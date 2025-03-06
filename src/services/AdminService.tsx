@@ -71,6 +71,16 @@ const SendEmailChangeDate = async (data: any) => {
     }
 }
 
+const GetDeals = async () => {
+    try {
+        const response = await axios.get(`${apiURL}/Oferta`);
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 const CreateOferta = async (data: any) => {
     try {
         const response = await axios.post(`${apiURL}/Oferta`, data);
@@ -84,11 +94,17 @@ const CreateOferta = async (data: any) => {
 const ChangeStatusOfertaCreada = async (reservacionID: number) => {
     try {
         const response = await axios.put(`${apiURL}/Reservacion/${reservacionID}`);
-        return response.data;
+        return response.data.result;
     }
     catch (error) {
         console.log(error);
     }
 }
 
-export { ChangeStatusCotizacion, GetCotizaciones, ChangeDateCotizacion, CreateReservacion, GetReservaciones, SendEmailChangeDate, SendEmailConfirmationQuote, CreateOferta, ChangeStatusOfertaCreada };
+export {
+    ChangeStatusCotizacion, GetCotizaciones,
+    ChangeDateCotizacion, CreateReservacion,
+    GetReservaciones, SendEmailChangeDate,
+    SendEmailConfirmationQuote, CreateOferta,
+    ChangeStatusOfertaCreada, GetDeals
+};
