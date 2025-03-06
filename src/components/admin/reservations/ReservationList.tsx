@@ -1,6 +1,6 @@
-import { Box, Grid2, Typography, CircularProgress, Button, Modal, IconButton, Collapse, Stepper, Step, StepLabel, StepIconProps } from "@mui/material";
+import { Box, Grid2, Typography, CircularProgress, Button, Modal, IconButton, Collapse, Stepper, Step, StepLabel, StepIconProps, Snackbar, Alert, SlideProps, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
-import { GetReservaciones } from "../../../services/AdminService";
+import { ChangeStatusOfertaCreada, CreateOferta, GetReservaciones } from "../../../services/AdminService";
 import { Card, CardBody, CardHeader, CardFooter, Image, Input } from "@nextui-org/react";
 import { AccountCircle } from "@mui/icons-material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -29,6 +29,15 @@ interface Reservation {
     notas: string[];
     fechaReserva: string;
     estado: string;
+    ofertaCreada: boolean;
+}
+
+interface Oferta {
+    origen: string;
+    destino: string;
+    fechaSalida: string;
+    disponibilidad: number;
+    precio: number;
 }
 
 const defaultReservation: Reservation = {
@@ -46,6 +55,15 @@ const defaultReservation: Reservation = {
     notas: [],
     fechaReserva: "",
     estado: "",
+    ofertaCreada: false,
+};
+
+const defaultOferta: Oferta = {
+    origen: "",
+    destino: "",
+    fechaSalida: "",
+    disponibilidad: 1,
+    precio: 0,
 };
 
 const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
@@ -179,8 +197,22 @@ export default function ReservationList() {
         Completadas: false,
     });
 
+    const [alertOpen, setAlertOpen] = useState<boolean>(false);
+    const [alertSeverity, setAlertSeverity] = useState<"success" | "error">("success");
+    const [alertMessage, setAlertMessage] = useState<string>("");
+
+    const [oferta1, setOferta1] = useState<Oferta>(defaultOferta);
+    const [oferta2, setOferta2] = useState<Oferta>(defaultOferta);
+
     const [openOfertas, setOpenOfertas] = useState<boolean>(false);
-    const [selectedReservationForOffers, setSelectedReservationForOffers] = useState<Reservation | null>(null);
+    const [offerCreated, setOfferCreated] = useState<{ [key: number]: boolean }>({
+        0: false,
+        1: false,
+    });
+
+    function SlideTransition(props: SlideProps) {
+        return <Slide {...props} direction="left" />;
+    }
 
     useEffect(() => {
         fetchReservations();
@@ -197,6 +229,14 @@ export default function ReservationList() {
         }
     };
 
+    const toUTCString = (dateTime: string) => {
+        const date = new Date(dateTime);
+        const localTime = date.getTime() - date.getTimezoneOffset() * 60000;
+        return new Date(localTime).toISOString();
+    };
+
+    const handleAlertClose = () => setAlertOpen(false);
+
     const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
 
     const handleNext = () => setActiveStep((prevStep) => prevStep + 1);;
@@ -212,9 +252,47 @@ export default function ReservationList() {
     };
 
     const openOffersModal = (reservation: Reservation) => {
-        setSelectedReservationForOffers(reservation);
+        setSelectedReservation(reservation);
+        setOferta1({
+            ...defaultOferta,
+            origen: reservation.destino,
+            destino: reservation.origen,
+            fechaSalida: reservation.fechaSalida,
+        });
+        setOferta2({
+            ...defaultOferta,
+            origen: reservation.origen,
+            destino: reservation.destino,
+            fechaSalida: reservation.fechaRegreso,
+        });
         setOpenOfertas(true);
     };
+
+    const handleCreateOffer = async (oferta: Oferta, step: number) => {
+        const data = {
+            origen: oferta.origen,
+            destino: oferta.destino,
+            fechaSalida: toUTCString(oferta.fechaSalida),
+            disponibilidad: oferta.disponibilidad,
+            precio: oferta.precio,
+        }
+        try {
+            const response = await CreateOferta(data);
+            if (response) {
+                await ChangeStatusOfertaCreada(selectedReservation.reservacionID);
+                setAlertSeverity("success");
+                setAlertMessage("Oferta creada con éxito");
+                setOfferCreated((prev) => ({ ...prev, [step]: true }));
+            }
+        }
+        catch (error) {
+            setAlertSeverity("error");
+            setAlertMessage("Error al crear la oferta: " + error);
+        }
+        finally {
+            setAlertOpen(true);
+        }
+    }
 
     const steps = [
         {
@@ -242,7 +320,9 @@ export default function ReservationList() {
                                     <CustomDateTimePicker
                                         label="Salida"
                                         name="fechaSalida"
-                                        value={dayjs(selectedReservationForOffers?.fechaSalida)}
+                                        value={dayjs(oferta1.fechaSalida)}
+                                        onChange={(date) => setOferta1({ ...oferta1, fechaSalida: date.format() })}
+                                        minDateTime={dayjs(selectedReservation.fechaSalida)}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
@@ -268,6 +348,8 @@ export default function ReservationList() {
                                 radius="lg"
                                 placeholder="1"
                                 min={1}
+                                value={oferta1.precio.toString()}
+                                onChange={(e) => setOferta1({ ...oferta1, precio: parseInt(e.target.value) })}
                             />
                         </Grid2>
                     </Grid2>
@@ -292,13 +374,18 @@ export default function ReservationList() {
                                 placeholder="1"
                                 min={1}
                                 max={10}
+                                value={oferta1.disponibilidad.toString()}
+                                onChange={(e) => setOferta1({ ...oferta1, disponibilidad: parseInt(e.target.value) })}
                             />
                         </Grid2>
                     </Grid2>
                 </Grid2>
             )
         },
-        {
+    ];
+
+    if (selectedReservation.fechaRegreso) {
+        steps.push({
             label: 'Agregar vuelo 2', content: (
                 <Grid2
                     container
@@ -323,7 +410,9 @@ export default function ReservationList() {
                                     <CustomDateTimePicker
                                         label="Salida"
                                         name="fechaSalida"
-                                        value={dayjs(selectedReservationForOffers?.fechaRegreso)}
+                                        value={dayjs(oferta2.fechaSalida)}
+                                        onChange={(date) => setOferta2({ ...oferta2, fechaSalida: date.format() })}
+                                        minDateTime={dayjs(selectedReservation.fechaRegreso)}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
@@ -349,6 +438,8 @@ export default function ReservationList() {
                                 radius="lg"
                                 placeholder="1"
                                 min={1}
+                                value={oferta2.precio.toString()}
+                                onChange={(e) => setOferta2({ ...oferta2, precio: parseInt(e.target.value) })}
                             />
                         </Grid2>
                     </Grid2>
@@ -373,13 +464,15 @@ export default function ReservationList() {
                                 placeholder="1"
                                 min={1}
                                 max={10}
+                                value={oferta2.disponibilidad.toString()}
+                                onChange={(e) => setOferta2({ ...oferta2, disponibilidad: parseInt(e.target.value) })}
                             />
                         </Grid2>
                     </Grid2>
                 </Grid2>
             )
-        }
-    ];
+        });
+    }
 
     return (
         <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}>
@@ -560,9 +653,9 @@ export default function ReservationList() {
                                                         />
                                                     </CardBody>
                                                     <CardFooter
-                                                        className={`text-small ${reservation.estado === "Pagado"
+                                                        className={`text-small ${reservation.estado === "Pagado" && !reservation.ofertaCreada
                                                             ? "justify-between"
-                                                            : "justify-center"
+                                                            : "justify-around"
                                                             }`}
                                                     >
                                                         <Button
@@ -574,39 +667,37 @@ export default function ReservationList() {
                                                                 borderColor: "#a8a8a8",
                                                             }}
                                                             onClick={() => {
-                                                                setOpenModal(true);
                                                                 setSelectedReservation(reservation);
+                                                                setOpenModal(true);
                                                             }}
                                                         >
                                                             <ViewIcon />
                                                         </Button>
-                                                        {reservation.estado === "Pagado" && (
-                                                            <>
-                                                                <Button
-                                                                    variant="outlined"
-                                                                    size="small"
-                                                                    style={{
-                                                                        borderRadius: "20px",
-                                                                        color: "#2196F3",
-                                                                        borderColor: "#2196F3",
-                                                                    }}
-                                                                    onClick={() => openOffersModal(reservation)}
-                                                                >
-                                                                    <ShoppingBasketAdd01Icon />
-                                                                </Button>
-                                                                <Button
-                                                                    variant="outlined"
-                                                                    size="small"
-                                                                    style={{
-                                                                        borderRadius: "20px",
-                                                                        color: "#FF4D4F",
-                                                                        borderColor: "#FF4D4F",
-                                                                    }}
-                                                                >
-                                                                    <CancelCircleIcon />
-                                                                </Button>
-                                                            </>
+                                                        {reservation.estado === "Pagado" && !reservation.ofertaCreada && (
+                                                            <Button
+                                                                variant="outlined"
+                                                                size="small"
+                                                                style={{
+                                                                    borderRadius: "20px",
+                                                                    color: "#2196F3",
+                                                                    borderColor: "#2196F3",
+                                                                }}
+                                                                onClick={() => openOffersModal(reservation)}
+                                                            >
+                                                                <ShoppingBasketAdd01Icon />
+                                                            </Button>
                                                         )}
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            style={{
+                                                                borderRadius: "20px",
+                                                                color: "#FF4D4F",
+                                                                borderColor: "#FF4D4F",
+                                                            }}
+                                                        >
+                                                            <CancelCircleIcon />
+                                                        </Button>
                                                     </CardFooter>
                                                 </Card>
                                             </Grid2>
@@ -884,8 +975,10 @@ export default function ReservationList() {
                         <Button
                             variant="contained"
                             sx={{ ml: 1, color: "white", bgcolor: "#E68A00" }}
+                            onClick={() => handleCreateOffer(activeStep === 0 ? oferta1 : oferta2, activeStep)}
+                            disabled={offerCreated[activeStep]}
                         >
-                            Guardar
+                            Subir
                         </Button>
                         <Button
                             disabled={activeStep === steps.length - 1}
@@ -897,6 +990,22 @@ export default function ReservationList() {
                     </Box>
                 </Box>
             </Modal>
+
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={6000}
+                onClose={handleAlertClose}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                TransitionComponent={SlideTransition}
+            >
+                <Alert
+                    onClose={handleAlertClose}
+                    severity={alertSeverity}
+                    sx={{ width: "100%" }}
+                >
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
