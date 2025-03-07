@@ -52,81 +52,10 @@ import {
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import {
-    DateTimePicker,
-    DateTimePickerProps,
-} from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
-
-interface Quote {
-    cotizacionID: number;
-    pasajeroPrincipal: string;
-    correoPasajero: string;
-    telefonoPasajero: string;
-    origen: string;
-    destino: string;
-    fechaSalida: string;
-    fechaRegreso: string;
-    numeroPasajeros: number;
-    precioEstimado: number;
-    estado: string;
-    codigoCotizacion: string;
-    fechaCreacion: string;
-    notas: string[];
-}
-
-const defaulQuote: Quote = {
-    cotizacionID: 0,
-    pasajeroPrincipal: "",
-    correoPasajero: "",
-    telefonoPasajero: "",
-    origen: "",
-    destino: "",
-    fechaSalida: "",
-    fechaRegreso: "",
-    numeroPasajeros: 0,
-    precioEstimado: 0,
-    estado: "",
-    codigoCotizacion: "",
-    fechaCreacion: "",
-    notas: [],
-};
-
-const CustomDateTimePicker: React.FC<DateTimePickerProps<any>> = (props) => {
-    return (
-        <DateTimePicker
-            {...props}
-            ampm={false}
-            sx={{
-                "& .MuiOutlinedInput-root": {
-                    borderRadius: "12px",
-                    backgroundColor: "white",
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#ccc",
-                    transition: "border-color 0.3s ease",
-                },
-                "& .MuiOutlinedInput-root:not(.Mui-disabled):hover .MuiOutlinedInput-notchedOutline":
-                {
-                    borderColor: "#e68a00",
-                },
-                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                    borderColor: "#e68a00",
-                },
-                "& .MuiInputLabel-root": {
-                    color: "#52525b",
-                    "&.Mui-focused": {
-                        color: "#e68a00",
-                    },
-                },
-                "& .MuiFormHelperText-root.Mui-error": {
-                    color: "transparent",
-                },
-            }}
-        />
-    );
-};
+import { formatDateTime, toUTCString } from "../../../utils/utils";
+import CustomDateTimePicker from "../../general/CustomDateTimePicker";
+import { Quote, defaulQuote } from "../../../types/types";
 
 const classifyQuotesByStatus = (quotes: Quote[]) => {
     return quotes.reduce((acc: any, quote: Quote) => {
@@ -137,25 +66,6 @@ const classifyQuotesByStatus = (quotes: Quote[]) => {
         acc[status].push(quote);
         return acc;
     }, {});
-};
-
-const formatDateTime = (dateTime: string | null) => {
-    if (!dateTime) return { date: "N/A", time: "" };
-    const date = new Date(dateTime);
-    const optionsDate: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-    const optionsTime: Intl.DateTimeFormatOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-    };
-    return {
-        date: date.toLocaleDateString("es-ES", optionsDate),
-        time: date.toLocaleTimeString("es-ES", optionsTime),
-    };
 };
 
 export default function QuoteList() {
@@ -251,12 +161,6 @@ export default function QuoteList() {
             await fetchQuotes();
             closeAll();
         }
-    };
-
-    const toUTCString = (dateTime: string) => {
-        const date = new Date(dateTime);
-        const localTime = date.getTime() - date.getTimezoneOffset() * 60000;
-        return new Date(localTime).toISOString();
     };
 
     const changeDateQuote = async () => {

@@ -10,15 +10,8 @@ import GroupIcon from '@mui/icons-material/Group';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { GetDeals } from "../../../services/AdminService";
 import { CancelCircleIcon, MessageEdit01Icon } from "hugeicons-react";
-
-interface Deal {
-    ofertaID: number;
-    origen: string;
-    destino: string;
-    fechaSalida: string;
-    disponibilidad: number;
-    precio: number;
-}
+import { formatDateTime } from "../../../utils/utils";
+import { Deal } from "../../../types/types";
 
 const classifyDealsByYearAndMonth = (deals: any) => {
     const currentDate = new Date();
@@ -37,25 +30,6 @@ const classifyDealsByYearAndMonth = (deals: any) => {
         }
         return acc;
     }, {});
-};
-
-const formatDateTime = (dateTime: string | null) => {
-    if (!dateTime) return { date: "N/A", time: "" };
-    const date = new Date(dateTime);
-    const optionsDate: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-    const optionsTime: Intl.DateTimeFormatOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-    };
-    return {
-        date: date.toLocaleDateString("es-ES", optionsDate),
-        time: date.toLocaleTimeString("es-ES", optionsTime),
-    };
 };
 
 export default function DealsList() {
