@@ -53,7 +53,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
-import { formatDateTime, toUTCString } from "../../../utils/utils";
+import { formatDateTimeMex, toUTCString } from "../../../utils/utils";
 import CustomDateTimePicker from "../../general/CustomDateTimePicker";
 import { Quote, defaulQuote } from "../../../types/types";
 
@@ -325,8 +325,8 @@ export default function QuoteList() {
                                                                         color: "#7D7D7D",
                                                                     }}
                                                                 >
-                                                                    {formatDateTime(quote.fechaSalida).date} -{" "}
-                                                                    {formatDateTime(quote.fechaSalida).time}
+                                                                    {formatDateTimeMex(quote.fechaSalida).date} -{" "}
+                                                                    {formatDateTimeMex(quote.fechaSalida).time}
                                                                 </Typography>
                                                             </Box>
                                                             <Box
@@ -344,10 +344,10 @@ export default function QuoteList() {
                                                                         color: "#7D7D7D",
                                                                     }}
                                                                 >
-                                                                    {formatDateTime(quote.fechaRegreso).date}
-                                                                    {formatDateTime(quote.fechaRegreso).date !==
+                                                                    {formatDateTimeMex(quote.fechaRegreso).date}
+                                                                    {formatDateTimeMex(quote.fechaRegreso).date !==
                                                                         "N/A" &&
-                                                                        ` - ${formatDateTime(quote.fechaRegreso).time
+                                                                        ` - ${formatDateTimeMex(quote.fechaRegreso).time
                                                                         }`}
                                                                 </Typography>
                                                             </Box>
@@ -552,7 +552,7 @@ export default function QuoteList() {
                                     label="Fecha y Hora de Salida"
                                     name="fechaSalida"
                                     radius="lg"
-                                    value={`${formatDateTime(selectedQuote.fechaSalida).date} ${formatDateTime(selectedQuote.fechaSalida).time
+                                    value={`${formatDateTimeMex(selectedQuote.fechaSalida).date} ${formatDateTimeMex(selectedQuote.fechaSalida).time
                                         }`}
                                     disabled
                                 />
@@ -562,7 +562,7 @@ export default function QuoteList() {
                                     label="Fecha y Hora de Regreso"
                                     name="fechaRegreso"
                                     radius="lg"
-                                    value={`${formatDateTime(selectedQuote.fechaRegreso).date} ${formatDateTime(selectedQuote.fechaRegreso).time
+                                    value={`${formatDateTimeMex(selectedQuote.fechaRegreso).date} ${formatDateTimeMex(selectedQuote.fechaRegreso).time
                                         }`}
                                     disabled
                                 />

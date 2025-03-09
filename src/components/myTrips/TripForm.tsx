@@ -2,8 +2,47 @@ import { Box, Button, Typography } from "@mui/material";
 import { Input, Tooltip } from "@nextui-org/react";
 import FlightIcon from '@mui/icons-material/Flight';
 import HelpIcon from '@mui/icons-material/Help';
+import { useState } from "react";
+import { GetFlight } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 export default function TripForm() {
+    const navigate = useNavigate();
+
+    const [apellido, setApellido] = useState('');
+    const [tripCode, setTripCode] = useState('');
+
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        setErrorMessage('');
+        const data = {
+            apellido: apellido,
+            codigo: tripCode
+        }
+        try {
+            const response = await GetFlight(data);
+            console.log(response);
+            if (response.success) {
+                localStorage.setItem('myTripCompleted', 'true');
+                console.log(response.result);
+                navigate("/myTrips/flightDetail", { state: response.result });
+            }
+            else {
+                throw new Error('Flight not found');
+            }
+        }
+        catch (error) {
+            setErrorMessage('Flight not found. Please check your trip code and lastname.');
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+
     return (
         <Box sx={{
             display: "flex",
@@ -112,6 +151,8 @@ export default function TripForm() {
                             }}
                             label="Trip code"
                             radius="sm"
+                            value={tripCode}
+                            onChange={(e) => setTripCode(e.target.value)}
                         />
                     </Box>
                     <Box sx={{ width: "80%" }}>
@@ -139,8 +180,15 @@ export default function TripForm() {
                             }}
                             label="Lastname"
                             radius="lg"
+                            value={apellido}
+                            onChange={(e) => setApellido(e.target.value)}
                         />
                     </Box>
+                    {errorMessage && (
+                        <Typography sx={{ color: 'red', fontSize: '0.9rem' }}>
+                            {errorMessage}
+                        </Typography>
+                    )}
                     <Box sx={{ width: "80%" }}>
                         <Button
                             sx={{
@@ -155,8 +203,15 @@ export default function TripForm() {
                                 ":hover": {
                                     backgroundColor: "white",
                                     color: "#e68a00",
+                                },
+                                ":disabled": {
+                                    backgroundColor: "gray",
+                                    color: "white",
+                                    cursor: "not-allowed",
                                 }
                             }}
+                            onClick={handleSubmit}
+                            disabled={loading}
                         >
                             Go to my Trip
                             <FlightIcon sx={{ marginLeft: "10px" }} />

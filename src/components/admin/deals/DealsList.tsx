@@ -10,7 +10,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { GetDeals } from "../../../services/AdminService";
 import { CancelCircleIcon, MessageEdit01Icon } from "hugeicons-react";
-import { formatDateTime } from "../../../utils/utils";
+import { formatDateTimeMex } from "../../../utils/utils";
 import { Deal } from "../../../types/types";
 
 const classifyDealsByYearAndMonth = (deals: any) => {
@@ -123,12 +123,12 @@ export default function DealsList() {
                                                                             </Grid2>
                                                                             <Grid2 size={6}>
                                                                                 <Typography variant="body1" className="text-justify Lato">
-                                                                                    <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {formatDateTime(deal.fechaSalida).date}
+                                                                                    <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {formatDateTimeMex(deal.fechaSalida).date}
                                                                                 </Typography>
                                                                             </Grid2>
                                                                             <Grid2 size={6}>
                                                                                 <Typography variant="body1" className="text-justify Lato">
-                                                                                    <ScheduleIcon sx={{ color: '#e68a00' }} />  {formatDateTime(deal.fechaSalida).time}
+                                                                                    <ScheduleIcon sx={{ color: '#e68a00' }} />  {formatDateTimeMex(deal.fechaSalida).time}
                                                                                 </Typography>
                                                                             </Grid2>
                                                                             <Grid2 size={6}>

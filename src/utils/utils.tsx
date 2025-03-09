@@ -1,6 +1,6 @@
 import { Reservation } from "../types/types";
 
-export const formatDateTime = (dateTime: string | null) => {
+export const formatDateTimeMex = (dateTime: string | null) => {
     if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
     const optionsDate: Intl.DateTimeFormatOptions = {
@@ -16,6 +16,17 @@ export const formatDateTime = (dateTime: string | null) => {
     return {
         date: date.toLocaleDateString("es-ES", optionsDate),
         time: date.toLocaleTimeString("es-ES", optionsTime),
+    };
+};
+
+export const formatDateTimeUS = (dateTime: string | null) => {
+    if (!dateTime) return { date: "N/A", time: "" };
+    const date = new Date(dateTime);
+    const optionsDate: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+    return {
+        date: date.toLocaleDateString('en-US', optionsDate),
+        time: date.toLocaleTimeString('en-US', optionsTime)
     };
 };
 

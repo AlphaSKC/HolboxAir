@@ -26,6 +26,8 @@ import QuotesPage from "./pages/QuotesPage";
 import DealsPage from "./pages/DealsPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ConfirmationQuote from "./pages/ConfirmationQuotePage";
+import { CircularProgress } from "@mui/material";
+import MyFlightPage from "./pages/MyFlightPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -50,14 +52,14 @@ function App() {
   const RequireAuth = ({ children }: any) => {
     const { isAuthenticated, loading } = useAuth();
     if (loading) {
-      return <div>Loading...</div>;
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
     return isAuthenticated ? children : <Navigate to="/admin" />;
   };
   const RequireForgotPassword = ({ children }: any) => {
     const { forgotPasswordCompleted, loading } = useAuth();
     if (loading) {
-      return <div>Loading...</div>;
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
     return forgotPasswordCompleted ? children : <Navigate to="/forgotPassword" />;
   };
@@ -65,7 +67,7 @@ function App() {
   const RequireVerifyCode = ({ children }: any) => {
     const { verifyCodeCompleted, loading } = useAuth();
     if (loading) {
-      return <div>Loading...</div>;
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
     return verifyCodeCompleted ? children : <Navigate to="/verify-code" />;
   };
@@ -73,10 +75,26 @@ function App() {
   const RequireConfirmQuote = ({ children }: any) => {
     const { confirmQuoteCompleted, loading } = useAuth();
     if (loading) {
-      return <div>Loading...</div>;
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
     return confirmQuoteCompleted ? children : <Navigate to="/" />;
   };
+
+  const RequireReservationForm = ({ children }: any) => {
+    const { reservationFormCompleted, loading } = useAuth();
+    if (loading) {
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
+    }
+    return reservationFormCompleted ? children : <Navigate to="*" />;
+  }
+
+  const RequireMyTrip = ({ children }: any) => {
+    const { myTripCompleted, loading } = useAuth();
+    if (loading) {
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
+    }
+    return myTripCompleted ? children : <Navigate to="*" />;
+  }
 
   return (
     <NextUIProvider>
@@ -94,12 +112,22 @@ function App() {
           element={<ExtraServicesTemplate />}
         />
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout" element={
+          <RequireReservationForm>
+            <CheckoutPage />
+          </RequireReservationForm>
+        } />
 
         <Route path="/confirmationQuote" element={
           <RequireConfirmQuote>
             <ConfirmationQuote />
           </RequireConfirmQuote>
+        } />
+
+        <Route path="/myTrips/flightDetail" element={
+          <RequireMyTrip>
+            <MyFlightPage />
+          </RequireMyTrip>
         } />
 
         <Route path="/admin" element={<LoginPage />} />

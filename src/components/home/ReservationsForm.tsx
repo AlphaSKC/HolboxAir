@@ -140,7 +140,7 @@ export default function ReservationsForm() {
             numeroPasajeros: passengers,
             precioEstimado,
         };
-        console.log(data);
+        localStorage.setItem("reservationFormCompleted", "true");
         navigate("/checkout", { state: data });
         setIsSending(false);
     };

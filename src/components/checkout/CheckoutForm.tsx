@@ -9,6 +9,7 @@ import { Input } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { CreateCotizacion } from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
+import { formatDateTimeUS } from "../../utils/utils";
 
 interface CheckoutFormProps {
     origen: string;
@@ -18,18 +19,6 @@ interface CheckoutFormProps {
     numeroPasajeros: number;
     precioEstimado: number;
 }
-
-const formatDateTime = (dateTime: string | null) => {
-    if (!dateTime) return { date: "N/A", time: "" };
-    const date = new Date(dateTime);
-    const optionsDate: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
-    return {
-        date: date.toLocaleDateString('en-US', optionsDate),
-        time: date.toLocaleTimeString('en-US', optionsTime)
-    };
-};
-
 const toUTCString = (dateTime: string) => {
     const date = new Date(dateTime);
     const localTime = date.getTime() - (date.getTimezoneOffset() * 60000);
@@ -115,6 +104,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
             const response = await CreateCotizacion(combinedData);
             if (response.success) {
                 localStorage.setItem("quoteCompleted", 'true');
+                localStorage.removeItem("reservationFormCompleted");
                 navigate('/confirmationQuote');
             }
             else {
@@ -131,8 +121,8 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         }
     };
 
-    const fechaSalida = formatDateTime(props.fechaSalida);
-    const fechaRegreso = formatDateTime(props.fechaRegreso);
+    const fechaSalida = formatDateTimeUS(props.fechaSalida);
+    const fechaRegreso = formatDateTimeUS(props.fechaRegreso);
 
     const handleAlertClose = () => {
         setAlertOpen(false);
