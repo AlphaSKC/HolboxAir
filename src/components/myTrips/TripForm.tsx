@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { Input, Tooltip } from "@nextui-org/react";
 import FlightIcon from '@mui/icons-material/Flight';
 import HelpIcon from '@mui/icons-material/Help';
@@ -213,8 +213,14 @@ export default function TripForm() {
                             onClick={handleSubmit}
                             disabled={loading}
                         >
-                            Go to my Trip
-                            <FlightIcon sx={{ marginLeft: "10px" }} />
+                            {loading ? (
+                                <CircularProgress size={24} sx={{ color: "white" }} />
+                            ) : (
+                                <>
+                                    Go to my Trip
+                                    <FlightIcon sx={{ marginLeft: "10px" }} />
+                                </>
+                            )}
                         </Button>
                     </Box>
                 </Box>

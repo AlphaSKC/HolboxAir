@@ -2,7 +2,7 @@ import { Form, Input } from "@nextui-org/react";
 import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Alert, Box, Button, Slide, SlideProps, Snackbar } from "@mui/material";
+import { Alert, Box, Button, CircularProgress, Slide, SlideProps, Snackbar } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AdminLogin } from "../../services/AuthService";
 
@@ -134,7 +134,11 @@ export default function LoginForm() {
             }}
             disabled={isLoading}
           >
-            Log in
+            {isLoading ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              "Login"
+            )}
           </Button>
         </Form>
       </Box>

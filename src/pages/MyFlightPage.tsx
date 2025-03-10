@@ -4,7 +4,7 @@ import FlightDetail from "../components/myTrips/FlightDetail";
 
 export default function MyFlightPage() {
     const location = useLocation();
-    const { identificador, pasajeroPrincipal, correoPasajero, telefonoPasajero, origen, destino, fechaSalida, fechaRegreso, numeroPasajeros, precio, estado, codigo, fechaCreacion, notas } = location.state || {};
+    const { tipo, identificador, pasajeroPrincipal, correoPasajero, telefonoPasajero, origen, destino, fechaSalida, fechaRegreso, numeroPasajeros, precio, estado, codigo, fechaCreacion, notas } = location.state || {};
 
     return (
         <Box
@@ -15,7 +15,8 @@ export default function MyFlightPage() {
                 minHeight: "100vh",
             }}
         >
-            <FlightDetail 
+            <FlightDetail
+                tipo={tipo}
                 identificador={identificador}
                 pasajeroPrincipal={pasajeroPrincipal}
                 correoPasajero={correoPasajero}

@@ -51,6 +51,32 @@ export const getStatusColor = (estado: string) => {
     }
 };
 
+export const translateStatus = (status: string) => {
+    switch (status) {
+        case "Completado":
+            return "Completed";
+        case "Pagado":
+            return "Paid";
+        case "Pendiente":
+            return "Pending";
+        case "Cancelado":
+            return "Canceled";
+        default:
+            return status;
+    }
+}
+
+export const translateType = (type: string) => {
+    switch (type) {
+        case "Cotizacion":
+            return "Quote";
+        case "Reservacion":
+            return "Reservation";
+        default:
+            return type;
+    }
+}
+
 export const classifyReservations = (reservations: Reservation[]) => {
     const sortedReservations = reservations.sort((a, b) => {
         const dateA = new Date(a.fechaSalida || a.fechaRegreso).getTime();
