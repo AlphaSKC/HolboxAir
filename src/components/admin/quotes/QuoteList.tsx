@@ -146,6 +146,7 @@ export default function QuoteList() {
                     cotizacionID: id,
                     pasajeroPrincipal: selectedQuote.pasajeroPrincipal,
                     fechaReserva: fechaReserva,
+                    estado: "Pendiente",
                 };
                 await CreateReservacion(reservation);
             }
@@ -172,7 +173,6 @@ export default function QuoteList() {
                 ? toUTCString(selectedQuote.fechaRegreso)
                 : null,
         };
-        console.log(data);
         try {
             const response = await ChangeDateCotizacion(id, data);
             if (response.success) {
@@ -190,6 +190,13 @@ export default function QuoteList() {
                         : null,
                     codigo: selectedQuote.codigoCotizacion,
                 };
+                const reservation = {
+                    cotizacionID: id,
+                    pasajeroPrincipal: selectedQuote.pasajeroPrincipal,
+                    fechaReserva: toUTCString(new Date().toISOString()),
+                    estado: "Revision",
+                }
+                await CreateReservacion(reservation);
                 await SendEmailChangeDate(emailData);
                 setAlertMessage(response.message);
                 setAlertSeverity("success");

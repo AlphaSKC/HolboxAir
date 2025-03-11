@@ -88,7 +88,6 @@ const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: 
             }
             return precio;
         } else {
-            console.log("Error al obtener costos de vuelo.");
             return 0;
         }
     } catch (error) {

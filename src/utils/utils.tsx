@@ -44,6 +44,8 @@ export const getStatusColor = (estado: string) => {
             return "#00A86B";
         case "Pendiente":
             return "#ffcc00";
+        case "Revision":
+            return "#ffcc00";
         case "Cancelado":
             return "#FF4D4F";
         default:
@@ -86,7 +88,7 @@ export const classifyReservations = (reservations: Reservation[]) => {
 
     return sortedReservations.reduce((acc: any, reservation: Reservation) => {
         const status = reservation.estado;
-        if (status === "Pendiente" || status === "Pagado") {
+        if (status === "Pendiente" || status === "Pagado" || status === "Revision") {
             if (!acc["Por hacer"]) {
                 acc["Por hacer"] = [];
             }

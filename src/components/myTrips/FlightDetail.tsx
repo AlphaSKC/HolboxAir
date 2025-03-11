@@ -25,7 +25,8 @@ interface FlightDetailProps {
 export default function FlightDetail(props: FlightDetailProps) {
 
     const showActionButtons = (props.tipo === 'Cotizacion' && props.estado === 'Pendiente') ||
-        (props.tipo === 'Reservacion' && props.estado === 'Pendiente');
+        (props.tipo === 'Reservacion' && props.estado === 'Pendiente') ||
+        (props.tipo === 'Reservacion' && props.estado === 'Revision');
 
     return (
         <Box sx={{ width: { xs: '90%', md: '80%' }, padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -33,7 +34,7 @@ export default function FlightDetail(props: FlightDetailProps) {
 
             {/* Tipo de vuelo y estado */}
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', marginBottom: 2 }}>
-                <Chip className="Lato" label={translateType(props.tipo)} sx={{ bgcolor: props.tipo === 'Cotizacion' ? '#D4D4D4' : '#E68A00', fontSize: '2vh', padding: '10px' }} />
+                <Chip className="Lato" label={translateType(props.tipo)} sx={{ bgcolor: props.tipo === 'Cotizacion' ? '#D4D4D4' : '#E68A00', fontSize: '2vh', padding: '10px', color: props.tipo === 'Cotizacion' ? 'black' : 'white' }} />
                 <Chip className="Lato" label={translateStatus(props.estado)} sx={{ bgcolor: getStatusColor(props.estado), fontSize: '2vh', padding: '10px' }} />
             </Box>
 
@@ -104,6 +105,16 @@ export default function FlightDetail(props: FlightDetailProps) {
                         <Button variant="contained" color="error">
                             Cancelar
                         </Button>
+                    )}
+                    {props.tipo === 'Reservacion' && props.estado === 'Revision' && (
+                        <>
+                            <Button variant="contained" color="error">
+                                Cancelar
+                            </Button>
+                            <Button variant="contained" color="primary">
+                                Aceptar cambios
+                            </Button>
+                        </>
                     )}
                     {props.tipo === 'Reservacion' && props.estado === 'Pendiente' && (
                         <>
