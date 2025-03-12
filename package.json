@@ -20,7 +20,7 @@
     "@paypal/react-paypal-js": "^8.8.2",
     "@types/aos": "^3.0.7",
     "aos": "^2.3.4",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.16.3",
     "hugeicons-react": "^0.3.0",
