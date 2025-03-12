@@ -50,6 +50,24 @@ export interface Quote {
     notas: string[];
 }
 
+export interface FlightDetails {
+    tipo: string;
+    identificador: number;
+    pasajeroPrincipal: string;
+    correoPasajero: string;
+    telefonoPasajero: string;
+    origen: string;
+    destino: string;
+    fechaSalida: string;
+    fechaRegreso?: string;
+    numeroPasajeros: number;
+    precio: number;
+    estado: string;
+    codigo: string;
+    fechaCreacion: string;
+    notas: string[];
+}
+
 export const defaultReservation: Reservation = {
     reservacionID: 0,
     pasajeroPrincipal: "",
@@ -92,3 +110,21 @@ export const defaulQuote: Quote = {
     fechaCreacion: "",
     notas: [],
 };
+
+export const defaultFlightDetails: FlightDetails = {
+    tipo: "",
+    identificador: 0,
+    pasajeroPrincipal: "",
+    correoPasajero: "",
+    telefonoPasajero: "",
+    origen: "",
+    destino: "",
+    fechaSalida: "",
+    fechaRegreso: "",
+    numeroPasajeros: 0,
+    precio: 0,
+    estado: "",
+    codigo: "",
+    fechaCreacion: "",
+    notas: [],
+}

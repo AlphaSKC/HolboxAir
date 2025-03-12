@@ -51,6 +51,16 @@ const CreateReservacion = async (data: any) => {
     }
 }
 
+const ChangeStatusReservacion = async (id: number, status: any) => {
+    try {
+        const response = await axios.put(`${apiURL}/Reservacion/ChangeStatus/${id}`, status);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 const SendEmailConfirmationQuote = async (data: any) => {
     try {
         const response = await axios.post(`${apiURL}/Cotizacion/ConfirmationQuote`, data);
@@ -104,6 +114,7 @@ const ChangeStatusOfertaCreada = async (reservacionID: number) => {
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
+    ChangeStatusReservacion,
     GetReservaciones, SendEmailChangeDate,
     SendEmailConfirmationQuote, CreateOferta,
     ChangeStatusOfertaCreada, GetDeals

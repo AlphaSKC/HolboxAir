@@ -27,7 +27,6 @@ export default function TripForm() {
             console.log(response);
             if (response.success) {
                 localStorage.setItem('myTripCompleted', 'true');
-                console.log(response.result);
                 navigate("/myTrips/flightDetail", { state: response.result });
             }
             else {

@@ -28,4 +28,13 @@ const GetFlight = async (data: any) => {
   }
 }
 
-export { CreateCotizacion, GetCostos, GetFlight };
+const GetFlightDetails = async (data:any) => {
+  try {
+    const response = await axios.post(`${apiURL}/Vuelo/DetallesVuelo`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails };
