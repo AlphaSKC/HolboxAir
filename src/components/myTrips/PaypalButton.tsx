@@ -10,7 +10,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
     return (
         <Box sx={{ width: "70%" }}>
             <PayPalButtons
-                createOrder={(data, actions) => {
+                createOrder={(_, actions) => {
                     return actions.order.create({
                         intent: "CAPTURE",
                         purchase_units: [
@@ -24,7 +24,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
                         ]
                     });
                 }}
-                onApprove={async (data, actions) => {
+                onApprove={async (_, actions) => {
                     const order = await actions.order?.capture();
                     console.log(order);
                 }}
