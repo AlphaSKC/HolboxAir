@@ -38,6 +38,10 @@ export const toUTCString = (dateTime: string) => {
 
 export const getStatusColor = (estado: string) => {
     switch (estado) {
+        case "Aceptada":
+            return "#00A86B";
+        case "Disponible":
+            return "#00A86B"
         case "Completado":
             return "#0052cc";
         case "Pagado":
@@ -55,10 +59,14 @@ export const getStatusColor = (estado: string) => {
 
 export const translateStatus = (status: string) => {
     switch (status) {
+        case "Aceptada":
+            return "Available";
+        case "Disponible":
+            return "Available";
         case "Completado":
             return "Completed";
         case "Pagado":
-            return "Paid";
+            return "Successful Reservation";
         case "Pendiente":
             return "Pending";
         case "Cancelado":
@@ -88,7 +96,7 @@ export const classifyReservations = (reservations: Reservation[]) => {
 
     return sortedReservations.reduce((acc: any, reservation: Reservation) => {
         const status = reservation.estado;
-        if (status === "Pendiente" || status === "Pagado" || status === "Revision") {
+        if (status === "Pagado") {
             if (!acc["Por hacer"]) {
                 acc["Por hacer"] = [];
             }
