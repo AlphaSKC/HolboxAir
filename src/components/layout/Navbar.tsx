@@ -134,6 +134,7 @@ export default function NavbarLayout(props: NavbarProps) {
                   ? "text-warning font-bold"
                   : "text-default-500"
               }
+              onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
             </NavLink>

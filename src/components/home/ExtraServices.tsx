@@ -32,7 +32,7 @@ export default function ExtraServices() {
                         <Card key={service.id} isFooterBlurred className="col-span-12 sm:col-span-4" style={{
                             height: '50vh',
                             width: '100%',
-                        }} onPress={() => console.log("item pressed")}>
+                        }}>
                             <CardHeader className="absolute z-10 top-1 flex-col !items-start" style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.4)',
                                 width: '100%',

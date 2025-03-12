@@ -1,5 +1,5 @@
 import { Typography, Box, Button } from "@mui/material";
-import { formatDateTime, getStatusColor } from "../../../utils/utils";
+import { formatDateTimeMex, getStatusColor } from "../../../utils/utils";
 import { Card, CardBody, CardHeader, CardFooter, Image } from "@nextui-org/react";
 import { AccountCircle } from "@mui/icons-material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -40,14 +40,14 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                     <FlightTakeoffIcon sx={{ color: "#E38A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
-                        {formatDateTime(reservation.fechaSalida).date} - {formatDateTime(reservation.fechaSalida).time}
+                        {formatDateTimeMex(reservation.fechaSalida).date} - {formatDateTimeMex(reservation.fechaSalida).time}
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                     <FlightLandIcon sx={{ color: "#E38A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
-                        {formatDateTime(reservation.fechaRegreso).date}
-                        {formatDateTime(reservation.fechaRegreso).date !== "N/A" && ` - ${formatDateTime(reservation.fechaRegreso).time}`}
+                        {formatDateTimeMex(reservation.fechaRegreso).date}
+                        {formatDateTimeMex(reservation.fechaRegreso).date !== "N/A" && ` - ${formatDateTimeMex(reservation.fechaRegreso).time}`}
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>

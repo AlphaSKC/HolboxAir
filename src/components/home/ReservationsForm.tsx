@@ -1,4 +1,4 @@
-import { Box, Button, Grid2 } from "@mui/material";
+import { Box, Button, CircularProgress, Grid2 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
@@ -88,7 +88,6 @@ const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: 
             }
             return precio;
         } else {
-            console.log("Error al obtener costos de vuelo.");
             return 0;
         }
     } catch (error) {
@@ -140,7 +139,7 @@ export default function ReservationsForm() {
             numeroPasajeros: passengers,
             precioEstimado,
         };
-        console.log(data);
+        localStorage.setItem("reservationFormCompleted", "true");
         navigate("/checkout", { state: data });
         setIsSending(false);
     };
@@ -443,8 +442,14 @@ export default function ReservationsForm() {
                     onClick={sendData}
                     disabled={!isFormValid()}
                 >
-                    Quote Flight
-                    <FlightIcon sx={{ marginLeft: "10px" }} />
+                    {isSending ? (
+                        <CircularProgress size={24} sx={{ color: "white" }} />
+                    ) : (
+                        <>
+                            Quote Flight
+                            < FlightIcon sx={{ marginLeft: "10px" }} />
+                        </>
+                    )}
                 </Button>
             </Box>
         </Box>

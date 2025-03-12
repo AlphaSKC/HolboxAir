@@ -1,6 +1,6 @@
 import { Reservation } from "../types/types";
 
-export const formatDateTime = (dateTime: string | null) => {
+export const formatDateTimeMex = (dateTime: string | null) => {
     if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
     const optionsDate: Intl.DateTimeFormatOptions = {
@@ -19,6 +19,17 @@ export const formatDateTime = (dateTime: string | null) => {
     };
 };
 
+export const formatDateTimeUS = (dateTime: string | null) => {
+    if (!dateTime) return { date: "N/A", time: "" };
+    const date = new Date(dateTime);
+    const optionsDate: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const optionsTime: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+    return {
+        date: date.toLocaleDateString('en-US', optionsDate),
+        time: date.toLocaleTimeString('en-US', optionsTime)
+    };
+};
+
 export const toUTCString = (dateTime: string) => {
     const date = new Date(dateTime);
     const localTime = date.getTime() - date.getTimezoneOffset() * 60000;
@@ -33,12 +44,40 @@ export const getStatusColor = (estado: string) => {
             return "#00A86B";
         case "Pendiente":
             return "#ffcc00";
+        case "Revision":
+            return "#ffcc00";
         case "Cancelado":
             return "#FF4D4F";
         default:
             return "gray";
     }
 };
+
+export const translateStatus = (status: string) => {
+    switch (status) {
+        case "Completado":
+            return "Completed";
+        case "Pagado":
+            return "Paid";
+        case "Pendiente":
+            return "Pending";
+        case "Cancelado":
+            return "Canceled";
+        default:
+            return status;
+    }
+}
+
+export const translateType = (type: string) => {
+    switch (type) {
+        case "Cotizacion":
+            return "Quote";
+        case "Reservacion":
+            return "Reservation";
+        default:
+            return type;
+    }
+}
 
 export const classifyReservations = (reservations: Reservation[]) => {
     const sortedReservations = reservations.sort((a, b) => {
@@ -49,7 +88,7 @@ export const classifyReservations = (reservations: Reservation[]) => {
 
     return sortedReservations.reduce((acc: any, reservation: Reservation) => {
         const status = reservation.estado;
-        if (status === "Pendiente" || status === "Pagado") {
+        if (status === "Pendiente" || status === "Pagado" || status === "Revision") {
             if (!acc["Por hacer"]) {
                 acc["Por hacer"] = [];
             }

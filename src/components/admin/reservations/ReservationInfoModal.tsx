@@ -1,6 +1,6 @@
 import { Box, Typography, Modal, Grid2 } from "@mui/material";
 import { Input } from "@nextui-org/react";
-import { formatDateTime } from "../../../utils/utils";
+import { formatDateTimeMex } from "../../../utils/utils";
 import { Reservation } from "../../../types/types";
 
 interface ReservationInfoModalProps {
@@ -65,10 +65,10 @@ const ReservationInfoModal: React.FC<ReservationInfoModalProps> = ({ open, onClo
                             <Input label="Precio Total" name="precioTotal" radius="lg" value={`${reservation.precioTotal} USD`} disabled />
                         </Grid2>
                         <Grid2 size={{ xs: 12, md: 6 }}>
-                            <Input label="Fecha de Salida" name="fechaSalida" radius="lg" value={formatDateTime(reservation.fechaSalida).date} disabled />
+                            <Input label="Fecha de Salida" name="fechaSalida" radius="lg" value={formatDateTimeMex(reservation.fechaSalida).date} disabled />
                         </Grid2>
                         <Grid2 size={{ xs: 12, md: 6 }}>
-                            <Input label="Fecha de Regreso" name="fechaRegreso" radius="lg" value={formatDateTime(reservation.fechaRegreso).date} disabled />
+                            <Input label="Fecha de Regreso" name="fechaRegreso" radius="lg" value={formatDateTimeMex(reservation.fechaRegreso).date} disabled />
                         </Grid2>
                     </Grid2>
 
