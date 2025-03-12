@@ -20,7 +20,7 @@
   font-style: normal !important;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   color: #e68a00 !important;
 }
 
@@ -32,6 +32,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -95,7 +96,8 @@
   .card {
     max-width: 20vw !important;
   }
-  .swiperSlide{
+
+  .swiperSlide {
     min-width: none !important;
   }
 }
@@ -104,7 +106,8 @@
   .card {
     max-width: none !important;
   }
-  .swiperSlide{
+
+  .swiperSlide {
     width: fit-content !important;
     min-width: 20vw !important;
   }
@@ -139,7 +142,8 @@
   gap: 10px;
 }
 
-.div1, .div3 {
+.div1,
+.div3 {
   grid-row: span 3 / span 3;
 }
 
@@ -193,20 +197,20 @@
   grid-row-start: 6;
 }
 
-.div13{
+.div13 {
   grid-column: span 2 / span 2;
   grid-row: span 2 / span 2;
   grid-column-start: 1;
   grid-row-start: 8;
 }
 
-.div14{
+.div14 {
   grid-column: span 2 / span 2;
   grid-column-start: 3;
   grid-row-start: 8;
 }
 
-.div15{
+.div15 {
   grid-column: span 2 / span 2;
   grid-column-start: 3;
   grid-row-start: 9;
@@ -267,17 +271,19 @@
   grid-row-start: 9;
 }
 
-.box11, .box12 {
+.box11,
+.box12 {
   grid-row: span 2 / span 2;
   grid-row-start: 11;
 }
 
-.box13{
+.box13 {
   grid-column: span 2 / span 2;
   grid-row-start: 13;
 }
 
-.box14, .box15{
+.box14,
+.box15 {
   grid-row: span 2 / span 2;
   grid-row-start: 14;
 }
