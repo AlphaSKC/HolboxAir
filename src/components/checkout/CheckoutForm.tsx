@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import { CreateCotizacion } from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { formatDateTimeUS } from "../../utils/utils";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
+import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
 
 interface CheckoutFormProps {
     origen: string;
@@ -43,8 +46,8 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         correoPasajero: "",
         telefonoPasajero: ""
     });
-
     const [additionalPassengers, setAdditionalPassengers] = useState<string[]>([]);
+    const [countryCode, setCountryCode] = useState<CountryCode>('MX');
 
     useEffect(() => {
         setAdditionalPassengers(Array(props.numeroPasajeros - 1).fill(""));
@@ -57,9 +60,9 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         return emailRegex.test(email);
     };
 
-    const isValidPhone = (phone: string) => {
-        const phoneRegex = /^\d{10}$/;
-        return phoneRegex.test(phone);
+    const isValidPhone = (phone: string, countryCode: CountryCode) => {
+        const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase() as CountryCode);
+        return phoneNumber ? phoneNumber.isValid() : false;
     };
 
     const handleDisable = () => {
@@ -67,7 +70,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         if (
             formData.pasajeroPrincipal !== "" &&
             isValidEmail(formData.correoPasajero) &&
-            isValidPhone(formData.telefonoPasajero) &&
+            isValidPhone(formData.telefonoPasajero, countryCode) && // Updated function call with country code
             allAdditionalPassengersFilled
         ) {
             setIsDisabled(false);
@@ -93,12 +96,12 @@ export default function CheckoutForm(props: CheckoutFormProps) {
 
     const handleQuote = async () => {
         setIsLoading(true);
-        const combinedData = { 
-            ...props, 
+        const combinedData = {
+            ...props,
             fechaSalida: toUTCString(props.fechaSalida),
             fechaRegreso: props.fechaRegreso ? toUTCString(props.fechaRegreso) : null,
-            ...formData, 
-            notas: additionalPassengers 
+            ...formData,
+            notas: additionalPassengers
         };
         try {
             const response = await CreateCotizacion(combinedData);
@@ -158,12 +161,19 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                                     onChange={handleChange} />
                             </Grid2>
                             <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                                <Input
-                                    label="Phone"
-                                    name="telefonoPasajero"
-                                    radius="lg"
-                                    maxLength={10}
-                                    onChange={handleChange} />
+                                <PhoneInput
+                                    country={'mx'}
+                                    countryCodeEditable={false}
+                                    enableSearch={true}
+                                    value={formData.telefonoPasajero}
+                                    onChange={(e, phone) => {
+                                        if (phone && 'countryCode' in phone) {
+                                            setCountryCode(phone.countryCode.toUpperCase() as CountryCode); // Ensure country code is uppercase
+                                        }
+                                        setFormData({ ...formData, telefonoPasajero: e });
+                                    }}
+                                    inputStyle={{ width: '100%', backgroundColor: '#fff', border: '1px solid #ccc', borderRadius: '15px', paddingLeft: '45px', height: '55px' }}
+                                />
                             </Grid2>
                         </Grid2>
                     </Box>
