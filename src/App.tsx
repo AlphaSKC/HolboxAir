@@ -28,6 +28,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ConfirmationQuote from "./pages/ConfirmationQuotePage";
 import { CircularProgress } from "@mui/material";
 import MyFlightPage from "./pages/MyFlightPage";
+import TermsOfUsePage from "./pages/TermsOfUsePage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -85,7 +86,7 @@ function App() {
     if (loading) {
       return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
-    return reservationFormCompleted ? children : <Navigate to="*" />;
+    return reservationFormCompleted ? children : <Navigate to="/*" />;
   }
 
   const RequireMyTrip = ({ children }: any) => {
@@ -93,7 +94,15 @@ function App() {
     if (loading) {
       return <CircularProgress sx={{ color: "#E68A00" }} />;
     }
-    return myTripCompleted ? children : <Navigate to="*" />;
+    return myTripCompleted ? children : <Navigate to="/*" />;
+  }
+
+  const RequirePay = ({ children }: any) => {
+    const { payCompleted, loading } = useAuth();
+    if (loading) {
+      return <CircularProgress sx={{ color: "#E68A00" }} />;
+    }
+    return payCompleted ? children : <Navigate to="/*" />
   }
 
   return (
@@ -129,6 +138,14 @@ function App() {
             <MyFlightPage />
           </RequireMyTrip>
         } />
+
+        <Route path="/confirmationFlight" element={
+          <RequirePay>
+            <ConfirmationQuote />
+          </RequirePay>
+        } />
+
+        <Route path="/terms-of-use" element={<TermsOfUsePage />} />
 
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />

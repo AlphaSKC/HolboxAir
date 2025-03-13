@@ -24,7 +24,6 @@ export default function TripForm() {
         }
         try {
             const response = await GetFlight(data);
-            console.log(response);
             if (response.success) {
                 localStorage.setItem('myTripCompleted', 'true');
                 navigate("/myTrips/flightDetail", { state: response.result });

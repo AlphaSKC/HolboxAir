@@ -111,10 +111,20 @@ const ChangeStatusOfertaCreada = async (reservacionID: number) => {
     }
 }
 
+const ConfirmFlight = async (data: any) => {
+    try {
+        const response = await axios.post(`${apiURL}/Vuelo/ConfirmFlight`, data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
-    ChangeStatusReservacion,
+    ChangeStatusReservacion, ConfirmFlight,
     GetReservaciones, SendEmailChangeDate,
     SendEmailConfirmationQuote, CreateOferta,
     ChangeStatusOfertaCreada, GetDeals

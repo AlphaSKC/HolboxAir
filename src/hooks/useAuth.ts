@@ -7,6 +7,7 @@ export const useAuth = () => {
     const [confirmQuoteCompleted, setConfirmQuoteCompleted] = useState(false);
     const [reservationFormCompleted, setReservationFormCompleted] = useState(false);
     const [myTripCompleted, setMyTripCompleted] = useState(false);
+    const [payCompleted, setPayCompleted] = useState(false);
     const [loading, setLoading] = useState(true);
     const checkAuthStatus = useCallback(() => {
         const profile = localStorage.getItem("profile");
@@ -27,6 +28,9 @@ export const useAuth = () => {
         const myTripStatus = localStorage.getItem("myTripCompleted");
         setMyTripCompleted(myTripStatus === "true");
 
+        const payStatus = localStorage.getItem("payCompleted");
+        setPayCompleted(payStatus === "true");
+
         setLoading(false);
     }, []);
 
@@ -41,6 +45,7 @@ export const useAuth = () => {
         confirmQuoteCompleted,
         reservationFormCompleted,
         myTripCompleted,
+        payCompleted,
         loading,
     };
 };

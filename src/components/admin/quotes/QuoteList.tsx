@@ -146,7 +146,7 @@ export default function QuoteList() {
                     cotizacionID: id,
                     pasajeroPrincipal: selectedQuote.pasajeroPrincipal,
                     fechaReserva: fechaReserva,
-                    estado: "Pendiente",
+                    estado: "Disponible",
                 };
                 await CreateReservacion(reservation);
             }
