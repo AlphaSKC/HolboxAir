@@ -9,6 +9,7 @@ import { GetFlightDetails } from "../../services/UserService";
 import { defaultFlightDetails, FlightDetails } from "../../types/types";
 import { CancelCircleIcon, CheckmarkSquare03Icon } from "hugeicons-react";
 import PaypalButton from "./PaypalButton";
+import { NavLink } from "react-router-dom";
 
 interface FlightDetailProps {
     tipo: string;
@@ -33,6 +34,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                 tipo: props.tipo
             }
             const response = await GetFlightDetails(data);
+            console.log(response);
             setFlightDetails(response.result);
         }
         catch (error) {
@@ -156,16 +158,21 @@ export default function FlightDetail(props: FlightDetailProps) {
                                                 }}
                                             />
                                         }
-                                        label="I have read and accept the terms and conditions"
+                                        label={
+                                            <Typography>
+                                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                                            </Typography>
+                                        }
                                     />
                                 )}
                             </Grid2>
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 5 : 12 }} sx={{ justifyContent: 'center', alignItems: 'center' }}>
-
                                 {isChecked && (
-                                    (flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible') && (
-                                        <PaypalButton totalValue={flightDetails.precio} invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`} />
-                                    )
+                                    <PaypalButton
+                                        totalValue={flightDetails.precio}
+                                        invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
+                                        flightDetails={flightDetails}
+                                    />
                                 )}
                             </Grid2>
                         </Grid2>
@@ -178,7 +185,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                         <Button variant="outlined" size="large" style={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F" }} onClick={() => changeEstadoReservacion('Cancelado')}>
                                             <CancelCircleIcon />
                                         </Button>
-                                        <Button variant="outlined" size="large" style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }} onClick={() => changeEstadoReservacion('Pendiente')}>
+                                        <Button variant="outlined" size="large" style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }} onClick={() => changeEstadoReservacion('Disponible')}>
                                             <CheckmarkSquare03Icon />
                                         </Button>
                                     </>
@@ -188,6 +195,39 @@ export default function FlightDetail(props: FlightDetailProps) {
                         )}
                     </Box>
                     <Divider flexItem sx={{ my: '2vh' }} />
+                    {/* Precio - MontoPagado = Restante*/}
+                    {flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado' && (
+                        <>
+                            <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
+                                <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
+                                    Payment Summary
+                                </Typography>
+                                <Divider />
+                                <Grid2 container marginY={2} spacing={2}>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Total Price:</Typography>
+                                    </Grid2>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                        <Typography className="Lato">${flightDetails?.precio} USD</Typography>
+                                    </Grid2>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Amount Paid:</Typography>
+                                    </Grid2>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                        <Typography className="Lato">${flightDetails?.montoPagado} USD</Typography>
+                                    </Grid2>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Remaining Amount:</Typography>
+                                    </Grid2>
+                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                        <Typography className="Lato">${flightDetails?.precio - (flightDetails?.montoPagado ?? 0)} USD</Typography>
+                                    </Grid2>
+                                </Grid2>
+                            </Box>
+                            <Divider flexItem sx={{ my: '2vh' }} />
+                        </>
+                    )}
+
                     <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", marginBottom: "30px", width: "100%" }}>
                         <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
                             Principal Passenger Information

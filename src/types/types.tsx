@@ -66,6 +66,7 @@ export interface FlightDetails {
     codigo: string;
     fechaCreacion: string;
     notas: string[];
+    montoPagado?: number;
 }
 
 export const defaultReservation: Reservation = {
@@ -127,4 +128,5 @@ export const defaultFlightDetails: FlightDetails = {
     codigo: "",
     fechaCreacion: "",
     notas: [],
+    montoPagado: 0,
 }
