@@ -5,7 +5,7 @@ import FlightLandIcon from '@mui/icons-material/FlightLand';
 import { Input } from "@nextui-org/react";
 import { ChangeStatusReservacion } from "../../services/AdminService";
 import { useEffect, useState } from "react";
-import { GetFlightDetails } from "../../services/UserService";
+import { GetDollarPrice, GetFlightDetails } from "../../services/UserService";
 import { defaultFlightDetails, FlightDetails } from "../../types/types";
 import { CancelCircleIcon, CheckmarkSquare03Icon } from "hugeicons-react";
 import PaypalButton from "./PaypalButton";
@@ -21,10 +21,22 @@ export default function FlightDetail(props: FlightDetailProps) {
     const [flightDetails, setFlightDetails] = useState<FlightDetails>(defaultFlightDetails);
     const [loading, setLoading] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
+    const [dollarPrice, setDollarPrice] = useState(0);
 
     useEffect(() => {
         getFilghtDetails();
+        getDollarPrice();
     }, []);
+
+    const getDollarPrice = async () => {
+        try {
+            const response = await GetDollarPrice();
+            setDollarPrice(response.tipoCambio);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
     const getFilghtDetails = async () => {
         setLoading(true);
@@ -34,7 +46,6 @@ export default function FlightDetail(props: FlightDetailProps) {
                 tipo: props.tipo
             }
             const response = await GetFlightDetails(data);
-            console.log(response);
             setFlightDetails(response.result);
         }
         catch (error) {
@@ -169,7 +180,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 5 : 12 }} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {isChecked && (
                                     <PaypalButton
-                                        totalValue={flightDetails.precio}
+                                        totalValue={parseFloat((dollarPrice * 200).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
                                         flightDetails={flightDetails}
                                     />

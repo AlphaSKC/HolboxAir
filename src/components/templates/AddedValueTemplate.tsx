@@ -2,15 +2,9 @@ import { Box, Grid2, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import Topics from "../../utils/Topics.json";
-import { useEffect } from "react";
 
 export default function AddedValueTemplate() {
   const { name } = useParams<{ name: string }>();
-
-  useEffect(() => {
-    console.log(Topics);
-    console.log(name);
-  }, []);
 
   return (
     <Box

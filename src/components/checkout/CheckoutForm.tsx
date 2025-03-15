@@ -108,7 +108,9 @@ export default function CheckoutForm(props: CheckoutFormProps) {
             if (response.success) {
                 localStorage.setItem("quoteCompleted", 'true');
                 localStorage.removeItem("reservationFormCompleted");
-                navigate('/confirmationQuote');
+                setTimeout(() => {
+                    navigate('/confirmationQuote');
+                }, 100);
             }
             else {
                 setAlertMessage('Error al crear cotización. Inténtalo de nuevo.');
