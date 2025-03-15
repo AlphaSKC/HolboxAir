@@ -28,7 +28,7 @@ const GetFlight = async (data: any) => {
   }
 }
 
-const GetFlightDetails = async (data:any) => {
+const GetFlightDetails = async (data: any) => {
   try {
     const response = await axios.post(`${apiURL}/Vuelo/DetallesVuelo`, data);
     return response.data;
@@ -37,4 +37,14 @@ const GetFlightDetails = async (data:any) => {
   }
 }
 
-export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails };
+const GetDollarPrice = async () => {
+  try {
+    const response = await axios.get(`${apiURL}/Vuelo/PrecioDolar`);
+    return response.data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice };

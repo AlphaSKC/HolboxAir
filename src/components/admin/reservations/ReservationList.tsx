@@ -1,6 +1,6 @@
-import { Box, Grid2, Typography, CircularProgress, Button, Modal, IconButton, Collapse, Stepper, Step, StepLabel, StepIconProps } from "@mui/material";
+import { Box, Grid2, Typography, CircularProgress, Button, Modal, IconButton, Collapse, Stepper, Step, StepLabel, StepIconProps, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ChangeStatusOfertaCreada, CreateOferta, GetReservaciones } from "../../../services/AdminService";
+import { ChangeStatusOfertaCreada, ChangeStatusReservacion, CreateOferta, GetReservaciones } from "../../../services/AdminService";
 import { Input } from "@nextui-org/react";
 import { CheckmarkBadge01Icon, CircleArrowLeft02Icon, CircleArrowRight02Icon } from "hugeicons-react";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -60,6 +60,10 @@ export default function ReservationList() {
     const [oferta, setOferta] = useState<Oferta[]>([defaultOferta, defaultOferta]);
     const [openOfertas, setOpenOfertas] = useState<boolean>(false);
 
+    const [openDialog, setOpenDialog] = useState<boolean>(false);
+    const [dialogContent, setDialogContent] = useState<string>("");
+
+
     useEffect(() => {
         fetchReservations();
     }, []);
@@ -74,6 +78,31 @@ export default function ReservationList() {
             setLoading(false);
         }
     };
+
+    const changeStatusReservation = async (status: string) => {
+        try {
+            const response = await ChangeStatusReservacion(selectedReservation.reservacionID, { status: status });
+            if (response.success) {
+                setAlertSeverity("success");
+                setAlertMessage("Vuelo " + status.toLowerCase() + " con éxito");
+            }
+            else {
+                setAlertSeverity("error");
+                setAlertMessage("Error al cambiar el estado del vuelo");
+            }
+        }
+        catch (error) {
+            setAlertSeverity("error");
+            setAlertMessage("Error al cambiar el estado del vuelo: " + error);
+        }
+        finally {
+            await fetchReservations();
+            setAlertOpen(true);
+            closeDialog();
+        }
+    }
+
+    const closeDialog = () => setOpenDialog(false);
 
     const handleAlertClose = () => setAlertOpen(false);
 
@@ -98,6 +127,18 @@ export default function ReservationList() {
             { ...defaultOferta, origen: reservation.origen, destino: reservation.destino, fechaSalida: reservation.fechaRegreso }
         ]);
         setOpenOfertas(true);
+    };
+
+    const openCancelDialog = (reservation: Reservation) => {
+        setSelectedReservation(reservation);
+        setDialogContent("cancelar");
+        setOpenDialog(true);
+    };
+
+    const openCompleteDialog = (reservation: Reservation) => {
+        setSelectedReservation(reservation);
+        setDialogContent("completar");
+        setOpenDialog(true);
     };
 
     const handleCreateOffer = async (oferta: Oferta) => {
@@ -394,6 +435,8 @@ export default function ReservationList() {
                                                         setOpenModal(true);
                                                     }}
                                                     onCreateOffer={() => openOffersModal(reservation)}
+                                                    onCancel={() => openCancelDialog(reservation)}
+                                                    onCompleted={() => openCompleteDialog(reservation)}
                                                 />
                                             </Grid2>
                                         )
@@ -517,6 +560,34 @@ export default function ReservationList() {
                 message={alertMessage}
                 onClose={handleAlertClose}
             />
+
+            {/*Dialog */}
+            <Dialog open={openDialog} onClose={closeDialog}>
+                <DialogTitle>
+                    {dialogContent === "cancelar" ? "Cancelar" : "Completar"} Vuelo
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        ¿Estás seguro de que deseas {dialogContent} este vuelo?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        sx={{ borderRadius: "20px", color: "#FF4D4F" }}
+                        onClick={closeDialog}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        sx={{ borderRadius: "20px", color: "#10E5A5" }}
+                        onClick={() => {
+                            dialogContent === "cancelar" ? changeStatusReservation("Cancelado") : changeStatusReservation("Completado");
+                        }}
+                    >
+                        Confirmar
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

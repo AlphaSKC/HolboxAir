@@ -29,6 +29,7 @@ import ConfirmationQuote from "./pages/ConfirmationQuotePage";
 import { CircularProgress } from "@mui/material";
 import MyFlightPage from "./pages/MyFlightPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
+import ConfirmationFlightPage from "./pages/ConfirmationFlightPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -141,7 +142,7 @@ function App() {
 
         <Route path="/confirmationFlight" element={
           <RequirePay>
-            <ConfirmationQuote />
+            <ConfirmationFlightPage />
           </RequirePay>
         } />
 

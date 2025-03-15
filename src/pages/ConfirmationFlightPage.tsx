@@ -1,6 +1,6 @@
 import { Box, Button, Grid2, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import SuccessfulPurchase from "../assets/img/others/SuccessfulPurchase.svg";
+import SuccessfulPurchase from "../assets/img/others/SuccesfulPurchase.svg";
 
 export default function ConfirmationFlightPage() {
 
@@ -32,7 +32,9 @@ export default function ConfirmationFlightPage() {
                     }}
                         onClick={() => {
                             localStorage.clear();
-                            navigate('/')
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 100);
                         }}
                     >
                         Go to home

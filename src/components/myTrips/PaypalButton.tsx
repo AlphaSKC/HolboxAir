@@ -41,7 +41,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
                         const response = await ConfirmFlight(data);
                         if (response.success) {
                             localStorage.setItem("payCompleted", "true");
-                            navigate("/");
+                            navigate("/confirmationFlight");
                         }
                     }
                 }}

@@ -36,7 +36,9 @@ export default function ResetPassword() {
             const response = await ChangePassword(data);
             if(response.success){
                 localStorage.clear();
-                navigate("/admin");
+                setTimeout(() => {
+                    navigate('/admin');
+                }, 100);
             }
         }
         catch(error){

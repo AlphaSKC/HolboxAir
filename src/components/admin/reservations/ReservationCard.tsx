@@ -5,16 +5,19 @@ import { AccountCircle } from "@mui/icons-material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { CancelCircleIcon, ShoppingBasketAdd01Icon, ViewIcon } from "hugeicons-react";
+import { CancelCircleIcon, CheckmarkCircle03Icon, ShoppingBasketAdd01Icon, ViewIcon } from "hugeicons-react";
 import { Reservation } from "../../../types/types";
+import dayjs from "dayjs";
 
 interface ReservationCardProps {
     reservation: Reservation;
     onView: () => void;
     onCreateOffer: () => void;
+    onCancel: () => void;
+    onCompleted: () => void;
 }
 
-const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, onCreateOffer }) => {
+const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, onCreateOffer, onCancel, onCompleted }) => {
     return (
         <Card className="py-4" style={{ height: "100%", position: "relative" }}>
             <Box
@@ -70,12 +73,17 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#a8a8a8", borderColor: "#a8a8a8" }} onClick={onView}>
                     <ViewIcon />
                 </Button>
-                {reservation.estado === "Pagado" && !reservation.ofertaCreada && (
+                {reservation.estado === "Pagado" && !reservation.ofertaCreada && dayjs().isBefore(dayjs(reservation.fechaSalida)) && (!reservation.fechaRegreso || dayjs().isBefore(dayjs(reservation.fechaRegreso))) && (
                     <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3" }} onClick={onCreateOffer}>
                         <ShoppingBasketAdd01Icon />
                     </Button>
                 )}
-                <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F" }}>
+                {(dayjs().isAfter(dayjs(reservation.fechaSalida)) && (!reservation.fechaRegreso || dayjs().isAfter(dayjs(reservation.fechaRegreso)))) && (
+                    <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#10E5A5", borderColor: "#10E5A5" }} onClick={onCompleted}>
+                        <CheckmarkCircle03Icon />
+                    </Button>
+                )}
+                <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F" }} onClick={onCancel}>
                     <CancelCircleIcon />
                 </Button>
             </CardFooter>
