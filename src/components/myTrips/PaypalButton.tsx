@@ -1,11 +1,9 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { Box } from "@mui/material";
-import { FlightDetails } from "../../types/types";
 
 interface PaypalButtonProps {
     totalValue: number;
     invoice: string;
-    flightDetails: FlightDetails;
     onPaymentComplete: () => void;
 }
 

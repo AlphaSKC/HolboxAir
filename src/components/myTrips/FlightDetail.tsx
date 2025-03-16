@@ -196,7 +196,6 @@ export default function FlightDetail(props: FlightDetailProps) {
                                     <PaypalButton
                                         totalValue={parseFloat((dollarPrice * 200).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
-                                        flightDetails={flightDetails}
                                         onPaymentComplete={handlePaymentComplete} // Pass the new function
                                     />
                                 )}

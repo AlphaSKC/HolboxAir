@@ -121,7 +121,7 @@ export default function Deals() {
             }}>
                 {loading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: '#E68A00' }} />
                     </Box>
                 ) : (
                     Object.keys(dealsByYearAndMonth).map(year => (
@@ -215,18 +215,18 @@ export default function Deals() {
                                                                                 color: "#e68a00",
                                                                             }
                                                                         }}
-                                                                        onClick={() => {
-                                                                            navigate('/checkoutDeal', {
-                                                                                state: {
-                                                                                    ofertaID: deal.id,
-                                                                                    origen: deal.departure,
-                                                                                    destino: deal.arrival,
-                                                                                    fechaSalida: deal.dateTime,
-                                                                                    disponibilidad: deal.passengers,
-                                                                                    precio: deal.price
-                                                                                }
-                                                                            });
-                                                                        }}
+                                                                            onClick={() => {
+                                                                                navigate('/checkoutDeal', {
+                                                                                    state: {
+                                                                                        ofertaID: deal.id,
+                                                                                        origen: deal.departure,
+                                                                                        destino: deal.arrival,
+                                                                                        fechaSalida: deal.dateTime,
+                                                                                        disponibilidad: deal.passengers,
+                                                                                        precio: deal.price
+                                                                                    }
+                                                                                });
+                                                                            }}
                                                                         >
                                                                             Book Now
                                                                         </Button>

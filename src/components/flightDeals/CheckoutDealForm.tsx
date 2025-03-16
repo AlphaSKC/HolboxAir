@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Button, Divider, Grid2, Typography, Select, MenuItem } from "@mui/material";
+import { Box, Divider, Grid2, Typography, Select, MenuItem, FormControlLabel, Checkbox } from "@mui/material";
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
@@ -11,6 +11,11 @@ import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css';
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
 import { Input } from "@nextui-org/react";
+import PaypalButton from "../myTrips/PaypalButton";
+import { formatDateTimeUS } from "../../utils/utils";
+import { NavLink, useNavigate } from "react-router-dom";
+import { CreateReservacionOferta, GetDollarPrice } from "../../services/UserService";
+import AlertSnackbar from "../general/AlertSnackbar";
 
 interface CheckoutDealFormProps {
     ofertaID: number;
@@ -48,7 +53,18 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
     });
     const [additionalPassengers, setAdditionalPassengers] = useState<string[]>([]);
     const [countryCode, setCountryCode] = useState<CountryCode>('MX');
-    const [isDisabled, setIsDisabled] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
+    const [isChecked, setIsChecked] = useState(false);
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState<"success" | "error">("success");
+    const [alertMessage, setAlertMessage] = useState("");
+    
+    const [dollarPrice, setDollarPrice] = useState(0);
+
+    const navigate = useNavigate();
+
+    const handleAlertClose = () => setAlertOpen(false);
 
     useEffect(() => {
         setAdditionalPassengers(Array(numeroPasajeros - 1).fill(""));
@@ -58,6 +74,20 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
+
+    useEffect(() => {
+        getDollarPrice();
+    }, []);
+
+    const getDollarPrice = async () => {
+        try {
+            const response = await GetDollarPrice();
+            setDollarPrice(response.tipoCambio);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
     const isValidPhone = (phone: string, countryCode: CountryCode) => {
         const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase() as CountryCode);
@@ -72,9 +102,9 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
             isValidPhone(formData.telefonoPasajero, countryCode) &&
             allAdditionalPassengersFilled
         ) {
-            setIsDisabled(false);
+            setIsVisible(true);
         } else {
-            setIsDisabled(true);
+            setIsVisible(false);
         }
     };
 
@@ -92,6 +122,35 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
         updatedPassengers[index] = value;
         setAdditionalPassengers(updatedPassengers);
     };
+
+    const handlePaymentComplete = async () => {
+        try {
+            const reservacion = {
+                ofertaID: props.ofertaID,
+                pasajeroPrincipal: formData.pasajeroPrincipal,
+                correoPasajero: formData.correoPasajero,
+                telefonoPasajero: formData.telefonoPasajero,
+                numeroPasajeros: numeroPasajeros,
+                precioTotal: props.precio * numeroPasajeros,
+                notas: additionalPassengers,
+                montoPagado: props.precio * numeroPasajeros,
+            }
+            const response = await CreateReservacionOferta(reservacion);
+            if (response.success) {
+                localStorage.setItem("payCompleted", "true");
+                navigate('/confirmationFlight');
+            }else{
+                setAlertSeverity("error");
+                setAlertMessage("An error occurred while processing your payment. Please try again later.");
+                setAlertOpen(true);
+            }
+        }
+        catch (error) {
+            setAlertSeverity("error");
+            setAlertMessage("An error occurred while processing your payment. Please try again later.");
+            setAlertOpen(true);
+        }
+    }
 
     const fechaSalida = formatDateTime(props.fechaSalida);
 
@@ -175,6 +234,25 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
                             ))}
                         </Grid2>
                     </Box>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={isChecked}
+                                onChange={(e) => setIsChecked(e.target.checked)}
+                                sx={{
+                                    color: '#E38A00',
+                                    '&.Mui-checked': {
+                                        color: '#E38A00'
+                                    }
+                                }}
+                            />
+                        }
+                        label={
+                            <Typography>
+                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                            </Typography>
+                        }
+                    />
                 </Grid2>
                 <Grid2 size={{ sm: 6, md: 4 }}>
                     <Box sx={{ position: 'sticky', top: '20px', borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", marginBottom: "30px" }}>
@@ -211,42 +289,24 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
                             </Grid2>
                         </Grid2>
                         <Divider />
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-                            <Button className="Lato" sx={{
-                                width: '100%',
-                                borderRadius: '10px',
-                                padding: '10px',
-                                color: 'white',
-                                backgroundColor: '#e68a00',
-                                fontWeight: 'bold',
-                                '&:hover': {
-                                    backgroundColor: 'white',
-                                    color: '#e68a00',
-                                },
-                                '&:disabled': {
-                                    backgroundColor: 'gray',
-                                    color: 'white',
-                                }
-                            }}
-                                onClick={() => {
-                                    const combinedData = {
-                                        OfertaID: props.ofertaID,
-                                        PasajeroPrincipal: formData.pasajeroPrincipal,
-                                        CorreoPasajero: formData.correoPasajero,
-                                        TelefonoPasajero: formData.telefonoPasajero,
-                                        NumeroPasajeros: numeroPasajeros,
-                                        PrecioTotal: props.precio * numeroPasajeros,
-                                        Notas: additionalPassengers
-                                    };
-                                    console.log(combinedData);
-                                }}
-                                disabled={isDisabled}>
-                                Request Deal
-                            </Button>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem', width: '100%' }}>
+                            {isVisible && isChecked && (
+                                <PaypalButton
+                                    totalValue={parseFloat(((props.precio * numeroPasajeros) * dollarPrice).toFixed(2))}
+                                    invoice={`Reservation from  to ${props.destino} on ${formatDateTimeUS(props.fechaSalida).date}`}
+                                    onPaymentComplete={handlePaymentComplete}
+                                />
+                            )}
                         </Box>
                     </Box>
                 </Grid2>
             </Grid2>
+            <AlertSnackbar
+                open={alertOpen}
+                severity={alertSeverity}
+                message={alertMessage}
+                onClose={handleAlertClose}
+            />
         </Box>
     );
 }
