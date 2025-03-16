@@ -3,7 +3,13 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 const GetCotizaciones = async () => {
     try {
-        const response = await axios.get(`${apiURL}/Cotizacion`);
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.get(`${apiURL}/Cotizacion`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data.result;
     }
     catch (error) {
@@ -33,7 +39,13 @@ const ChangeDateCotizacion = async (id: number, data: any) => {
 
 const GetReservaciones = async () => {
     try {
-        const response = await axios.get(`${apiURL}/Reservacion`);
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.get(`${apiURL}/Reservacion`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data.result;
     }
     catch (error) {
@@ -43,7 +55,13 @@ const GetReservaciones = async () => {
 
 const CreateReservacion = async (data: any) => {
     try {
-        const response = await axios.post(`${apiURL}/Reservacion`, data);
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.post(`${apiURL}/Reservacion`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     }
     catch (error) {
@@ -93,7 +111,13 @@ const GetDeals = async () => {
 
 const CreateOferta = async (data: any) => {
     try {
-        const response = await axios.post(`${apiURL}/Oferta`, data);
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.post(`${apiURL}/Oferta`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         return response.data;
     }
     catch (error) {

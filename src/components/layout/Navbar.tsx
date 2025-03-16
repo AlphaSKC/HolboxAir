@@ -106,7 +106,7 @@ export default function NavbarLayout(props: NavbarProps) {
 
       <NavbarContent justify="end">
         <Button
-          href="https://wa.me/529982756932"
+          href="https://wa.me/5219983475737"
           target="_blank"
           sx={{
             backgroundColor: "gray",
