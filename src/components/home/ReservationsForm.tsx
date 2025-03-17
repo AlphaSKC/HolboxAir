@@ -108,7 +108,7 @@ export default function ReservationsForm() {
     );
     const [passengers, setPassengers] = useState(0);
     const [promoCode, setPromoCode] = useState("");
-    const [filteredDestinations, setFilteredDestinations] = useState(places);
+    // const [filteredDestinations, setFilteredDestinations] = useState(places);
     const [isSending, setIsSending] = useState(false);
 
     useEffect(() => {
@@ -124,9 +124,13 @@ export default function ReservationsForm() {
         }
     }, [isSencillo, departure]);
 
-    useEffect(() => {
-        setFilteredDestinations(places.filter((place) => place.name !== origin));
-    }, [origin]);
+    // useEffect(() => {
+    //     setFilteredDestinations(places.filter((place) => place.name !== origin));
+    // }, [origin]);
+
+    // useEffect(() => {
+    //     setFilteredDestinations(places.filter((place) => place.name !== destination));
+    // }, [destination]);
 
     const sendData = async () => {
         setIsSending(true);
@@ -172,6 +176,7 @@ export default function ReservationsForm() {
         const tempDestination = destination;
         setOrigin(tempDestination);
         setDestination(tempOrigin);
+        console.log(origin, destination);
     };
 
     return (
@@ -251,15 +256,20 @@ export default function ReservationsForm() {
                         <Autocomplete
                             className="max-w-lg "
                             defaultItems={places}
-                            defaultSelectedKey={"CUN"}
                             label="Origin"
+                            defaultSelectedKey={'CUN'}
                             size="lg"
+                            inputValue={origin}
+                            selectedKey={places.find((place) => place.name === origin)?.key}
                             startContent={<FlightTakeoffIcon />}
                             value={origin}
                             onSelectionChange={(key) => {
                                 const selectedPlace = places.find((place) => place.key === key);
                                 setOrigin(selectedPlace ? selectedPlace.name : "");
                             }}
+                            disabledKeys={places
+                                .filter((place) => place.name === destination)
+                                .map((place) => place.key)}
                         >
                             {(item) => (
                                 <AutocompleteItem key={item.key}>{item.name}</AutocompleteItem>
@@ -298,15 +308,20 @@ export default function ReservationsForm() {
                     >
                         <Autocomplete
                             className="max-w-lg"
-                            defaultItems={filteredDestinations}
+                            defaultItems={places}
                             label="Destination"
                             size="lg"
+                            selectedKey={places.find((place) => place.name === destination)?.key}
+                            inputValue={destination}
                             startContent={<FlightLandIcon />}
                             value={destination}
                             onSelectionChange={(key) => {
                                 const selectedPlace = places.find((place) => place.key === key);
                                 setDestination(selectedPlace ? selectedPlace.name : "");
                             }}
+                            disabledKeys={places
+                                .filter((place) => place.name === origin)
+                                .map((place) => place.key)}
                         >
                             {(item) => (
                                 <AutocompleteItem key={item.key}>{item.name}</AutocompleteItem>

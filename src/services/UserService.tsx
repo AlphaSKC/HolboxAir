@@ -10,6 +10,15 @@ const CreateCotizacion = async (cotizacion: any) => {
   }
 };
 
+const CreateReservacionOferta = async (reservacion: any) => {
+  try {
+    const response = await axios.post(`${apiURL}/ReservacionOferta`, reservacion);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const GetCostos = async (origen: string, destino: string) => {
   try {
     const response = await axios.get(`${apiURL}/Costo/CostoVuelo?origen=${origen}&destino=${destino}`);
@@ -47,4 +56,4 @@ const GetDollarPrice = async () => {
   }
 }
 
-export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice };
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta };

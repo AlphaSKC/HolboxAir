@@ -30,6 +30,8 @@ import { CircularProgress } from "@mui/material";
 import MyFlightPage from "./pages/MyFlightPage";
 import TermsOfUsePage from "./pages/TermsOfUsePage";
 import ConfirmationFlightPage from "./pages/ConfirmationFlightPage";
+import CheckoutDealPage from "./pages/CheckoutDealPage";
+import FaqsPage from "./pages/FaqsPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -122,10 +124,15 @@ function App() {
           element={<ExtraServicesTemplate />}
         />
         <Route path="/topics/:name" element={<AddedValueTemplate />} />
+        <Route path="/faq" element={<FaqsPage />} />
         <Route path="/checkout" element={
           <RequireReservationForm>
             <CheckoutPage />
           </RequireReservationForm>
+        } />
+
+        <Route path="/checkoutDeal" element={
+          <CheckoutDealPage />
         } />
 
         <Route path="/confirmationQuote" element={

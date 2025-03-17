@@ -12,6 +12,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Deal } from "../../types/types";
 import { GetDeals } from "../../services/AdminService";
+import { useNavigate } from "react-router-dom";
 
 const classifyDealsByYearAndMonth = (deals: any) => {
     return deals.reduce((acc: any, deal: any) => {
@@ -30,7 +31,7 @@ const classifyDealsByYearAndMonth = (deals: any) => {
             arrival: deal.destino,
             dateTime: deal.fechaSalida,
             passengers: deal.disponibilidad,
-            price: `$${deal.precio}`
+            price: deal.precio
         });
         return acc;
     }, {});
@@ -62,6 +63,8 @@ export default function Deals() {
     const [deals, setDeals] = useState<Deal[]>([]);
     const dealsByYearAndMonth = classifyDealsByYearAndMonth(deals);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleToggle = (key: string) => {
         setOpen(prevState => ({ ...prevState, [key]: !prevState[key] }));
@@ -118,7 +121,7 @@ export default function Deals() {
             }}>
                 {loading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-                        <CircularProgress />
+                        <CircularProgress sx={{ color: '#E68A00' }} />
                     </Box>
                 ) : (
                     Object.keys(dealsByYearAndMonth).map(year => (
@@ -211,7 +214,20 @@ export default function Deals() {
                                                                                 bgcolor: "white",
                                                                                 color: "#e68a00",
                                                                             }
-                                                                        }}>
+                                                                        }}
+                                                                            onClick={() => {
+                                                                                navigate('/checkoutDeal', {
+                                                                                    state: {
+                                                                                        ofertaID: deal.id,
+                                                                                        origen: deal.departure,
+                                                                                        destino: deal.arrival,
+                                                                                        fechaSalida: deal.dateTime,
+                                                                                        disponibilidad: deal.passengers,
+                                                                                        precio: deal.price
+                                                                                    }
+                                                                                });
+                                                                            }}
+                                                                        >
                                                                             Book Now
                                                                         </Button>
                                                                     </Box>

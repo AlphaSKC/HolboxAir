@@ -3,13 +3,13 @@ import { formatDateTimeUS, getStatusColor, translateStatus } from "../../utils/u
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import { Input } from "@nextui-org/react";
-import { ChangeStatusReservacion } from "../../services/AdminService";
+import { ChangeStatusReservacion, ConfirmFlight } from "../../services/AdminService";
 import { useEffect, useState } from "react";
 import { GetDollarPrice, GetFlightDetails } from "../../services/UserService";
 import { defaultFlightDetails, FlightDetails } from "../../types/types";
 import { CancelCircleIcon, CheckmarkSquare03Icon } from "hugeicons-react";
 import PaypalButton from "./PaypalButton";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface FlightDetailProps {
     tipo: string;
@@ -22,6 +22,8 @@ export default function FlightDetail(props: FlightDetailProps) {
     const [loading, setLoading] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
     const [dollarPrice, setDollarPrice] = useState(0);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         getFilghtDetails();
@@ -66,6 +68,18 @@ export default function FlightDetail(props: FlightDetailProps) {
         }
         catch (error) {
             console.log(error);
+        }
+    }
+
+    const handlePaymentComplete = async () => {
+        const data = {
+            tipo: flightDetails.tipo,
+            identificador: flightDetails.identificador,
+        }
+        const response = await ConfirmFlight(data);
+        if (response.success) {
+            localStorage.setItem("payCompleted", "true");
+            navigate("/confirmationFlight");
         }
     }
 
@@ -182,7 +196,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                     <PaypalButton
                                         totalValue={parseFloat((dollarPrice * 200).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
-                                        flightDetails={flightDetails}
+                                        onPaymentComplete={handlePaymentComplete} // Pass the new function
                                     />
                                 )}
                             </Grid2>
@@ -207,7 +221,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                     </Box>
                     <Divider flexItem sx={{ my: '2vh' }} />
                     {/* Precio - MontoPagado = Restante*/}
-                    {flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado' && (
+                    {(flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') || (flightDetails?.tipo === 'Oferta' && flightDetails?.estado === 'Pagado') && (
                         <>
                             <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
                                 <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
