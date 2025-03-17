@@ -46,7 +46,7 @@ const Topics = [
     id: 6,
     icon: HelpIcon,
     title: "Help",
-    route: "/topics/faq",
+    route: "/faq",
   },
 ];
 
@@ -104,7 +104,10 @@ export default function PopularTopics() {
                 gap: "1.2vh",
               }}
             >
-              <NavLink to={topic.route}>
+              <NavLink
+                to={topic.route}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <Box
                   sx={{
                     width: "fit-content",
