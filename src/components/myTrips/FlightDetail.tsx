@@ -89,7 +89,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                 <CircularProgress sx={{ color: '#E68A00' }} />
             ) : (
                 <>
-                    <Typography className="Lato" variant="h6" fontWeight="bold" mb={2}>Flight Detail</Typography>
+                    <Typography className="Lato" variant="h6" fontWeight="bold" mb={2}>Flight Details</Typography>
 
                     {/* Mensaje de cambios en el vuelo */}
                     {flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Revision' && (
@@ -221,7 +221,8 @@ export default function FlightDetail(props: FlightDetailProps) {
                     </Box>
                     <Divider flexItem sx={{ my: '2vh' }} />
                     {/* Precio - MontoPagado = Restante*/}
-                    {(flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') || (flightDetails?.tipo === 'Oferta' && flightDetails?.estado === 'Pagado') && (
+                    {((flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') || 
+                        (flightDetails?.tipo === 'Oferta' && flightDetails?.estado === 'Pagado')) && (
                         <>
                             <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
                                 <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
