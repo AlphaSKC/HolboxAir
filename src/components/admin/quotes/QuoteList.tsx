@@ -57,6 +57,8 @@ import { formatDateTimeMex, toUTCString } from "../../../utils/utils";
 import CustomDateTimePicker from "../../general/CustomDateTimePicker";
 import { Quote, defaulQuote } from "../../../types/types";
 
+import DefaultFlight from "../../../assets/img/others/DefaultFlights.jpg";
+
 const classifyQuotesByStatus = (quotes: Quote[]) => {
     return quotes.reduce((acc: any, quote: Quote) => {
         const status = quote.estado;
@@ -384,7 +386,7 @@ export default function QuoteList() {
                                                             <Image
                                                                 alt="Card background"
                                                                 className="object-cover rounded-xl"
-                                                                src="https://heroui.com/images/hero-card-complete.jpeg"
+                                                                src={DefaultFlight}
                                                                 width={"100%"}
                                                             />
                                                         </CardBody>
