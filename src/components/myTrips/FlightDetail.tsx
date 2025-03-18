@@ -3,7 +3,7 @@ import { formatDateTimeUS, getStatusColor, translateStatus } from "../../utils/u
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import { Input } from "@nextui-org/react";
-import { ChangeStatusReservacion, ConfirmFlight } from "../../services/AdminService";
+import { ChangeStatusReservacion, ConfirmFlight, SendEmailReservation } from "../../services/AdminService";
 import { useEffect, useState } from "react";
 import { GetDollarPrice, GetFlightDetails } from "../../services/UserService";
 import { defaultFlightDetails, FlightDetails } from "../../types/types";
@@ -78,6 +78,11 @@ export default function FlightDetail(props: FlightDetailProps) {
         }
         const response = await ConfirmFlight(data);
         if (response.success) {
+            const email = {
+                email: flightDetails.correoPasajero,
+                code: flightDetails.codigo,
+            }
+            await SendEmailReservation(email);
             localStorage.setItem("payCompleted", "true");
             navigate("/confirmationFlight");
         }
@@ -221,38 +226,38 @@ export default function FlightDetail(props: FlightDetailProps) {
                     </Box>
                     <Divider flexItem sx={{ my: '2vh' }} />
                     {/* Precio - MontoPagado = Restante*/}
-                    {((flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') || 
+                    {((flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') ||
                         (flightDetails?.tipo === 'Oferta' && flightDetails?.estado === 'Pagado')) && (
-                        <>
-                            <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
-                                <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
-                                    Payment Summary
-                                </Typography>
-                                <Divider />
-                                <Grid2 container marginY={2} spacing={2}>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Total Price:</Typography>
+                            <>
+                                <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
+                                    <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
+                                        Payment Summary
+                                    </Typography>
+                                    <Divider />
+                                    <Grid2 container marginY={2} spacing={2}>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Total Price:</Typography>
+                                        </Grid2>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                            <Typography className="Lato">${flightDetails?.precio} USD</Typography>
+                                        </Grid2>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Amount Paid:</Typography>
+                                        </Grid2>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                            <Typography className="Lato">${flightDetails?.montoPagado} USD</Typography>
+                                        </Grid2>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
+                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Remaining Amount:</Typography>
+                                        </Grid2>
+                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
+                                            <Typography className="Lato">${flightDetails?.precio - (flightDetails?.montoPagado ?? 0)} USD</Typography>
+                                        </Grid2>
                                     </Grid2>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                        <Typography className="Lato">${flightDetails?.precio} USD</Typography>
-                                    </Grid2>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Amount Paid:</Typography>
-                                    </Grid2>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                        <Typography className="Lato">${flightDetails?.montoPagado} USD</Typography>
-                                    </Grid2>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                        <Typography className="Lato" fontWeight="bold" color="#E68A00">Remaining Amount:</Typography>
-                                    </Grid2>
-                                    <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                        <Typography className="Lato">${flightDetails?.precio - (flightDetails?.montoPagado ?? 0)} USD</Typography>
-                                    </Grid2>
-                                </Grid2>
-                            </Box>
-                            <Divider flexItem sx={{ my: '2vh' }} />
-                        </>
-                    )}
+                                </Box>
+                                <Divider flexItem sx={{ my: '2vh' }} />
+                            </>
+                        )}
 
                     <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", marginBottom: "30px", width: "100%" }}>
                         <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>

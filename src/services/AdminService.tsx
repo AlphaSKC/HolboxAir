@@ -145,11 +145,22 @@ const ConfirmFlight = async (data: any) => {
     }
 }
 
+const SendEmailReservation = async (data: any) => {
+    try {
+        const response = await axios.post(`${apiURL}/Reservacion/SendEmailReservation`, data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
     ChangeStatusReservacion, ConfirmFlight,
     GetReservaciones, SendEmailChangeDate,
     SendEmailConfirmationQuote, CreateOferta,
-    ChangeStatusOfertaCreada, GetDeals
+    ChangeStatusOfertaCreada, GetDeals,
+    SendEmailReservation
 };
