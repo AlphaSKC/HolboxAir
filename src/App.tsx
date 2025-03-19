@@ -32,6 +32,8 @@ import TermsOfUsePage from "./pages/TermsOfUsePage";
 import ConfirmationFlightPage from "./pages/ConfirmationFlightPage";
 import CheckoutDealPage from "./pages/CheckoutDealPage";
 import FaqsPage from "./pages/FaqsPage";
+import AirportsTemplate from "./components/templates/AirportsTemplate";
+import PricesPage from "./pages/PricesPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -153,6 +155,8 @@ function App() {
           </RequirePay>
         } />
 
+        <Route path="/airports/:name" element={<AirportsTemplate />} />
+
         <Route path="/terms-of-use" element={<TermsOfUsePage />} />
 
         <Route path="/admin" element={<LoginPage />} />
@@ -163,6 +167,7 @@ function App() {
         <Route path="/dashboard/reservations" element={<RequireAuth><DashboardLayout><ReservationsPage /></DashboardLayout></RequireAuth>} />
         <Route path="/dashboard/quotes" element={<RequireAuth><DashboardLayout><QuotesPage /></DashboardLayout></RequireAuth>} />
         <Route path="/dashboard/deals" element={<RequireAuth><DashboardLayout><DealsPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/prices" element={<RequireAuth><DashboardLayout><PricesPage /></DashboardLayout></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}

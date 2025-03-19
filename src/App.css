@@ -80,7 +80,7 @@
 
 .swiperSlide {
   min-width: 15vw !important;
-  width: fit-content !important;
+  width: 15vw !important;
 }
 
 .image-hover-effect {
@@ -288,9 +288,60 @@
   grid-row-start: 14;
 }
 
-/* 
-.box15{
-  grid-column: span 2 / span 2;
-  grid-column-start: 2;
-  grid-row-start: 13;
-} */
+/*GRID AIRPORTS WEB */
+.parentWeb {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 14px;
+  grid-row-gap: 14px;
+}
+
+.airport1Web {
+  grid-area: 1 / 1 / 5 / 4;
+}
+
+.airport2Web {
+  grid-area: 1 / 4 / 3 / 6;
+}
+
+.airport3Web {
+  grid-area: 3 / 4 / 5 / 6;
+}
+
+.airport4Web {
+  grid-area: 1 / 6 / 3 / 8;
+}
+
+.airport5Web {
+  grid-area: 3 / 6 / 5 / 8;
+}
+
+/*GRID AIRPORTS MOBILE */
+.parentMobile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 14px;
+  grid-row-gap: 14px;
+}
+
+.airport1Mobile {
+  grid-area: 1 / 1 / 3 / 3;
+}
+
+.airport2Mobile {
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+.airport3Mobile {
+  grid-area: 3 / 2 / 4 / 3;
+}
+
+.airport4Mobile {
+  grid-area: 4 / 1 / 5 / 2;
+}
+
+.airport5Mobile {
+  grid-area: 4 / 2 / 5 / 3;
+}
