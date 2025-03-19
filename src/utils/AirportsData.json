@@ -1,0 +1,76 @@
+[
+    {
+        "id": 1,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa20ff6f21c424066ab91c8d80214f6ad&methods=resize%2C600%2C5000",
+        "name": "Cancun FBO",
+        "content": "The FBO terminal is one of the four active terminals at Cancun International Airport. It serves regional airlines, Jet Planes and private flights, both domestic and international. The terminal features two waiting lounges, air conditioning, restrooms, vehicle parking, and 37 aircraft parking positions.<br/><br/>Food and beverage options are limited, so we recommend purchasing these items at the commercial terminals.<br/><br/>The FBO terminal does not offer the free Terminal's  Shuttle service provided by the airport. Therefore, to reach this terminal, you will need to arrange private transportation or drive your own vehicle. The average travel time from the commercial terminals is approximately 5 to 10 minutes.",
+        "gallery": [
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/a20ff6f21c424066ab91c8d80214f6ad",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/83b051cfa1e749d7a0566b5a3293bc08",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/0e144e5bbb3c4d1db408fb2246b749af",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/87ebf587f8d0484ab9b3e077cbd52e17",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/d9a7fba0b3d24ac2bdbb4988f76a3039"
+        ],
+        "route": "/airports/Cancun FBO",
+        "lat": 21.03360196010113,
+        "lng": -86.86309881632064
+    },
+    {
+        "id": 2,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F9f5a3cb966d44935b1bc73951b903f30&methods=resize%2C600%2C5000",
+        "name": "Holbox Airport",
+        "content": "Holbox airport is actually an airstrip with basic infrastructure for operations of smaller aircraft, with a length of 600 meters (1,968 ft) and is not asphalted. The aircraft regularly operating here include Cessna 182, Cessna 206, Piper Saratoga, Piper Seneca, Quest Kodiak, although records also show operations with Cessna Grand Caravans.<br/><br/>Unlike other airports where you might find shops, pharmacies, and restaurants, here there are no luxuries, but an atmosphere that reflects that of the island. The waiting area consists of a small palapa with rustic wooden seats. The army will handle random luggage inspection. Just a few steps away (40 meters), you can reach Pedro Joaquín Coldwell Street, where you can take a golf cart to your hotel..<br/><br/>Additionally, the Holbox runway lacks lights or other landing aids for pilots, so flights can only be operated during daylight hours. <br/><br/>The operating hours of the runway vary depending on the time of year, as the duration of daylight is longer in summer and shorter in winter.",
+        "gallery": [
+            "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F9f5a3cb966d44935b1bc73951b903f30&methods=resize%2C600%2C5000",
+            "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fbca310b5938d4048ab973a7f85f29cca&methods=resize%2C1000%2C5000",
+            "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Ff9de48b600bc48bc92bf3f4710aa7054&methods=resize%2C2000%2C5000",
+            "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fb678c130d38a4b35aad5b09db2c215d3&methods=crop%2C0%25%2C0%25%2C100%25%2C75.0733%25%7Cresize%2C1000%2C5000",
+            "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa87f30c2fd884dc88776974b873748b4&methods=resize%2C2000%2C5000"
+        ],
+        "route": "/airports/Holbox Airport",
+        "lat": 21.520682579655425,
+        "lng": -87.38263871189491
+    },
+    {
+        "id": 3,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fc600a75bbb6645aaa828b06cf911a465&methods=resize%2C600%2C5000",
+        "name": "Playa del Carmen",
+        "content": "The Playa del Carmen airstrip is located in a very central area, situated on 15th Avenue between 1st Street South and 3rd Street South, just steps away from the beginning of the famous Fifth Avenue. The facilities are basic, featuring a rustic restroom, no air conditioning, and no on-site parking. However, paid parking options are available nearby. As a visual aerodrome, it operates only during daylight hours and remains closed at night.",
+        "gallery": [
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/0c2a7d6bad2e45fc931623ba19246edd",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/e36198d37e964bbc977da93d4d12ba33",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/5fa65b38f6d34b1ca513d44d94c9219f",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/0f20c0e209e04e36958077ce8121fde7",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/793ecb9496264487bd78d3c3c87aef98"
+        ],
+        "route": "/airports/Playa del Carmen",
+        "lat": 20.622358730084546, 
+        "lng": -87.07810125209437
+    },
+    {
+        "id": 4,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F912babe8e87e4e758cea39cad46d63d2&methods=resize%2C600%2C5000",
+        "name": "Tulum FBO",
+        "content":"The Tulum FBO terminal is located at the Tulum Aerodrome, which is a private airstrip located 5 kilometers (3.1 miles) from the Tulum Archaeological Zone. The terminal is a small building with a waiting area, restrooms, and a small parking lot. The terminal is open from 8:00 a.m. to 6:00 p.m. and operates only during daylight hours. The terminal does not have air conditioning, so we recommend dressing comfortably for the tropical climate.<br/><br/>The terminal is located in a rural area, so we recommend arranging transportation in advance. The terminal does not offer a shuttle service, so you will need to arrange private transportation or drive your own vehicle. The average travel time from the Tulum Archaeological Zone is approximately 10 to 15 minutes.",
+        "gallery":[
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/912babe8e87e4e758cea39cad46d63d2",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/5699a9b9a05442e4b355640ba46c01cf",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/d46787670e3348dd8e8266bd47716378",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/7769dfa6ffbe466a8703bef3f252a6f8",
+            "https://storage.googleapis.com/production-hostgator-mexico-v1-0-4/534/297534/OszKu7tR/3a581ea1fd4a46d890273c9d1559e17d"
+        ],
+        "route": "/airports/Tulum FBO",
+        "lat": 20.166466454359142,
+        "lng": -87.65840019763645
+    },
+    {
+        "id": 5,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa20ff6f21c424066ab91c8d80214f6ad&methods=resize%2C600%2C5000",
+        "name": "Cozumel Airport"
+    },
+    {
+        "id": 6,
+        "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F912babe8e87e4e758cea39cad46d63d2&methods=resize%2C600%2C5000",
+        "name": "Merida Airport"
+    }
+]

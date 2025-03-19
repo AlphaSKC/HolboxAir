@@ -32,6 +32,7 @@ import TermsOfUsePage from "./pages/TermsOfUsePage";
 import ConfirmationFlightPage from "./pages/ConfirmationFlightPage";
 import CheckoutDealPage from "./pages/CheckoutDealPage";
 import FaqsPage from "./pages/FaqsPage";
+import AirportsTemplate from "./components/templates/AirportsTemplate";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -152,6 +153,8 @@ function App() {
             <ConfirmationFlightPage />
           </RequirePay>
         } />
+
+        <Route path="/airports/:name" element={<AirportsTemplate />} />
 
         <Route path="/terms-of-use" element={<TermsOfUsePage />} />
 
