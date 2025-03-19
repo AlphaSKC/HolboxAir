@@ -18,7 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 
-import { Home11Icon, Logout01Icon, Notebook02Icon, DiscountTag02Icon, Airplane02Icon } from 'hugeicons-react';
+import { Home11Icon, Logout01Icon, Notebook02Icon, DiscountTag02Icon, Airplane02Icon, MoneyBag02Icon } from 'hugeicons-react';
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -274,6 +274,33 @@ export default function HeaderAdmin() {
                             </ListItemIcon>
                             <ListItemText
                                 primary={"Deals"}
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                    
+                    {/* Prices */}
+                    <ListItem disablePadding sx={{ display: "block" }}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                            onClick={() => navigate("/dashboard/prices")}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
+                                }}
+                                onClick={() => navigate("/dashboard/prices")}
+                            >
+                                <MoneyBag02Icon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Prices"}
                                 sx={{ opacity: open ? 1 : 0 }}
                             />
                         </ListItemButton>

@@ -155,6 +155,32 @@ const SendEmailReservation = async (data: any) => {
     }
 }
 
+const GetAllCostos = async () => {
+    try {
+        const response = await axios.get(`${apiURL}/Costo`);
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const UpdateCostos = async (data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.put(`${apiURL}/Costo/ActualizarCostos`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
@@ -162,5 +188,6 @@ export {
     GetReservaciones, SendEmailChangeDate,
     SendEmailConfirmationQuote, CreateOferta,
     ChangeStatusOfertaCreada, GetDeals,
-    SendEmailReservation
+    SendEmailReservation, UpdateCostos,
+    GetAllCostos
 };
