@@ -66,11 +66,33 @@
     {
         "id": 5,
         "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2Fa20ff6f21c424066ab91c8d80214f6ad&methods=resize%2C600%2C5000",
-        "name": "Cozumel Airport"
+        "name": "Cozumel Airport",
+        "content": "Cozumel International Airport is located on the island of Cozumel, just 3 kilometers (1.9 miles) from the city of San Miguel. The airport has a single terminal with two floors, featuring a waiting area, restrooms, and a small parking lot. The terminal is open from 7:00 a.m. to 9:00 p.m. and operates only during daylight hours. The terminal does not have air conditioning, so we recommend dressing comfortably for the tropical climate.<br/><br/>The airport is located in a rural area, so we recommend arranging transportation in advance. The terminal does not offer a shuttle service, so you will need to arrange private transportation or drive your own vehicle. The average travel time from the city of San Miguel is approximately 5 to 10 minutes.",
+        "gallery": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/CZM11.jpg/320px-CZM11.jpg",
+            "https://24horasqroo.mx/wp-content/uploads/qroo/2024/07/Aeropuerto-de-Cozumel-operara-hasta-las-14_00-horas.jpg",
+            "https://explormahahual.com/wp-content/uploads/2017/09/cosumel-1-750x350.jpg",
+            "https://www.asur.com.mx/media/Aeropuertos/Cozumel/Mapa/asur-aeropuertos-mapa-cozumel-plantabaja.png",
+            "https://quintanaroo.heraldodemexico.com.mx/u/fotografias/m/2025/2/3/f768x1-16170_16297_5050.jpeg"
+        ],
+        "route": "/airports/Cozumel Airport",
+        "lat": 20.51136758299232, 
+        "lng": -86.9296834703524
     },
     {
         "id": 6,
         "img": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator-mexico-v1-0-4%2F534%2F297534%2FOszKu7tR%2F912babe8e87e4e758cea39cad46d63d2&methods=resize%2C600%2C5000",
-        "name": "Merida Airport"
+        "name": "Merida Airport",
+        "content": "The Merida International Airport is located 7 kilometers (4.3 miles) from the city of Merida. The airport has a single terminal with two floors, featuring a waiting area, restrooms, and a small parking lot. The terminal is open from 7:00 a.m. to 9:00 p.m. and operates only during daylight hours. The terminal does not have air conditioning, so we recommend dressing comfortably for the tropical climate.<br/><br/>The airport is located in a rural area, so we recommend arranging transportation in advance. The terminal does not offer a shuttle service, so you will need to arrange private transportation or drive your own vehicle. The average travel time from the city of Merida is approximately 5 to 10 minutes.",
+        "gallery": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/M%C3%A9rida_International_Airport_%28Aeropuerto_Internacional_de_M%C3%A9rida_Manuel_Crescencio_Rej%C3%B3n%29_Feb_2021_-_01.jpg/330px-M%C3%A9rida_International_Airport_%28Aeropuerto_Internacional_de_M%C3%A9rida_Manuel_Crescencio_Rej%C3%B3n%29_Feb_2021_-_01.jpg",
+            "https://notirasa.com/uploads/noticias/45083-aeropuerto.jpg",
+            "https://yucatanbajolalupa.com.mx/wp-content/uploads/2023/12/43a6e0f0-76de-4004-b74f-c4f82d1fa033-750x516.jpeg",
+            "https://yucatantoday.com/hubfs/Imported_Blog_Media/2309-Aeropuerto-Internacional-de-Merida-by-Yucatan-Today-3.jpg?width=360&name=2309-Aeropuerto-Internacional-de-Merida-by-Yucatan-Today-3.jpg",
+            "https://www.asur.com.mx/media/Aeropuertos/Merida/Mapa/asur-aeropuertos-mapa-merida-plantabaja.png"
+        ],
+        "route": "/airports/Merida Airport",
+        "lat": 20.933777093891553,
+        "lng": -89.65582571406354
     }
 ]

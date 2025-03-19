@@ -166,10 +166,10 @@ export default function Footer() {
                 Chetumal Km22 Cancun 77569, MX
               </Typography>
               <Typography className="Lato" sx={{ color: "#ccc" }}>
-                <PhoneIcon sx={{ mr: "0.5vw" }} /> Phone: +99 (0) 101 0000 888
+                <PhoneIcon sx={{ mr: "0.5vw" }} /> Phone: +52 998 347 5737
               </Typography>
               <Typography className="Lato" sx={{ color: "#ccc" }}>
-                <EmailIcon sx={{ mr: "0.5vw" }} /> Email: info@yourdomain.com
+                <EmailIcon sx={{ mr: "0.5vw" }} /> Email: info@holboxair.com
               </Typography>
             </Box>
           </Box>

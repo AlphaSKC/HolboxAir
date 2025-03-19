@@ -1,6 +1,7 @@
-
+const APIKEY = import.meta.env.VITE_APIKEY_GOOGLE_MAPS;
 import { CircularProgress } from '@mui/material';
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+
 
 interface MapProps {
     lat: number;
@@ -10,7 +11,7 @@ interface MapProps {
 export default function Map(props: MapProps) {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: 'AIzaSyBqe3pRlgKbVmxyXYohjuVBW-Ib5RKxG-c',
+        googleMapsApiKey: APIKEY,
     });
 
     const mapContainerStyle = {
