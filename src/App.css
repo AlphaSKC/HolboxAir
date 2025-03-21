@@ -93,12 +93,15 @@
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
+
   .card {
     max-width: 20vw !important;
   }
 
   .swiperSlide {
-    min-width: none !important;
+    width: fit-content !important;
+    min-width: 20vw !important;
+    max-width: 30vw !important;
   }
 }
 
@@ -110,6 +113,7 @@
   .swiperSlide {
     width: fit-content !important;
     min-width: 20vw !important;
+    max-width: 40vw !important;
   }
 }
 

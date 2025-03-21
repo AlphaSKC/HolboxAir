@@ -62,8 +62,7 @@ export default function Footer() {
             className="text-justify Lato"
             color="#ccc"
           >
-            Holbox Air is a regional airline that offers flights to the most
-            important destinations in the Mexican Caribbean.
+            Holbox Air is a air company that offers flights to the most important destinations in the Mexican Caribbean.
           </Typography>
           <Box
             sx={{
@@ -162,8 +161,7 @@ export default function Footer() {
               }}
             >
               <Typography className="Lato" sx={{ color: "#ccc" }}>
-                <PlaceIcon sx={{ mr: "0.5vw" }} /> Address: Carretera Cancun
-                Chetumal Km22 Cancun 77569, MX
+                <PlaceIcon sx={{ mr: "0.5vw" }} /> Address: Carretera Cancun - Chetumal KM 22, Aeropuerto internacional de Cancun, Terminal FBO CP 77569
               </Typography>
               <Typography className="Lato" sx={{ color: "#ccc" }}>
                 <PhoneIcon sx={{ mr: "0.5vw" }} /> Phone: +52 998 347 5737
@@ -188,14 +186,7 @@ export default function Footer() {
               align="center"
               sx={{ mt: "2vh", color: "#ccc" }}
             >
-              Terms of use | Environmental Policy - {" "}
-              <NavLink
-                key={"Admin"}
-                to={"/admin"}
-                style={{ color: "#ccc", textDecoration: "none" }}
-              >
-                Admin Login
-              </NavLink>
+              Terms of use | Environmental Policy
             </Typography>
             <Typography
               variant="body2"
