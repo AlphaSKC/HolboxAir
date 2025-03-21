@@ -1,7 +1,7 @@
 import { Box, Button, Grid2, Typography } from "@mui/material";
 
 import Confirmation from "../assets/img/others/ConfirmationImage.svg";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ConfirmationQuote() {
     const navigate = useNavigate();
@@ -16,7 +16,8 @@ export default function ConfirmationQuote() {
             <Grid2 size={12}>
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography className="Lato" sx={{ fontSize: '4vh', fontWeight: '700', color: '#e68a00' }}>
-                        Your quote has been successfully created. The quote code has been sent to the email you provided.
+                        Your request has been successfully received, and your request code has been sent to the email you provided.
+                        Please don't forget to check your spam folder if the email takes a while to arrive.
                     </Typography>
                     <Button className="Lato" sx={{
                         marginTop: '20px',

@@ -23,11 +23,14 @@ export default function FlightDetail(props: FlightDetailProps) {
     const [isChecked, setIsChecked] = useState(false);
     const [dollarPrice, setDollarPrice] = useState(0);
 
+    const [fullPrice, setFullPrice] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         getFilghtDetails();
         getDollarPrice();
+        setFullPrice(periodoNavideño());
     }, []);
 
     const getDollarPrice = async () => {
@@ -56,6 +59,16 @@ export default function FlightDetail(props: FlightDetailProps) {
         finally {
             setLoading(false);
         }
+    }
+
+    const periodoNavideño = () => {
+        const fechaActual = new Date();
+        const year = new Date().getFullYear();
+
+        const inicio = new Date(year, 11, 25);
+        const fin = new Date(year + 1, 0, 7);
+
+        return fechaActual >= inicio && fechaActual <= fin;
     }
 
     const showActionButtons = (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Revision');
@@ -175,33 +188,38 @@ export default function FlightDetail(props: FlightDetailProps) {
 
                                 {/* Check de terminos y condiciones */}
                                 {((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) && (
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={isChecked}
-                                                onChange={(e) => setIsChecked(e.target.checked)}
-                                                sx={{
-                                                    color: '#E38A00',
-                                                    '&.Mui-checked': {
-                                                        color: '#E38A00'
-                                                    }
-                                                }}
-                                            />
-                                        }
-                                        label={
-                                            <Typography>
-                                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
-                                            </Typography>
-                                        }
-                                    />
+                                    <>
+                                        <Typography className="Lato" sx={{ fontSize: '2.2vh' }}>
+                                            ⚠️ Please note that the Cancun airport tax (TUA) is not included; however, it can be exempted if you arrive into Cancun by air and depart to Holbox on the same day by presenting the boarding passes from your airline.
+                                        </Typography>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={isChecked}
+                                                    onChange={(e) => setIsChecked(e.target.checked)}
+                                                    sx={{
+                                                        color: '#E38A00',
+                                                        '&.Mui-checked': {
+                                                            color: '#E38A00'
+                                                        }
+                                                    }}
+                                                />
+                                            }
+                                            label={
+                                                <Typography className="Lato" sx={{ fontSize: '2.2vh' }}>
+                                                    I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                                                </Typography>
+                                            }
+                                        />
+                                    </>
                                 )}
                             </Grid2>
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 5 : 12 }} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {isChecked && (
                                     <PaypalButton
-                                        totalValue={parseFloat((dollarPrice * 200).toFixed(2))}
+                                        totalValue={fullPrice ? parseFloat((flightDetails.precio * dollarPrice).toFixed(2)) : parseFloat((dollarPrice * 200).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
-                                        onPaymentComplete={handlePaymentComplete} // Pass the new function
+                                        onPaymentComplete={handlePaymentComplete}
                                     />
                                 )}
                             </Grid2>

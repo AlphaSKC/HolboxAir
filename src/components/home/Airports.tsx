@@ -87,9 +87,9 @@ export default function Airports() {
                             el: ".pagination",
                             clickable: true,
                         }}
-                        loop={true}
-                        slidesPerView={5}
+                        slidesPerView={"auto"}
                         spaceBetween={25}
+                        centeredSlides={true}
                     >
                         {AirportsData.map((airport) => (
                             <SwiperSlide key={airport.id} className="swiperSlide">
@@ -100,11 +100,12 @@ export default function Airports() {
                                             alt={`Image of ${airport.name}`}
                                             className="z-0 object-cover"
                                             height="30vh"
+                                            width="fit-content"
                                             src={airport.img}
                                         />
                                     </NavLink>
                                     <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-                                        <Typography className="Oswald" sx={{ fontSize: '1.5rem', textAlign: 'center' }}>
+                                        <Typography className="Oswald" sx={{ fontSize: '3vh', textAlign: 'center' }}>
                                             {airport.name}
                                         </Typography>
                                     </CardFooter>
