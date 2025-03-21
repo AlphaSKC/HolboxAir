@@ -93,8 +93,8 @@ export default function Airports() {
                     >
                         {AirportsData.map((airport) => (
                             <SwiperSlide key={airport.id} className="swiperSlide">
-                                <Card isPressable isFooterBlurred className="border-none" radius="lg">
-                                    <NavLink to={airport.route} onClick={() => window.scrollTo(0, 0)}>
+                                <NavLink to={airport.route} onClick={() => window.scrollTo(0, 0)} preventScrollReset>
+                                    <Card isFooterBlurred className="border-none" radius="lg">
                                         <Image
                                             removeWrapper
                                             alt={`Image of ${airport.name}`}
@@ -103,19 +103,19 @@ export default function Airports() {
                                             width="fit-content"
                                             src={airport.img}
                                         />
-                                    </NavLink>
-                                    <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-                                        <Typography className="Oswald" sx={{ fontSize: '3vh', textAlign: 'center' }}>
-                                            {airport.name}
-                                        </Typography>
-                                    </CardFooter>
-                                </Card>
+                                        <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                                            <Typography className="Oswald" sx={{ fontSize: '3vh', textAlign: 'center' }}>
+                                                {airport.name}
+                                            </Typography>
+                                        </CardFooter>
+                                    </Card>
+                                </NavLink>
                             </SwiperSlide>
                         ))}
                     </Swiper>
                     <div className="pagination" />
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
