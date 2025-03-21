@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import HeroContainer from "../components/home/HeroContainer";
 import ExtraServices from "../components/home/ExtraServices";
 import ImageDivider from "../components/home/ImageDivider";
@@ -7,12 +7,15 @@ import Airports from "../components/home/Airports";
 import PopularTopics from "../components/home/PopularTopics";
 import PaymentMethods from "../components/home/PaymentMethods";
 import { useEffect } from "react";
+import AirportsMobile from "../components/home/AirportsMobile";
 
 export default function HomePage() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const isMobile = useMediaQuery('(max-width: 600px)');
 
     return (
         <Box sx={{
@@ -27,7 +30,10 @@ export default function HomePage() {
             <ExtraServices />
             <ImageDivider />
             <AddedValue />
-            <Airports />
+            {isMobile ?
+                <AirportsMobile /> :
+                <Airports />
+            }
             <PopularTopics />
         </Box>
     );

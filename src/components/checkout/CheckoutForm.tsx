@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Divider, Grid2, Slide, SlideProps, Snackbar, Typography } from "@mui/material";
+import { Alert, Box, Button, CircularProgress, Divider, Grid2, Slide, SlideProps, Snackbar, Typography } from "@mui/material";
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
@@ -70,7 +70,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         if (
             formData.pasajeroPrincipal !== "" &&
             isValidEmail(formData.correoPasajero) &&
-            isValidPhone(formData.telefonoPasajero, countryCode) && // Updated function call with country code
+            isValidPhone(formData.telefonoPasajero, countryCode) &&
             allAdditionalPassengersFilled
         ) {
             setIsDisabled(false);
@@ -255,7 +255,10 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                                     color: 'white',
                                 }
                             }} onClick={handleQuote} disabled={isDisabled || isLoading}>
-                                Request Flight
+                                {isLoading ? (
+                                    <CircularProgress sx={{ color: "white" }} />
+                                ) : "Request Flight"
+                                }
                             </Button>
                         </Box>
                     </Box>

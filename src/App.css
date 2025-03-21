@@ -323,9 +323,10 @@
 .parentMobile {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-column-gap: 14px;
   grid-row-gap: 14px;
+
 }
 
 .airport1Mobile {
@@ -333,17 +334,17 @@
 }
 
 .airport2Mobile {
-  grid-area: 3 / 1 / 4 / 2;
+  grid-area: 3 / 1 / 5 / 2;
 }
 
 .airport3Mobile {
-  grid-area: 3 / 2 / 4 / 3;
+  grid-area: 3 / 2 / 5 / 3;
 }
 
 .airport4Mobile {
-  grid-area: 4 / 1 / 5 / 2;
+  grid-area: 5 / 1 / 7 / 2;
 }
 
 .airport5Mobile {
-  grid-area: 4 / 2 / 5 / 3;
+  grid-area: 5 / 2 / 7 / 3;
 }

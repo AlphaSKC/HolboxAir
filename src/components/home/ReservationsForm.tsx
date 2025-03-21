@@ -108,7 +108,7 @@ export default function ReservationsForm() {
     );
     const [passengers, setPassengers] = useState(0);
     const [promoCode, setPromoCode] = useState("");
-    // const [filteredDestinations, setFilteredDestinations] = useState(places);
+    
     const [isSending, setIsSending] = useState(false);
 
     useEffect(() => {
@@ -123,14 +123,6 @@ export default function ReservationsForm() {
             setReturnDate(dayjs(departure).add(4, "hour"));
         }
     }, [isSencillo, departure]);
-
-    // useEffect(() => {
-    //     setFilteredDestinations(places.filter((place) => place.name !== origin));
-    // }, [origin]);
-
-    // useEffect(() => {
-    //     setFilteredDestinations(places.filter((place) => place.name !== destination));
-    // }, [destination]);
 
     const sendData = async () => {
         setIsSending(true);
