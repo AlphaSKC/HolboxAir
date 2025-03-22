@@ -56,4 +56,13 @@ const GetDollarPrice = async () => {
   }
 }
 
-export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta };
+const SendContactForm = async (data: any) => {
+  try {
+    const response = await axios.post(`${apiURL}/Contacto`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta, SendContactForm };

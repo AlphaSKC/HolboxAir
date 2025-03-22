@@ -36,6 +36,7 @@ export default function AirportsTemplate() {
                                 bgcolor: '#F5F5F5',
                                 py: '5vh',
                                 px: '15vw',
+                                width: '100%',
                                 height: 'auto',
                             }}>
                                 <Typography variant="h4" component="h1" gutterBottom className="Lato" width='100%'>

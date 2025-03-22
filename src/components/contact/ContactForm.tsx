@@ -1,19 +1,59 @@
-import { Box, Button, Grid2 } from "@mui/material";
+import { Box, Button, CircularProgress, Grid2 } from "@mui/material";
 import { Form, Input, Textarea } from "@nextui-org/react";
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import SubjectIcon from '@mui/icons-material/Subject';
 import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
+import { SendContactForm } from "../../services/UserService";
+import AlertSnackbar from "../general/AlertSnackbar";
 
 export default function ContactForm() {
-    const [submitted, setSubmitted] = useState<any>(null);
+    const [formData, setFormData] = useState({
+        nombre: '',
+        email: '',
+        asunto: '',
+        contenido: ''
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState<"success" | "error">('success');
+
+    const sendEmail = async () => {
+        setLoading(true);
+        try {
+            const response = await SendContactForm(formData);
+            if (response.success) {
+                setAlertMessage('Email sent successfully!');
+                setAlertSeverity('success');
+                setFormData({
+                    nombre: '',
+                    email: '',
+                    asunto: '',
+                    contenido: ''
+                });
+            }
+            else {
+                setAlertMessage('Error sending email!');
+                setAlertSeverity('error');
+            }
+        }
+        catch (error) {
+            setAlertMessage('Error sending email!');
+            setAlertSeverity('error');
+        }
+        finally {
+            setAlertOpen(true);
+            setLoading(false);
+        }
+    }
 
     const onSubmit = (e: any) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.currentTarget));
-        setSubmitted(data);
-        console.log(submitted);
+        sendEmail();
     }
     return (
         <Box sx={{
@@ -41,6 +81,13 @@ export default function ContactForm() {
                             startContent={
                                 <PersonIcon />
                             }
+                            value={formData.nombre}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    nombre: e.target.value
+                                })
+                            }}
                             type="text"
                         />
                         <Input
@@ -51,12 +98,19 @@ export default function ContactForm() {
                                 }
                                 return validationErrors;
                             }}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    email: e.target.value
+                                })
+                            }}
                             isClearable
                             label="Email"
                             labelPlacement='inside'
                             startContent={
                                 <EmailIcon />
                             }
+                            value={formData.email}
                             type="email"
                         />
                         <Input
@@ -68,6 +122,13 @@ export default function ContactForm() {
                             startContent={
                                 <SubjectIcon />
                             }
+                            value={formData.asunto}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    asunto: e.target.value
+                                })
+                            }}
                             type="text"
                         />
                     </Grid2>
@@ -78,6 +139,13 @@ export default function ContactForm() {
                             className="col-span-12 md:col-span-6 mb-6 md:mb-0"
                             label="Message"
                             labelPlacement="inside"
+                            value={formData.contenido}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    contenido: e.target.value
+                                })
+                            }}
                             placeholder="Enter your message here"
                             size="lg"
                             minRows={6}
@@ -100,14 +168,31 @@ export default function ContactForm() {
                             ":hover": {
                                 backgroundColor: "white",
                                 color: "#e68a00",
+                            },
+                            ":disabled":{
+                                backgroundColor: "#ccc",
+                                color: "#666"
                             }
-                        }}>
-                            Send
-                            <SendIcon sx={{ marginLeft: '0.5vw' }} />
+                        }}
+                            disabled={loading}
+                        >
+                            {loading ? <CircularProgress sx={{ color: 'white' }} />
+                                : (
+                                    <>
+                                        Send
+                                        <SendIcon sx={{ marginLeft: '0.5vw' }} />
+                                    </>
+                                )}
                         </Button>
                     </Grid2>
                 </Grid2>
             </Form>
+            <AlertSnackbar
+                open={alertOpen}
+                onClose={() => setAlertOpen(false)}
+                message={alertMessage}
+                severity={alertSeverity}
+            />
         </Box>
     )
 }
