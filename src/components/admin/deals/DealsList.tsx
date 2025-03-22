@@ -1,17 +1,17 @@
-import { Box, CircularProgress, Collapse, ListSubheader, IconButton, Typography, Button, Grid2 } from "@mui/material";
+import { Box, CircularProgress, Collapse, ListSubheader, IconButton, Typography, Button, Grid2, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Card, CardBody, Image } from "@nextui-org/react";
+import { Card, CardBody, Image, Input } from "@nextui-org/react";
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import GroupIcon from '@mui/icons-material/Group';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { GetDeals } from "../../../services/AdminService";
-import { CancelCircleIcon, MessageEdit01Icon } from "hugeicons-react";
+import { GetDeals, GetPassengersByDeal } from "../../../services/AdminService";
+import { CancelCircleIcon, MessageEdit01Icon, ViewIcon } from "hugeicons-react";
 import { formatDateTimeMex } from "../../../utils/utils";
-import { Deal } from "../../../types/types";
+import { Deal, defaultDeal } from "../../../types/types";
 
 const classifyDealsByYearAndMonth = (deals: any) => {
     const currentDate = new Date();
@@ -34,8 +34,16 @@ const classifyDealsByYearAndMonth = (deals: any) => {
 
 export default function DealsList() {
     const currentYear = new Date().getFullYear();
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+
     const [open, setOpen] = useState<{ [key: string]: boolean }>({ [currentYear]: true });
     const [deals, setDeals] = useState<Deal[]>([]);
+
+    const [selectedDeal, setSelectedDeal] = useState<Deal>(defaultDeal);
+
+    const [passengers, setPassengers] = useState<any[]>([]);
+
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -55,9 +63,25 @@ export default function DealsList() {
         }
     };
 
+    const closeModal = () => {
+        setOpenModal(false);
+        setSelectedDeal(defaultDeal);
+        setPassengers([]);
+    };
+
     const handleToggle = (key: string) => {
         setOpen(prevState => ({ ...prevState, [key]: !prevState[key] }));
     };
+
+    const getPassengers = async (id: number) => {
+        try {
+            const response = await GetPassengersByDeal(id);
+            setPassengers(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
     const dealsByYearAndMonth = classifyDealsByYearAndMonth(deals);
 
@@ -149,6 +173,22 @@ export default function DealsList() {
                                                                             size="small"
                                                                             style={{
                                                                                 borderRadius: "20px",
+                                                                                color: "#a8a8a8",
+                                                                                borderColor: "#a8a8a8",
+                                                                            }}
+                                                                            onClick={async () => {
+                                                                                setSelectedDeal(deal);
+                                                                                await getPassengers(deal.ofertaID);
+                                                                                setOpenModal(true);
+                                                                            }}
+                                                                        >
+                                                                            <ViewIcon />
+                                                                        </Button>
+                                                                        <Button
+                                                                            variant="outlined"
+                                                                            size="small"
+                                                                            style={{
+                                                                                borderRadius: "20px",
                                                                                 color: "#2196F3",
                                                                                 borderColor: "#2196F3",
                                                                             }}
@@ -181,6 +221,153 @@ export default function DealsList() {
                     ))}
                 </Box>
             )}
+            <Modal open={openModal} onClose={closeModal}>
+                <Box
+                    component="form"
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "80%",
+                        height: { xs: "70%", md: "90%" },
+                        background: "#f3f4f9",
+                        borderRadius: "15px",
+                        boxShadow: "0 0 10px black",
+                    }}
+                >
+                    {/* TITLE */}
+                    <Box
+                        sx={{
+                            width: "100%",
+                            height: "100px",
+                            background: "#E68A00",
+                            borderRadius: "15px 15px 0 0",
+                            color: "white",
+                            position: "relative",
+                            zIndex: "2",
+                        }}
+                    >
+                        <Typography
+                            component="h1"
+                            fontSize={20}
+                            fontWeight={600}
+                            marginBottom={2}
+                            padding={5}
+                        >
+                            Información de la Oferta
+                        </Typography>
+                    </Box>
+
+                    {/* CONTENT */}
+                    <Grid2
+                        container
+                        spacing={2}
+                        padding={5}
+                        sx={{ overflowY: "scroll", maxHeight: "70%" }}
+                    >
+                        {/* DETALLES DEL VUELO */}
+                        <Grid2 container spacing={1}>
+                            <Grid2 size={12}>
+                                <Typography
+                                    component="h1"
+                                    fontSize={15}
+                                    fontWeight={600}
+                                    marginBottom={1}
+                                    sx={{ color: "#7d7d7d" }}
+                                >
+                                    Detalles del Vuelo
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={{ xs: 6, md: 3 }}>
+                                <Input
+                                    label="Origen"
+                                    name="origen"
+                                    radius="lg"
+                                    value={selectedDeal.origen}
+                                    disabled
+                                />
+                            </Grid2>
+                            <Grid2 size={{ xs: 6, md: 3 }}>
+                                <Input
+                                    label="Destino"
+                                    name="destino"
+                                    radius="lg"
+                                    value={selectedDeal.destino}
+                                    disabled
+                                />
+                            </Grid2>
+                            <Grid2 size={{ xs: 12, md: 3 }}>
+                                <Input
+                                    label="Precio por Asiento"
+                                    name="precio"
+                                    radius="lg"
+                                    value={selectedDeal.precio.toString()}
+                                    disabled
+                                />
+                            </Grid2>
+                            <Grid2 size={{ xs: 12, md: 3 }}>
+                                <Input
+                                    label="Disponibilidad"
+                                    name="disponibilidad"
+                                    radius="lg"
+                                    value={selectedDeal.disponibilidad.toString()}
+                                    disabled
+                                />
+                            </Grid2>
+                            <Grid2 size={{ xs: 12, md: 6 }}>
+                                <Input
+                                    label="Fecha de Salida"
+                                    name="fechaSalida"
+                                    radius="lg"
+                                    value={`${formatDateTimeMex(selectedDeal.fechaSalida).date} ${formatDateTimeMex(selectedDeal.fechaSalida).time
+                                        }`}
+                                    disabled
+                                />
+                            </Grid2>
+                        </Grid2>
+
+                        {/* PASAJEROS */}
+                        <Grid2 container spacing={1}>
+                            <Grid2 size={12}>
+                                <Typography
+                                    component="h1"
+                                    fontSize={15}
+                                    fontWeight={600}
+                                    marginBottom={1}
+                                    sx={{ color: "#7d7d7d" }}
+                                >
+                                    Pasajeros Registrados
+                                </Typography>
+                            </Grid2>
+                            {passengers.length > 0 ? (
+                                passengers.map((pax, index) => (
+                                    <Grid2 key={index} size={12} sx={{ marginBottom: "10px" }}>
+                                        <Typography fontSize={14} fontWeight={600} sx={{ color: "#333" }}>
+                                            {pax.pasajeroPrincipal}
+                                        </Typography>
+                                        {pax.pasajeros.length > 0 && (
+                                            <Box sx={{ marginLeft: "15px" }}>
+                                                {pax.pasajeros.map((subPax: any, subIndex: number) => (
+                                                    <Typography key={subIndex} fontSize={13} sx={{ color: "#555" }}>
+                                                        - {subPax}
+                                                    </Typography>
+                                                ))}
+                                            </Box>
+                                        )}
+                                    </Grid2>
+                                ))
+                            ) : (
+                                <Grid2 size={12}>
+                                    <Typography fontSize={14} sx={{ color: "#999" }}>
+                                        No hay pasajeros registrados.
+                                    </Typography>
+                                </Grid2>
+                            )}
+                        </Grid2>
+                    </Grid2>
+                </Box>
+            </Modal>
         </Box>
     );
 }

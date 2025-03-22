@@ -181,6 +181,48 @@ const UpdateCostos = async (data: any) => {
     }
 }
 
+const GetPassengersByDeal = async(id:number) => {
+    try {
+        const response = await axios.get(`${apiURL}/ReservacionOferta/Pasajeros/${id}`);
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const UpdateDeal = async (id: number, data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.put(`${apiURL}/Oferta/${id}`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const DeleteDeal = async (id: number) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.delete(`${apiURL}/Oferta/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
@@ -189,5 +231,6 @@ export {
     SendEmailConfirmationQuote, CreateOferta,
     ChangeStatusOfertaCreada, GetDeals,
     SendEmailReservation, UpdateCostos,
-    GetAllCostos
+    GetAllCostos, UpdateDeal, DeleteDeal,
+    GetPassengersByDeal
 };
