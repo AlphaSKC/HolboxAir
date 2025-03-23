@@ -95,6 +95,15 @@ export const defaultOferta: Oferta = {
     precio: 0,
 };
 
+export const defaultDeal: Deal = {
+    ofertaID: 0,
+    origen: "",
+    destino: "",
+    fechaSalida: "",
+    disponibilidad: 1,
+    precio: 0,
+}
+
 export const defaulQuote: Quote = {
     cotizacionID: 0,
     pasajeroPrincipal: "",
