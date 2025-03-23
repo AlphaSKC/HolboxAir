@@ -9,6 +9,8 @@ import { CancelCircleIcon, CheckmarkCircle03Icon, ShoppingBasketAdd01Icon, ViewI
 import { Reservation } from "../../../types/types";
 import dayjs from "dayjs";
 
+import DefaultFlight from "../../../assets/img/others/DefaultFlights.jpg";
+
 interface ReservationCardProps {
     reservation: Reservation;
     onView: () => void;
@@ -67,7 +69,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 </Box>
             </CardHeader>
             <CardBody className="overflow-visible py-2">
-                <Image alt="Card background" className="object-cover rounded-xl" src="https://heroui.com/images/hero-card-complete.jpeg" width={"100%"} />
+                <Image alt="Card background" className="object-cover rounded-xl" src={DefaultFlight} width={"100%"} />
             </CardBody>
             <CardFooter className={`text-small ${reservation.estado === "Pagado" && !reservation.ofertaCreada ? "justify-between" : "justify-around"}`}>
                 <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#a8a8a8", borderColor: "#a8a8a8" }} onClick={onView}>
