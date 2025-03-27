@@ -32,6 +32,7 @@ export default function FlightDetail(props: FlightDetailProps) {
         getFilghtDetails();
         getDollarPrice();
         setFullPrice(periodoNavideño());
+        console.log(fullPrice);
     }, []);
 
     const getDollarPrice = async () => {
@@ -76,7 +77,7 @@ export default function FlightDetail(props: FlightDetailProps) {
         const fechaActual = new Date();
         const year = new Date().getFullYear();
 
-        const inicio = new Date(year, 11, 25);
+        const inicio = new Date(year, 11, 24);
         const fin = new Date(year + 1, 0, 7);
 
         return fechaActual >= inicio && fechaActual <= fin;
@@ -266,7 +267,8 @@ export default function FlightDetail(props: FlightDetailProps) {
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 5 : 12 }} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {isChecked && (
                                     <PaypalButton
-                                        totalValue={fullPrice ? parseFloat((flightDetails.precio * dollarPrice).toFixed(2)) : parseFloat((dollarPrice * 200).toFixed(2))}
+                                        // totalValue={fullPrice ? parseFloat((flightDetails.precio * dollarPrice).toFixed(2)) : parseFloat((dollarPrice * 200).toFixed(2))}
+                                        totalValue={parseFloat((dollarPrice * 1).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
                                         onPaymentComplete={handlePaymentComplete}
                                     />

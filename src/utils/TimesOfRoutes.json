@@ -21,7 +21,7 @@
     },
     {
         "origen": "Cancún",
-        "destino": "Merida",
+        "destino": "Mérida",
         "tiempo": 90
     },
     {
@@ -46,7 +46,7 @@
     },
     {
         "origen": "Playa del Carmen",
-        "destino": "Merida",
+        "destino": "Mérida",
         "tiempo": 84
     },
     {
@@ -71,7 +71,7 @@
     },
     {
         "origen": "Tulum",
-        "destino": "Merida",
+        "destino": "Mérida",
         "tiempo": 75
     },
     {
@@ -96,7 +96,7 @@
     },
     {
         "origen": "Cozumel",
-        "destino": "Merida",
+        "destino": "Mérida",
         "tiempo": 90
     },
     {
@@ -121,31 +121,31 @@
     },
     {
         "origen": "Holbox",
-        "destino": "Merida",
+        "destino": "Mérida",
         "tiempo": 78
     },
     {
-        "origen": "Merida",
+        "origen": "Mérida",
         "destino": "Cancún",
         "tiempo": 90
     },
     {
-        "origen": "Merida",
+        "origen": "Mérida",
         "destino": "Playa del Carmen",
         "tiempo": 84
     },
     {
-        "origen": "Merida",
+        "origen": "Mérida",
         "destino": "Tulum",
         "tiempo": 75
     },
     {
-        "origen": "Merida",
+        "origen": "Mérida",
         "destino": "Cozumel",
         "tiempo": 90
     },
     {
-        "origen": "Merida",
+        "origen": "Mérida",
         "destino": "Holbox",
         "tiempo": 78
     }
