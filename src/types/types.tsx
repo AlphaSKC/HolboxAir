@@ -69,6 +69,14 @@ export interface FlightDetails {
     montoPagado?: number;
 }
 
+export interface GeneralStats {
+    ingresosTotales: number;
+    promedioIngreso: number;
+    totalReservaciones: number;
+    totalCotizaciones: number;
+    tasaConversion: number;
+}
+
 export const defaultReservation: Reservation = {
     reservacionID: 0,
     pasajeroPrincipal: "",

@@ -223,6 +223,38 @@ const DeleteDeal = async (id: number) => {
     }
 }
 
+const GetGeneralStats = async () => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.get(`${apiURL}/Dashboard/GeneralStats`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const GetDashboardGraphs = async () => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.get(`${apiURL}/Dashboard/DashboardGraphs`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
@@ -232,5 +264,6 @@ export {
     ChangeStatusOfertaCreada, GetDeals,
     SendEmailReservation, UpdateCostos,
     GetAllCostos, UpdateDeal, DeleteDeal,
-    GetPassengersByDeal
+    GetPassengersByDeal, GetGeneralStats,
+    GetDashboardGraphs
 };

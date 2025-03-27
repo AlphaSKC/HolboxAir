@@ -34,6 +34,7 @@ import CheckoutDealPage from "./pages/CheckoutDealPage";
 import FaqsPage from "./pages/FaqsPage";
 import AirportsTemplate from "./components/templates/AirportsTemplate";
 import PricesPage from "./pages/PricesPage";
+import PrivacyPolicy from "./pages/PrivacyPolicyPage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -157,7 +158,9 @@ function App() {
 
         <Route path="/airports/:name" element={<AirportsTemplate />} />
 
-        <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+        <Route path="/terms&conditions" element={<TermsOfUsePage />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+
 
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />

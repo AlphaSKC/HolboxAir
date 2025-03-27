@@ -10,6 +10,7 @@ import { defaultFlightDetails, FlightDetails } from "../../types/types";
 import { CancelCircleIcon, CheckmarkSquare03Icon } from "hugeicons-react";
 import PaypalButton from "./PaypalButton";
 import { NavLink, useNavigate } from "react-router-dom";
+import TimesOfRoutes from "../../utils/TimesOfRoutes.json";
 
 interface FlightDetailProps {
     tipo: string;
@@ -60,6 +61,16 @@ export default function FlightDetail(props: FlightDetailProps) {
             setLoading(false);
         }
     }
+
+    const getEstimatedArrivalTime = (origen: string, destino: string, fechaSalida: string) => {
+        const route = TimesOfRoutes.find(route => route.origen === origen && route.destino === destino);
+        if (!route) return null;
+
+        const salida = new Date(fechaSalida);
+        salida.setMinutes(salida.getMinutes() + route.tiempo);
+
+        return formatDateTimeUS(salida.toISOString());
+    };
 
     const periodoNavideño = () => {
         const fechaActual = new Date();
@@ -134,9 +145,27 @@ export default function FlightDetail(props: FlightDetailProps) {
                                                 </Grid2>
                                                 <Grid2 size={11}>
                                                     <Typography className="Lato">{flightDetails?.origen} → {flightDetails?.destino}</Typography>
-                                                    <Typography className="Lato" variant="body2" color="text.secondary">
-                                                        {formatDateTimeUS(flightDetails?.fechaSalida).time}
-                                                    </Typography>
+                                                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '3vw' }}>
+                                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <Typography className="Lato" variant="body2" color="text.secondary">
+                                                                {formatDateTimeUS(flightDetails?.fechaSalida).time}
+                                                            </Typography>
+                                                            <Typography className="Lato" variant="caption" color="text.secondary">
+                                                                Departing
+                                                            </Typography>
+                                                        </Box>
+                                                        <Typography>
+                                                            →
+                                                        </Typography>
+                                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <Typography className="Lato" variant="body2" color="text.secondary">
+                                                                {getEstimatedArrivalTime(flightDetails?.origen, flightDetails?.destino, flightDetails?.fechaSalida)?.time}
+                                                            </Typography>
+                                                            <Typography className="Lato" variant="caption" color="text.secondary">
+                                                                Arriving
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
                                                 </Grid2>
                                             </Grid2>
                                             <Grid2 size={12}>
@@ -167,9 +196,27 @@ export default function FlightDetail(props: FlightDetailProps) {
                                                     </Grid2>
                                                     <Grid2 size={11}>
                                                         <Typography className="Lato">{flightDetails?.destino} → {flightDetails?.origen}</Typography>
-                                                        <Typography className="Lato" variant="body2" color="text.secondary">
-                                                            {formatDateTimeUS(flightDetails?.fechaRegreso).time}
-                                                        </Typography>
+                                                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '3vw' }}>
+                                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                                                <Typography className="Lato" variant="body2" color="text.secondary">
+                                                                    {formatDateTimeUS(flightDetails?.fechaRegreso).time}
+                                                                </Typography>
+                                                                <Typography className="Lato" variant="caption" color="text.secondary">
+                                                                    Departing
+                                                                </Typography>
+                                                            </Box>
+                                                            <Typography>
+                                                                →
+                                                            </Typography>
+                                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                                                <Typography className="Lato" variant="body2" color="text.secondary">
+                                                                    {getEstimatedArrivalTime(flightDetails?.destino, flightDetails?.origen, flightDetails?.fechaRegreso)?.time}
+                                                                </Typography>
+                                                                <Typography className="Lato" variant="caption" color="text.secondary">
+                                                                    Arriving
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
                                                     </Grid2>
                                                 </Grid2>
                                                 <Grid2 size={12}>
@@ -190,7 +237,9 @@ export default function FlightDetail(props: FlightDetailProps) {
                                 {((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) && (
                                     <>
                                         <Typography className="Lato" sx={{ fontSize: '2.2vh' }}>
-                                            ⚠️ Please note that the Cancun airport tax (TUA) is not included; however, it can be exempted if you arrive into Cancun by air and depart to Holbox on the same day by presenting the boarding passes from your airline.
+                                            ⚠️ Upon proceeding with the payment, an amount equivalent to $200 USD will be charged in Mexican pesos to complete the reservation. The remaining balance will be paid at the airport on the day of the flight. You can check your balance in the "My Trips" section.
+                                            <br /> <br />
+                                            Please note that the Cancun airport tax (TUA) is not included; however, it can be exempted if you arrive into Cancun by air and depart to Holbox on the same day by presenting the boarding passes from your airline.
                                         </Typography>
                                         <FormControlLabel
                                             control={
@@ -207,7 +256,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                             }
                                             label={
                                                 <Typography className="Lato" sx={{ fontSize: '2.2vh' }}>
-                                                    I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                                                    I have read and accept the <NavLink to="/terms&conditions" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
                                                 </Typography>
                                             }
                                         />

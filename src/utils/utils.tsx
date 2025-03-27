@@ -1,5 +1,20 @@
 import { Reservation } from "../types/types";
 
+export const monthNames = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+];
+
 export const formatDateTimeMex = (dateTime: string | null) => {
     if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
