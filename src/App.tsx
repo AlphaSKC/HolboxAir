@@ -157,7 +157,7 @@ function App() {
 
         <Route path="/airports/:name" element={<AirportsTemplate />} />
 
-        <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+        <Route path="/terms&conditions" element={<TermsOfUsePage />} />
 
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />

@@ -2,21 +2,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { useEffect, useState } from "react";
 import { GetDashboardGraphs } from "../../../services/AdminService";
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-
-const monthNames = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-];
+import { monthNames } from "../../../utils/utils";
 
 // const apiData = [
 //     {
@@ -191,8 +177,9 @@ const monthNames = [
 
 
 export default function MonthlyReservationsChart() {
+    const currentYear = new Date().getFullYear();
     const [apiData, setApiData] = useState([]);
-    const [selectedYear, setSelectedYear] = useState<number | string>("Todos");
+    const [selectedYear, setSelectedYear] = useState<number>(currentYear);
 
     useEffect(() => {
         fetchData();
@@ -209,9 +196,7 @@ export default function MonthlyReservationsChart() {
     }
 
     const processChartData = (data: any) => {
-        const filteredData = selectedYear === "Todos"
-            ? data
-            : data.filter((item: { año: number }) => item.año === selectedYear);
+        const filteredData = data.filter((item: { año: number }) => item.año === selectedYear);
 
         const sortedData = filteredData.sort((a: { año: number; mes: number }, b: { año: number; mes: number }) => {
             if (a.año === b.año) {
@@ -221,7 +206,7 @@ export default function MonthlyReservationsChart() {
         });
 
         return {
-            xLabels: sortedData.map((item: { mes: number; año: any }) => `${monthNames[item.mes - 1]} ${item.año}`),
+            xLabels: sortedData.map((item: { mes: number; año: any }) => `${monthNames[item.mes - 1]}`),
             completedData: sortedData.map((item: { reservacionesCompletadas: any }) => item.reservacionesCompletadas),
             canceledData: sortedData.map((item: { reservacionesCanceladas: any }) => item.reservacionesCanceladas),
         };
@@ -232,18 +217,17 @@ export default function MonthlyReservationsChart() {
     const uniqueYears = Array.from(new Set(apiData.map((item: { año: number }) => item.año)));
 
     return (
-        <Box sx={{ width: "40vw", overflowX: "auto", bgcolor: "#ffff", borderRadius: 5, boxShadow: "0 0 10px #e8e8e8", padding: 2, mt: 5 }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>Reservaciones mensuales</Typography>
+        <Box sx={{ width: "100%", overflowX: "auto", bgcolor: "#ffff", borderRadius: 5, boxShadow: "0 0 10px #e8e8e8", padding: 2, mt: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>Deslgose de reservaciones mensuales</Typography>
 
             <FormControl fullWidth sx={{ mb: 2 }}>
                 <InputLabel id="year-select-label">Año</InputLabel>
                 <Select
                     labelId="year-select-label"
                     value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
+                    onChange={(e) => setSelectedYear(Number(e.target.value))}
                     label="Año"
                 >
-                    <MenuItem value="Todos">Todos</MenuItem>
                     {uniqueYears.map((year) => (
                         <MenuItem key={year} value={year}>
                             {year}
@@ -252,30 +236,31 @@ export default function MonthlyReservationsChart() {
                 </Select>
             </FormControl>
 
-            <BarChart
-                borderRadius={5}
-
-                colors={["#2196F3", "#FF4D4F"]}
-                width={Math.max(600, xLabels.length * 100)}
-                height={400}
-                loading={apiData.length === 0}
-                series={[
-                    {
-                        data: completedData, label: "Completadas", id: "completedId", stack: "total", highlightScope: {
-                            'highlighted': 'item',
-                            'faded': 'global',
+            <Box sx={{ width: "100%" }}>
+                <BarChart
+                    borderRadius={5}
+                    colors={["#00cc66", "#FF4D4F"]}
+                    width={600}
+                    height={400}
+                    loading={apiData.length === 0}
+                    series={[
+                        {
+                            data: completedData, label: "Completadas", id: "completedId", stack: "total", highlightScope: {
+                                'highlighted': 'item',
+                                'faded': 'global',
+                            },
                         },
-                    },
-                    {
-                        data: canceledData, label: "Canceladas", id: "canceledId", stack: "total", highlightScope: {
-                            'highlighted': 'item',
-                            'faded': 'global',
+                        {
+                            data: canceledData, label: "Canceladas", id: "canceledId", stack: "total", highlightScope: {
+                                'highlighted': 'item',
+                                'faded': 'global',
+                            },
                         },
-                    },
-                ]}
-                barLabel="value"
-                xAxis={[{ data: xLabels, scaleType: "band" }]}
-            />
+                    ]}
+                    barLabel="value"
+                    xAxis={[{ data: xLabels, scaleType: "band" }]}
+                />
+            </Box>
 
         </Box>
     );
