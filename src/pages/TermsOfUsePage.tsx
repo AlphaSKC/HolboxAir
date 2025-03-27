@@ -12,7 +12,7 @@ export default function TermsOfUse() {
             <Typography variant="h4" className="Lato" sx={{ mt: 2, textAlign: "center", fontWeight: "bold", color: '#E6A800' }}>
                 SERVICE AGREEMENT: TERMS AND CONDITIONS
             </Typography>
-            <Box sx={{ width: { xs: '90%', md: '80%' }, display: "flex", flexDirection: "column", alignItems: "flex-start", padding: 2, borderRadius: '15px', boxShadow: "0 0 10px #e8e8e8", mt: 2, bgcolor: "#ffff" }}>
+            <Box sx={{ width: { xs: '90%', md: '80%' }, display: "flex", flexDirection: "column", alignItems: "flex-start", padding: 2, borderRadius: '15px', boxShadow: "0 0 10px #e8e8e8", my: 2, bgcolor: "#ffff" }}>
                 <Box>
                     <Typography className='Lato' variant="body1" sx={{ mt: 2, textAlign: "justify" }}>
                         <strong>1. DEFINITIONS</strong>
