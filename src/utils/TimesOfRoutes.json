@@ -1,0 +1,152 @@
+[
+    {
+        "origen": "Cancún",
+        "destino": "Playa del Carmen",
+        "tiempo": 30
+    },
+    {
+        "origen": "Cancún",
+        "destino": "Tulum",
+        "tiempo": 48
+    },
+    {
+        "origen": "Cancún",
+        "destino": "Cozumel",
+        "tiempo": 30
+    },
+    {
+        "origen": "Cancún",
+        "destino": "Holbox",
+        "tiempo": 30
+    },
+    {
+        "origen": "Cancún",
+        "destino": "Mérida",
+        "tiempo": 90
+    },
+    {
+        "origen": "Playa del Carmen",
+        "destino": "Cancún",
+        "tiempo": 30
+    },
+    {
+        "origen": "Playa del Carmen",
+        "destino": "Tulum",
+        "tiempo": 36
+    },
+    {
+        "origen": "Playa del Carmen",
+        "destino": "Cozumel",
+        "tiempo": 12
+    },
+    {
+        "origen": "Playa del Carmen",
+        "destino": "Holbox",
+        "tiempo": 42
+    },
+    {
+        "origen": "Playa del Carmen",
+        "destino": "Mérida",
+        "tiempo": 84
+    },
+    {
+        "origen": "Tulum",
+        "destino": "Cancún",
+        "tiempo": 48
+    },
+    {
+        "origen": "Tulum",
+        "destino": "Playa del Carmen",
+        "tiempo": 36
+    },
+    {
+        "origen": "Tulum",
+        "destino": "Cozumel",
+        "tiempo": 36
+    },
+    {
+        "origen": "Tulum",
+        "destino": "Holbox",
+        "tiempo": 54
+    },
+    {
+        "origen": "Tulum",
+        "destino": "Mérida",
+        "tiempo": 75
+    },
+    {
+        "origen": "Cozumel",
+        "destino": "Cancún",
+        "tiempo": 30
+    },
+    {
+        "origen": "Cozumel",
+        "destino": "Playa del Carmen",
+        "tiempo": 12
+    },
+    {
+        "origen": "Cozumel",
+        "destino": "Tulum",
+        "tiempo": 36
+    },
+    {
+        "origen": "Cozumel",
+        "destino": "Holbox",
+        "tiempo": 45
+    },
+    {
+        "origen": "Cozumel",
+        "destino": "Mérida",
+        "tiempo": 90
+    },
+    {
+        "origen": "Holbox",
+        "destino": "Cancún",
+        "tiempo": 30
+    },
+    {
+        "origen": "Holbox",
+        "destino": "Playa del Carmen",
+        "tiempo": 42
+    },
+    {
+        "origen": "Holbox",
+        "destino": "Tulum",
+        "tiempo": 54
+    },
+    {
+        "origen": "Holbox",
+        "destino": "Cozumel",
+        "tiempo": 45
+    },
+    {
+        "origen": "Holbox",
+        "destino": "Mérida",
+        "tiempo": 78
+    },
+    {
+        "origen": "Mérida",
+        "destino": "Cancún",
+        "tiempo": 90
+    },
+    {
+        "origen": "Mérida",
+        "destino": "Playa del Carmen",
+        "tiempo": 84
+    },
+    {
+        "origen": "Mérida",
+        "destino": "Tulum",
+        "tiempo": 75
+    },
+    {
+        "origen": "Mérida",
+        "destino": "Cozumel",
+        "tiempo": 90
+    },
+    {
+        "origen": "Mérida",
+        "destino": "Holbox",
+        "tiempo": 78
+    }
+]

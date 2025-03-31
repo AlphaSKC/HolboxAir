@@ -73,7 +73,7 @@ export default function Footer() {
               gap: "1vw",
             }}
           >
-            <IconButton href="https://www.facebook.com/KevinS018">
+            <IconButton href="https://www.facebook.com/holboxair/">
               <Facebook
                 sx={{ color: "white", ":hover": { color: "#e68a00" } }}
               />
@@ -181,23 +181,54 @@ export default function Footer() {
               justifyContent: "space-between",
             }}
           >
+            <Box sx={{ display: "flex", flexDirection: "row", gap: "1vw" }}>
+              <Typography
+                variant="body2"
+                align="center"
+                sx={{ mt: "2vh" }}
+              >
+                <NavLink
+                  to="/terms&conditions"
+                  onClick={() => window.scrollTo(0, 0)}
+                  style={{ color: "#ccc", textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#E68A00")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#ccc")}
+                >
+                  Terms & Conditions
+                </NavLink>
+              </Typography>
+              <Typography variant="body2"
+                align="center"
+                sx={{ mt: "2vh" }}
+              >
+                |
+              </Typography>
+              <Typography
+                variant="body2"
+                align="center"
+                sx={{ mt: "2vh" }}
+              >
+                <NavLink
+                  to="/privacyPolicy"
+                  onClick={() => window.scrollTo(0, 0)}
+                  style={{ color: "#ccc", textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#E68A00")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#ccc")}
+                >
+                  Privacy Policy
+                </NavLink>
+              </Typography>
+            </Box>
             <Typography
               variant="body2"
               align="center"
-              sx={{ mt: "2vh", color: "#ccc" }}
-            >
-              Terms of use | Environmental Policy
-            </Typography>
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ mt: "2vh", color: "#ccc" }}
+              sx={{ mt: "2vh" }}
             >
               &copy; {new Date().getFullYear()} Holbox Air. All rights reserved.
             </Typography>
           </Box>
         </Grid2>
       </Grid2>
-    </Box>
+    </Box >
   );
 }
