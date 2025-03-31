@@ -10,7 +10,6 @@ import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
 import MyTripsPage from "./pages/MyTripsPage";
 import NotFound from "./pages/NotFound";
-import BlogPage from "./pages/BlogPage";
 import FlightDealsPage from "./pages/FlightDealsPage";
 import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate";
 import LoginPage from "./pages/LoginPage";
@@ -119,7 +118,6 @@ function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/myTrips" element={<MyTripsPage />} />
         <Route path="/flights" element={<FlightDealsPage />} />
-        <Route path="/blog" element={<BlogPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route
           path="/extraServices/:name"

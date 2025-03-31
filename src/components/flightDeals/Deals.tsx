@@ -13,6 +13,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Deal } from "../../types/types";
 import { GetDeals } from "../../services/AdminService";
 import { useNavigate } from "react-router-dom";
+import NoDealsImg from '../../assets/img/others/NoFlights.svg'; 
 
 const classifyDealsByYearAndMonth = (deals: any) => {
     return deals.reduce((acc: any, deal: any) => {
@@ -122,6 +123,24 @@ export default function Deals() {
                 {loading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
                         <CircularProgress sx={{ color: '#E68A00' }} />
+                    </Box>
+                ) : deals.length === 0 ? (
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '50vh',
+                        textAlign: 'center',
+                        gap: '20px',
+                    }}>
+                        <img src={NoDealsImg} alt="No Deals" style={{ maxWidth: '300px', borderRadius: '10px' }} />
+                        <Typography className="Oswald" sx={{ fontSize: '3vh', fontWeight: 'bold', color: '#E68A00' }}>
+                            No flight deals available at the moment
+                        </Typography>
+                        <Typography className="Lato" sx={{ fontSize: '2vh', color: '#555' }}>
+                            Stay tuned! We are constantly updating our deals to bring you the best offers.
+                        </Typography>
                     </Box>
                 ) : (
                     Object.keys(dealsByYearAndMonth).map(year => (
