@@ -133,6 +133,7 @@ export default function Deals() {
                         height: '50vh',
                         textAlign: 'center',
                         gap: '20px',
+                        my: '3vh',
                     }}>
                         <img src={NoDealsImg} alt="No Deals" style={{ maxWidth: '300px', borderRadius: '10px' }} />
                         <Typography className="Oswald" sx={{ fontSize: '3vh', fontWeight: 'bold', color: '#E68A00' }}>
