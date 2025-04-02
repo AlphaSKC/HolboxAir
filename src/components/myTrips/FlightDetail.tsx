@@ -1,7 +1,5 @@
 import { Box, Button, CircularProgress, Divider, FormControlLabel, Grid2, Typography, Checkbox } from "@mui/material";
-import { formatDateTimeUS, getStatusColor, translateStatus } from "../../utils/utils";
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import FlightLandIcon from '@mui/icons-material/FlightLand';
+import { formatDateTimeUS } from "../../utils/utils";
 import { Input } from "@nextui-org/react";
 import { ChangeStatusReservacion, ConfirmFlight, SendEmailReservation } from "../../services/AdminService";
 import { useEffect, useState } from "react";
@@ -11,6 +9,9 @@ import { CancelCircleIcon, CheckmarkSquare03Icon } from "hugeicons-react";
 import PaypalButton from "./PaypalButton";
 import { NavLink, useNavigate } from "react-router-dom";
 import TimesOfRoutes from "../../utils/TimesOfRoutes.json";
+import FlightSegment from "./FlightSegment";
+import PaymentSummary from "./PaymentSummary";
+import PassengerInfo from "./PassengerInfo";
 
 interface FlightDetailProps {
     tipo: string;
@@ -32,7 +33,6 @@ export default function FlightDetail(props: FlightDetailProps) {
         getFilghtDetails();
         getDollarPrice();
         setFullPrice(periodoNavideño());
-        console.log(fullPrice);
     }, []);
 
     const getDollarPrice = async () => {
@@ -100,6 +100,7 @@ export default function FlightDetail(props: FlightDetailProps) {
         const data = {
             tipo: flightDetails.tipo,
             identificador: flightDetails.identificador,
+            montoPagado: fullPrice ? flightDetails.precio : 200,
         }
         const response = await ConfirmFlight(data);
         if (response.success) {
@@ -131,106 +132,33 @@ export default function FlightDetail(props: FlightDetailProps) {
                     )}
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                        {/* Vuelo de salida */}
+                        {/* Sección de los vuelos */}
                         <Grid2 container spacing={2} sx={{ width: '100%' }}>
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 7 : 12 }} sx={{ height: 'fit-content', justifyContent: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 'flex-start' : 'center' }}>
-                                <Box sx={{ border: '1px solid #e0e0e0', borderRadius: '10px', padding: '16px', mb: 2, width: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? '100%' : '70%' }}>
-                                    <Grid2 container spacing={2}>
-                                        <Grid2 container size={8}>
-                                            <Grid2 size={12}>
-                                                <Typography className="Lato" fontWeight="bold" color="text.secondary">Departure - {formatDateTimeUS(flightDetails?.fechaSalida).date}</Typography>
-                                            </Grid2>
-                                            <Grid2 container size={12} spacing={3} alignItems="center">
-                                                <Grid2 size={1}>
-                                                    <FlightTakeoffIcon sx={{ color: '#E38A00' }} />
-                                                </Grid2>
-                                                <Grid2 size={11}>
-                                                    <Typography className="Lato">{flightDetails?.origen} → {flightDetails?.destino}</Typography>
-                                                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '3vw' }}>
-                                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <Typography className="Lato" variant="body2" color="text.secondary">
-                                                                {formatDateTimeUS(flightDetails?.fechaSalida).time}
-                                                            </Typography>
-                                                            <Typography className="Lato" variant="caption" color="text.secondary">
-                                                                Departing
-                                                            </Typography>
-                                                        </Box>
-                                                        <Typography>
-                                                            →
-                                                        </Typography>
-                                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <Typography className="Lato" variant="body2" color="text.secondary">
-                                                                {getEstimatedArrivalTime(flightDetails?.origen, flightDetails?.destino, flightDetails?.fechaSalida)?.time}
-                                                            </Typography>
-                                                            <Typography className="Lato" variant="caption" color="text.secondary">
-                                                                Arriving
-                                                            </Typography>
-                                                        </Box>
-                                                    </Box>
-                                                </Grid2>
-                                            </Grid2>
-                                            <Grid2 size={12}>
-                                                <Typography className="Lato" variant="body2" color="text.secondary">Status: <span style={{ color: getStatusColor(flightDetails?.estado) }}>{translateStatus(flightDetails?.estado)}</span></Typography>
-                                            </Grid2>
-                                        </Grid2>
-                                        <Grid2 size={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                                            <Divider orientation="vertical" flexItem variant="fullWidth" />
-                                        </Grid2>
-                                        <Grid2 size={3} textAlign="right" alignContent={"center"}>
-                                            <Typography className="Lato" fontWeight="bold" sx={{ color: '#E38A00' }}>
-                                                ${flightDetails?.fechaRegreso ? flightDetails?.precio / 2 : flightDetails?.precio}
-                                            </Typography>
-                                        </Grid2>
-                                    </Grid2>
+                                {/* Vuelo de salida */}
+                                <Box sx={{ border: '1px solid #e0e0e0', borderRadius: '10px', padding: '16px', width: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? '100%' : '70%', mb: 2 }}>
+                                    <FlightSegment
+                                        origen={flightDetails?.origen}
+                                        destino={flightDetails?.destino}
+                                        fecha={flightDetails?.fechaSalida}
+                                        getEstimatedArrivalTime={getEstimatedArrivalTime}
+                                        status={flightDetails?.estado}
+                                        price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                    />
                                 </Box>
+
                                 {/* Vuelo de regreso (opcional) */}
                                 {flightDetails?.fechaRegreso && (
                                     <Box sx={{ border: '1px solid #e0e0e0', borderRadius: '10px', padding: '16px', width: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? '100%' : '70%', mb: 2 }}>
-                                        <Grid2 container spacing={2}>
-                                            <Grid2 container size={8}>
-                                                <Grid2 size={12}>
-                                                    <Typography className="Lato" fontWeight="bold" color="text.secondary">Return - {formatDateTimeUS(flightDetails?.fechaRegreso).date}</Typography>
-                                                </Grid2>
-                                                <Grid2 container size={12} alignItems="center">
-                                                    <Grid2 size={1}>
-                                                        <FlightLandIcon sx={{ color: '#E38A00' }} />
-                                                    </Grid2>
-                                                    <Grid2 size={11}>
-                                                        <Typography className="Lato">{flightDetails?.destino} → {flightDetails?.origen}</Typography>
-                                                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '3vw' }}>
-                                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                                <Typography className="Lato" variant="body2" color="text.secondary">
-                                                                    {formatDateTimeUS(flightDetails?.fechaRegreso).time}
-                                                                </Typography>
-                                                                <Typography className="Lato" variant="caption" color="text.secondary">
-                                                                    Departing
-                                                                </Typography>
-                                                            </Box>
-                                                            <Typography>
-                                                                →
-                                                            </Typography>
-                                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                                <Typography className="Lato" variant="body2" color="text.secondary">
-                                                                    {getEstimatedArrivalTime(flightDetails?.destino, flightDetails?.origen, flightDetails?.fechaRegreso)?.time}
-                                                                </Typography>
-                                                                <Typography className="Lato" variant="caption" color="text.secondary">
-                                                                    Arriving
-                                                                </Typography>
-                                                            </Box>
-                                                        </Box>
-                                                    </Grid2>
-                                                </Grid2>
-                                                <Grid2 size={12}>
-                                                    <Typography className="Lato" variant="body2" color="text.secondary">Status: <span style={{ color: getStatusColor(flightDetails?.estado) }}>{translateStatus(flightDetails?.estado)}</span></Typography>
-                                                </Grid2>
-                                            </Grid2>
-                                            <Grid2 size={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                                                <Divider orientation="vertical" flexItem variant="fullWidth" />
-                                            </Grid2>
-                                            <Grid2 size={3} textAlign="right" alignContent={"center"}>
-                                                <Typography className="Lato" fontWeight="bold" sx={{ color: '#E38A00' }}>${flightDetails?.precio / 2}</Typography>
-                                            </Grid2>
-                                        </Grid2>
+                                        <FlightSegment
+                                            origen={flightDetails?.destino}
+                                            destino={flightDetails?.origen}
+                                            fecha={flightDetails?.fechaRegreso}
+                                            getEstimatedArrivalTime={getEstimatedArrivalTime}
+                                            isReturn={true}
+                                            status={flightDetails?.estado}
+                                            price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                        />
                                     </Box>
                                 )}
 
@@ -267,8 +195,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                             <Grid2 container size={{ xs: 12, md: ((flightDetails?.tipo === 'Cotizacion' && flightDetails?.estado === 'Aceptada') || (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Disponible')) ? 5 : 12 }} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {isChecked && (
                                     <PaypalButton
-                                        // totalValue={fullPrice ? parseFloat((flightDetails.precio * dollarPrice).toFixed(2)) : parseFloat((dollarPrice * 200).toFixed(2))}
-                                        totalValue={parseFloat((dollarPrice * 1).toFixed(2))}
+                                        totalValue={fullPrice ? parseFloat((flightDetails.precio * dollarPrice).toFixed(2)) : parseFloat((dollarPrice * 200).toFixed(2))}
                                         invoice={`Reservation from ${flightDetails.origen} to ${flightDetails.destino} on ${formatDateTimeUS(flightDetails.fechaSalida).date}`}
                                         onPaymentComplete={handlePaymentComplete}
                                     />
@@ -298,32 +225,10 @@ export default function FlightDetail(props: FlightDetailProps) {
                     {((flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Pagado') ||
                         (flightDetails?.tipo === 'Oferta' && flightDetails?.estado === 'Pagado')) && (
                             <>
-                                <Box sx={{ borderRadius: "15px", border: "1px solid #e3e3e3", padding: "20px", width: "60%" }}>
-                                    <Typography className="Lato" component="h1" fontSize={15} fontWeight={600} alignItems={'center'} display={'flex'} gap={2} marginBottom={2}>
-                                        Payment Summary
-                                    </Typography>
-                                    <Divider />
-                                    <Grid2 container marginY={2} spacing={2}>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Total Price:</Typography>
-                                        </Grid2>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                            <Typography className="Lato">${flightDetails?.precio} USD</Typography>
-                                        </Grid2>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Amount Paid:</Typography>
-                                        </Grid2>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                            <Typography className="Lato">${flightDetails?.montoPagado} USD</Typography>
-                                        </Grid2>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 4, lg: 4 }}>
-                                            <Typography className="Lato" fontWeight="bold" color="#E68A00">Remaining Amount:</Typography>
-                                        </Grid2>
-                                        <Grid2 size={{ xs: 12, sm: 12, md: 8, lg: 8 }}>
-                                            <Typography className="Lato">${flightDetails?.precio - (flightDetails?.montoPagado ?? 0)} USD</Typography>
-                                        </Grid2>
-                                    </Grid2>
-                                </Box>
+                                <PaymentSummary
+                                    totalPrice={flightDetails?.precio}
+                                    amountPaid={flightDetails?.montoPagado ?? 0}
+                                />
                                 <Divider flexItem sx={{ my: '2vh' }} />
                             </>
                         )}
@@ -333,35 +238,11 @@ export default function FlightDetail(props: FlightDetailProps) {
                             Principal Passenger Information
                         </Typography>
                         <Divider />
-                        <Grid2 container marginY={2} spacing={2}>
-                            <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                                <Input
-                                    label="Full Name"
-                                    value={flightDetails?.pasajeroPrincipal}
-                                    radius="lg"
-                                    disabled
-                                    className="Lato"
-                                />
-                            </Grid2>
-                            <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                                <Input
-                                    label="Email"
-                                    value={flightDetails?.correoPasajero}
-                                    radius="lg"
-                                    disabled
-                                    className="Lato"
-                                />
-                            </Grid2>
-                            <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                                <Input
-                                    label="Phone"
-                                    value={flightDetails?.telefonoPasajero}
-                                    radius="lg"
-                                    disabled
-                                    className="Lato"
-                                />
-                            </Grid2>
-                        </Grid2>
+                        <PassengerInfo
+                            name={flightDetails?.pasajeroPrincipal}
+                            email={flightDetails?.correoPasajero}
+                            phone={flightDetails?.telefonoPasajero}
+                        />
                     </Box>
 
                     {/* Additional Passengers Information */}

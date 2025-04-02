@@ -108,7 +108,7 @@ export default function ReservationsForm() {
     );
     const [passengers, setPassengers] = useState(0);
     const [promoCode, setPromoCode] = useState("");
-    
+
     const [isSending, setIsSending] = useState(false);
 
     useEffect(() => {
@@ -141,10 +141,18 @@ export default function ReservationsForm() {
     };
 
     const handlePassengersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value);
-        if (value >= 1 && value <= 10) {
-            setPassengers(value);
-        } else if (value > 10) {
+        const value = e.target.value;
+
+        if (value === "") {
+            setPassengers(0);
+            return;
+        }
+
+        const parsedValue = parseInt(value, 10);
+
+        if (parsedValue >= 1 && parsedValue <= 10) {
+            setPassengers(parsedValue);
+        } else if (parsedValue > 10) {
             setPassengers(10);
         } else {
             setPassengers(1);

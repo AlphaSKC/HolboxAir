@@ -10,7 +10,6 @@ import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
 import MyTripsPage from "./pages/MyTripsPage";
 import NotFound from "./pages/NotFound";
-import BlogPage from "./pages/BlogPage";
 import FlightDealsPage from "./pages/FlightDealsPage";
 import ExtraServicesTemplate from "./components/templates/ExtraServicesTemplate";
 import LoginPage from "./pages/LoginPage";
@@ -35,6 +34,7 @@ import FaqsPage from "./pages/FaqsPage";
 import AirportsTemplate from "./components/templates/AirportsTemplate";
 import PricesPage from "./pages/PricesPage";
 import PrivacyPolicy from "./pages/PrivacyPolicyPage";
+import CashPayment from "./pages/CashPayment";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -120,7 +120,6 @@ function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/myTrips" element={<MyTripsPage />} />
         <Route path="/flights" element={<FlightDealsPage />} />
-        <Route path="/blog" element={<BlogPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route
           path="/extraServices/:name"
@@ -161,7 +160,8 @@ function App() {
         <Route path="/terms&conditions" element={<TermsOfUsePage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
 
-
+        <Route path="/cash-payment" element={<CashPayment />} />
+        
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
