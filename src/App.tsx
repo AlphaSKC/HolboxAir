@@ -34,6 +34,7 @@ import FaqsPage from "./pages/FaqsPage";
 import AirportsTemplate from "./components/templates/AirportsTemplate";
 import PricesPage from "./pages/PricesPage";
 import PrivacyPolicy from "./pages/PrivacyPolicyPage";
+import CashPayment from "./pages/CashPayment";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -159,7 +160,8 @@ function App() {
         <Route path="/terms&conditions" element={<TermsOfUsePage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
 
-
+        <Route path="/cash-payment" element={<CashPayment />} />
+        
         <Route path="/admin" element={<LoginPage />} />
         <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route path="/verify-code" element={<RequireForgotPassword><VerifyCodePage /></RequireForgotPassword>} />
