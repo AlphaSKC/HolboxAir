@@ -7,7 +7,7 @@
       "price": 200,
       "route": "/extraServices/cancun-overflight",
       "content": "Enjoy this amazing experience and see cancun from a new perspective. Fly over Cancun Hotel Zone and Bahia Mujeres where you will enjoy a beautiful view and an amazing blue color.",
-      "additionalInfo": "Cost: <b>$200 USD per person</b><br>Two Person minimum<br><br>Flight Time: 20 min<br>Departure point: Cancun Airport"
+      "additionalInfo": "Flight Time: 20 min<br>Departure point: Cancun Airport"
     },
     {
       "id": 2,
@@ -15,8 +15,8 @@
       "title": "Holbox 24 hrs",
       "price": 480,
       "route": "/extraServices/holbox-24-hrs",
-      "content": "No matter if you are arriving late our service 24 hrs let you reach Holbox even at night by land.<br><br>In case you don't want overnight in cancun and you desire go to Holbox the same day this is excellent option.<br><br>What does include?<br>- Ground Transportation to Chiquila<br>- Private boat from Chiquila to Holbox",
-      "additionalInfo": "Cost: <b>$480 USD</b> up to 5 people"
+      "content": "No matter if you are arriving late our service 24 hrs let you reach Holbox even at night by land.<br><br>In case you don't want overnight in cancun and you desire go to Holbox the same day this is excellent option.<br>",
+      "additionalInfo": "What does include?<br>- Ground Transportation to Chiquila<br>- Private boat from Chiquila to Holbox"
     },
     {
       "id": 3,
