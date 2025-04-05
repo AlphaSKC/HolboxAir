@@ -302,6 +302,15 @@ export default function QuoteList() {
                                                             >
                                                                 {quote.pasajeroPrincipal}
                                                             </Typography>
+                                                            <Typography
+                                                                sx={{
+                                                                    fontSize: "2.5vh",
+                                                                    fontWeight: "bold",
+                                                                    color: "#E38A00",
+                                                                }}
+                                                            >
+                                                                {quote.codigoCotizacion}
+                                                            </Typography>
                                                             <Box
                                                                 sx={{
                                                                     display: "flex",
@@ -508,7 +517,7 @@ export default function QuoteList() {
                         sx={{ overflowY: "scroll", maxHeight: "70%" }}
                     >
                         {/* Detalles del vuelo */}
-                        <Grid2 container spacing={1}>
+                        <Grid2 container spacing={1} justifyContent={"center"}>
                             <Grid2 size={12}>
                                 <Typography
                                     component="h1"
@@ -573,6 +582,15 @@ export default function QuoteList() {
                                     radius="lg"
                                     value={`${formatDateTimeMex(selectedQuote.fechaRegreso).date} ${formatDateTimeMex(selectedQuote.fechaRegreso).time
                                         }`}
+                                    disabled
+                                />
+                            </Grid2>
+                            <Grid2 size={{ xs: 12, md: 3 }}>
+                                <Input
+                                    label="Código de Cotización"
+                                    name="codigoCotizacion"
+                                    radius="lg"
+                                    value={selectedQuote.codigoCotizacion}
                                     disabled
                                 />
                             </Grid2>

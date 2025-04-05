@@ -37,6 +37,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 <Typography sx={{ fontSize: "2.5vh", fontWeight: "bold", color: "#2E2E2E" }}>
                     {reservation.pasajeroPrincipal}
                 </Typography>
+                <Typography sx={{ fontSize: "2.5vh", fontWeight: "bold", color: "#E38A00" }}>
+                    {reservation.codigoReservacion}
+                </Typography>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                     <Typography sx={{ fontSize: "2vh", fontWeight: "bold", color: "#7D7D7D" }}>
                         {reservation.origen} - {reservation.destino}
