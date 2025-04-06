@@ -115,7 +115,7 @@ export default function PopularTopics() {
                     borderRadius: "100%",
                     backgroundColor: "white",
                     ":hover": {
-                      backgroundColor: "#e6a800",
+                      backgroundColor: "#E68A00",
                       cursor: "pointer",
                       color: "white",
                     },

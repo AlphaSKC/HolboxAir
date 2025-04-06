@@ -255,6 +255,22 @@ const GetDashboardGraphs = async () => {
     }
 }
 
+const ConfirmFlightAdmin = async (data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.post(`${apiURL}/Vuelo/ConfirmFlightAdmin`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+} 
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
@@ -265,5 +281,5 @@ export {
     SendEmailReservation, UpdateCostos,
     GetAllCostos, UpdateDeal, DeleteDeal,
     GetPassengersByDeal, GetGeneralStats,
-    GetDashboardGraphs
+    GetDashboardGraphs, ConfirmFlightAdmin
 };

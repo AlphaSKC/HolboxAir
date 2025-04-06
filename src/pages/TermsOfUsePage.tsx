@@ -9,7 +9,7 @@ export default function TermsOfUse() {
             minHeight: "100vh",
             padding: 2,
         }}>
-            <Typography variant="h4" className="Lato" sx={{ mt: 2, textAlign: "center", fontWeight: "bold", color: '#E6A800' }}>
+            <Typography variant="h4" className="Lato" sx={{ mt: 2, textAlign: "center", fontWeight: "bold", color: '#E68A00' }}>
                 SERVICE AGREEMENT: TERMS AND CONDITIONS
             </Typography>
             <Box sx={{ width: { xs: '90%', md: '80%' }, display: "flex", flexDirection: "column", alignItems: "flex-start", padding: 2, borderRadius: '15px', boxShadow: "0 0 10px #e8e8e8", my: 2, bgcolor: "#ffff" }}>
@@ -127,6 +127,28 @@ export default function TermsOfUse() {
                     </Typography>
                     <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
                         • By accepting these terms and conditions, THE CLIENT agrees to cover the <b>full cost of repairs</b> resulting from any damage caused by them.
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography className='Lato' variant="body1" sx={{ mt: 2, textAlign: "justify" }}>
+                        <strong>9. BAGGAGE ALLOWANCE</strong>
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        Please note that baggage allowances are determined based on the aircraft’s performance and available space, rather than standard commercial guidelines. To ensure your luggage can be accommodated on board, we kindly ask that you adhere to the recommended dimensions and weight limits provided.
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 2, textAlign: "justify" }}>
+                        <strong>Baggage allowance per passenger</strong>
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        <strong>1 Checked bag up to 20 kgs (44Lbs)</strong><br />
+                        60 x 41 x 26 cm (24 x 16 x 10 In)
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        <strong>1 Carry-on bag up to 5 kgs (11Lbs)</strong><br />
+                        40 x 28 cm (16 x 11 In)
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        Any baggage exceeding these limits may not be permitted on the aircraft. In such cases, the company will not be held responsible, and any costs associated with transporting excess or oversized luggage will be borne solely by the passenger.
                     </Typography>
                 </Box>
             </Box>

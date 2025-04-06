@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
                 padding: 2,
             }}
         >
-            <Typography variant="h4" className="Lato" sx={{ mt: 2, textAlign: "center", fontWeight: "bold", color: '#E6A800' }}>
+            <Typography variant="h4" className="Lato" sx={{ mt: 2, textAlign: "center", fontWeight: "bold", color: '#E68A00' }}>
                 PRIVACY POLICY
             </Typography>
             <Box sx={{ width: { xs: '90%', md: '80%' }, display: "flex", flexDirection: "column", alignItems: "flex-start", padding: 2, borderRadius: '15px', boxShadow: "0 0 10px #e8e8e8", my: 2, bgcolor: "#ffff" }}>

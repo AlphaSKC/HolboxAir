@@ -306,7 +306,7 @@ export default function QuoteList() {
                                                                 sx={{
                                                                     fontSize: "2.5vh",
                                                                     fontWeight: "bold",
-                                                                    color: "#E38A00",
+                                                                    color: "#E68A00",
                                                                 }}
                                                             >
                                                                 {quote.codigoCotizacion}
@@ -335,7 +335,7 @@ export default function QuoteList() {
                                                                     gap: "10px",
                                                                 }}
                                                             >
-                                                                <FlightTakeoffIcon sx={{ color: "#E38A00" }} />
+                                                                <FlightTakeoffIcon sx={{ color: "#E68A00" }} />
                                                                 <Typography
                                                                     sx={{
                                                                         fontSize: "1.8vh",
@@ -354,7 +354,7 @@ export default function QuoteList() {
                                                                     gap: "10px",
                                                                 }}
                                                             >
-                                                                <FlightLandIcon sx={{ color: "#E38A00" }} />
+                                                                <FlightLandIcon sx={{ color: "#E68A00" }} />
                                                                 <Typography
                                                                     sx={{
                                                                         fontSize: "1.8vh",
@@ -376,7 +376,7 @@ export default function QuoteList() {
                                                                     gap: "10px",
                                                                 }}
                                                             >
-                                                                <AccountCircle sx={{ color: "#E38A00" }} />
+                                                                <AccountCircle sx={{ color: "#E68A00" }} />
                                                                 <Typography
                                                                     sx={{
                                                                         fontSize: "1.8vh",

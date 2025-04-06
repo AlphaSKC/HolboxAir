@@ -37,7 +37,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 <Typography sx={{ fontSize: "2.5vh", fontWeight: "bold", color: "#2E2E2E" }}>
                     {reservation.pasajeroPrincipal}
                 </Typography>
-                <Typography sx={{ fontSize: "2.5vh", fontWeight: "bold", color: "#E38A00" }}>
+                <Typography sx={{ fontSize: "2.5vh", fontWeight: "bold", color: "#E68A00" }}>
                     {reservation.codigoReservacion}
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
@@ -46,26 +46,26 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                    <FlightTakeoffIcon sx={{ color: "#E38A00" }} />
+                    <FlightTakeoffIcon sx={{ color: "#E68A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
                         {formatDateTimeMex(reservation.fechaSalida).date} - {formatDateTimeMex(reservation.fechaSalida).time}
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                    <FlightLandIcon sx={{ color: "#E38A00" }} />
+                    <FlightLandIcon sx={{ color: "#E68A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
                         {formatDateTimeMex(reservation.fechaRegreso).date}
                         {formatDateTimeMex(reservation.fechaRegreso).date !== "N/A" && ` - ${formatDateTimeMex(reservation.fechaRegreso).time}`}
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                    <AccountCircle sx={{ color: "#E38A00" }} />
+                    <AccountCircle sx={{ color: "#E68A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
                         {reservation.numeroPasajeros} {reservation.numeroPasajeros > 1 ? "Pasajeros" : "Pasajero"}
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                    <AttachMoneyIcon sx={{ color: "#e6a800" }} />
+                    <AttachMoneyIcon sx={{ color: "#E68A00" }} />
                     <Typography sx={{ fontSize: "1.8vh", fontWeight: "bold", color: "#7D7D7D" }}>
                         {reservation.precioTotal} USD
                     </Typography>

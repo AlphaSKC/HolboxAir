@@ -240,16 +240,16 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
                                 checked={isChecked}
                                 onChange={(e) => setIsChecked(e.target.checked)}
                                 sx={{
-                                    color: '#E38A00',
+                                    color: '#E68A00',
                                     '&.Mui-checked': {
-                                        color: '#E38A00'
+                                        color: '#E68A00'
                                     }
                                 }}
                             />
                         }
                         label={
                             <Typography>
-                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E38A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E68A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
                             </Typography>
                         }
                     />
