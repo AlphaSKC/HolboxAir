@@ -62,7 +62,7 @@ export default function Footer() {
             className="text-justify Lato"
             color="#ccc"
           >
-            Holbox Air is a air company that offers flights to the most important destinations in the Mexican Caribbean.
+            Holbox Air is an air company that offers flights to the most important destinations in the Mexican Caribbean.
           </Typography>
           <Box
             sx={{
