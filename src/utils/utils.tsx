@@ -116,11 +116,16 @@ export const classifyReservations = (reservations: Reservation[]) => {
                 acc["Por hacer"] = [];
             }
             acc["Por hacer"].push(reservation);
-        } else if (status === "Completado" || status === "Cancelado") {
+        } else if (status === "Completado") {
             if (!acc["Completadas"]) {
                 acc["Completadas"] = [];
             }
             acc["Completadas"].push(reservation);
+        } else if (status === "Cancelado") {
+            if (!acc["Canceladas"]) {
+                acc["Canceladas"] = [];
+            }
+            acc["Canceladas"].push(reservation);
         }
         return acc;
     }, {});

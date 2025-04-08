@@ -56,12 +56,12 @@ const DealCard: React.FC<DealCardProps> = ({ deal, onView, onDelete, onEdit }) =
                         </Grid2>
                         <Grid2 size={6}>
                             <Typography variant="body1" className="text-justify Lato">
-                                <GroupIcon sx={{ color: '#e6a800' }} /> {deal.disponibilidad} {deal.disponibilidad > 1 ? "asientos disponibles" : "asiento disponible"}
+                                <GroupIcon sx={{ color: '#E68A00' }} /> {deal.disponibilidad} {deal.disponibilidad > 1 ? "asientos disponibles" : "asiento disponible"}
                             </Typography>
                         </Grid2>
                         <Grid2 size={6}>
                             <Typography variant="body1" className="text-justify Lato">
-                                <AttachMoneyIcon sx={{ color: '#e6a800' }} /> {deal.precio} USD
+                                <AttachMoneyIcon sx={{ color: '#E68A00' }} /> {deal.precio} USD
                             </Typography>
                         </Grid2>
                     </Grid2>

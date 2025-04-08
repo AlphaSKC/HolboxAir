@@ -48,16 +48,7 @@ export default function ExtraServices() {
                                 className="z-0 w-full h-full object-cover"
                                 src={service.img}
                             />
-                            <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                                <Box>
-                                    <Typography className="Lato" sx={{
-                                        color: 'black',
-                                        fontSize: '1rem',
-                                        fontWeight: 'bold',
-                                    }}>
-                                        {service.price === 0 ? "Contact Us" : "$" + service.price + " USD"}
-                                    </Typography>
-                                </Box>
+                            <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 flex justify-end p-2">
                                 <Button className="Lato" sx={{
                                     backgroundColor: '#e68a00',
                                     color: 'white',

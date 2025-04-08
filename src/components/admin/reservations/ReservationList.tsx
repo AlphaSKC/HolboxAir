@@ -1,8 +1,8 @@
 import { Box, Grid2, Typography, CircularProgress, Button, Modal, IconButton, Collapse, Stepper, Step, StepLabel, StepIconProps, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ChangeStatusOfertaCreada, ChangeStatusReservacion, CreateOferta, GetReservaciones } from "../../../services/AdminService";
+import { ChangeStatusOfertaCreada, ChangeStatusReservacion, ConfirmFlightAdmin, CreateOferta, GetReservaciones } from "../../../services/AdminService";
 import { Input } from "@nextui-org/react";
-import { CheckmarkBadge01Icon, CircleArrowLeft02Icon, CircleArrowRight02Icon } from "hugeicons-react";
+import { CheckmarkBadge01Icon, CircleArrowLeft02Icon, CircleArrowRight02Icon, TickDouble03Icon } from "hugeicons-react";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -15,6 +15,7 @@ import ReservationCard from "./ReservationCard";
 import AlertSnackbar from "../../general/AlertSnackbar";
 import CustomDateTimePicker from "../../general/CustomDateTimePicker";
 import ReservationInfoModal from "./ReservationInfoModal";
+import ReservationConfirmModal from "./ReservationConfirmModal";
 
 const CustomStepIcon = (props: StepIconProps & { icon: React.ReactNode }) => {
     const { active, completed, className, icon } = props;
@@ -63,6 +64,9 @@ export default function ReservationList() {
     const [openDialog, setOpenDialog] = useState<boolean>(false);
     const [dialogContent, setDialogContent] = useState<string>("");
 
+    const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
+
+    const [confirmData, setConfirmData] = useState<{ codigo: string; montoPagado: number; }>({ codigo: "", montoPagado: 0 });
 
     useEffect(() => {
         fetchReservations();
@@ -111,6 +115,11 @@ export default function ReservationList() {
     const handleNext = () => setActiveStep((prevStep) => prevStep + 1);;
 
     const closeModal = () => setOpenModal(false);
+
+    const closeModalConfirm = () => {
+        setOpenModalConfirm(false);
+        setConfirmData({ codigo: "", montoPagado: 0 });
+    };
 
     const closeOfertas = () => setOpenOfertas(false);
 
@@ -180,6 +189,30 @@ export default function ReservationList() {
             setLoading(false);
         }
     };
+
+    const handleConfirm = async() => {
+        try {
+            const response = await ConfirmFlightAdmin(confirmData);
+            if (response.success) {
+                setAlertSeverity("success");
+                setAlertMessage("Vuelo confirmado con éxito");
+            }
+            else {
+                setAlertSeverity("error");
+                setAlertMessage("Error al confirmar el vuelo");
+            }
+        }
+        catch (error) {
+            setAlertSeverity("error");
+            setAlertMessage("Error al confirmar el vuelo: " + error);
+        }
+        finally {
+            await fetchReservations();
+            closeModalConfirm();
+            setAlertOpen(true);
+        }
+    }
+
 
     const steps = [
         {
@@ -390,6 +423,20 @@ export default function ReservationList() {
                 <CircularProgress sx={{ color: "#E68A00" }} />
             ) : (
                 <Box sx={{ width: "100%" }}>
+                    <Box sx={{ display: "flex", flexDirection: 'column', alignItems: "center", marginBottom: "20px" }}>
+                        <Typography
+                            className="Lato"
+                            component="h1"
+                            marginBottom={2}
+                            sx={{ color: "#E68A00", fontSize: "3vh", fontWeight: "bold", }}
+                        >
+                            Reservaciones
+                        </Typography>
+                        <Button className="Lato" variant="outlined" onClick={() => setOpenModalConfirm(true)} size="medium" style={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3", padding: "10px 20px" }}>
+                            Confirmar vuelo
+                            <TickDouble03Icon style={{ marginLeft: '5px' }} />
+                        </Button>
+                    </Box>
                     {Object.keys(reservationsByStatus).map((status) => (
                         <Box key={status} sx={{ marginBottom: "20px" }}>
                             <Typography
@@ -452,6 +499,15 @@ export default function ReservationList() {
                 open={openModal}
                 onClose={closeModal}
                 reservation={selectedReservation}
+            />
+
+            {/* Modal para confirmar vuelo */}
+            <ReservationConfirmModal
+                open={openModalConfirm}
+                setConfirmData={setConfirmData}
+                confirmData={confirmData}
+                onClose={closeModalConfirm}
+                onConfirm={handleConfirm}
             />
 
             {/* Modal para agregar a ofertas */}

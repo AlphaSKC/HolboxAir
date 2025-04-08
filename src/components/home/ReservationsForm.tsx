@@ -429,7 +429,7 @@ export default function ReservationsForm() {
                                             height: "100%",
                                         }}
                                     >
-                                        <Button sx={{ fontSize: "1.3vh", color: "#E38A00" }}>
+                                        <Button sx={{ fontSize: "1.3vh", color: "#E68A00" }}>
                                             Validate Code
                                         </Button>
                                     </Box>

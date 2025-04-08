@@ -33,9 +33,9 @@ export default function FlightSegment({
                 <Grid2 container size={12} alignItems="center">
                     <Grid2 size={1}>
                         {isReturn ? (
-                            <FlightLandIcon sx={{ color: "#E38A00" }} />
+                            <FlightLandIcon sx={{ color: "#E68A00" }} />
                         ) : (
-                            <FlightTakeoffIcon sx={{ color: "#E38A00" }} />
+                            <FlightTakeoffIcon sx={{ color: "#E68A00" }} />
                         )}
                     </Grid2>
                     <Grid2 size={11}>
@@ -76,7 +76,7 @@ export default function FlightSegment({
                 <Divider orientation="vertical" flexItem variant="fullWidth" />
             </Grid2>
             <Grid2 size={3} textAlign="right" alignContent={"center"}>
-                <Typography className="Lato" fontWeight="bold" sx={{ color: "#E38A00" }}>
+                <Typography className="Lato" fontWeight="bold" sx={{ color: "#E68A00" }}>
                     ${price}
                 </Typography>
             </Grid2>
