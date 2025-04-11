@@ -348,7 +348,8 @@ export default function ReservationList() {
                                             newOferta[1].fechaSalida = date.format();
                                             return newOferta;
                                         })}
-                                        minDateTime={dayjs(selectedReservation.fechaRegreso)}
+                                        minDateTime={dayjs(selectedReservation.fechaSalida)}
+                                        maxDateTime={dayjs(selectedReservation.fechaRegreso)}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
