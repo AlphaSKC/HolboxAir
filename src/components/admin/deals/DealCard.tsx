@@ -10,7 +10,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { formatDateTimeMex } from "../../../utils/utils";
 import { ViewIcon, MessageEdit01Icon, CancelCircleIcon } from "hugeicons-react";
 
-import DefaultFlight from "../../../assets/img/others/DefaultFlights.jpg";
+import DefaultFlight from "../../../assets/img/others/Flight-Deals.jpg";
 
 interface DealCardProps {
     deal: Deal;
@@ -36,6 +36,7 @@ const DealCard: React.FC<DealCardProps> = ({ deal, onView, onDelete, onEdit }) =
                             shadow="md"
                             src={DefaultFlight}
                             width="100%"
+                            style={{objectPosition: "left"}}
                         />
                     </Box>
                     <Grid2 container spacing={2} className="col-span-6 md:col-span-8">

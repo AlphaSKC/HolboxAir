@@ -4,6 +4,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import BannerImg from '../../assets/img/others/BannerDeals.jpg';
+import FlightDealImg from '../../assets/img/others/Flight-Deals.jpg';
 import { Card, CardBody, Image } from "@nextui-org/react";
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -188,8 +189,9 @@ export default function Deals() {
                                                                                 className="object-cover"
                                                                                 height={200}
                                                                                 shadow="md"
-                                                                                src="https://heroui.com/images/album-cover.png"
+                                                                                src={FlightDealImg}	
                                                                                 width="100%"
+                                                                                style={{ objectPosition: 'left' }}
                                                                             />
                                                                         </Box>
                                                                         <Grid2 container spacing={2} className="col-span-6 md:col-span-8">
