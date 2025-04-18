@@ -143,7 +143,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                         fecha={flightDetails?.fechaSalida}
                                         getEstimatedArrivalTime={getEstimatedArrivalTime}
                                         status={flightDetails?.estado}
-                                        price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                        price={flightDetails?.fechaRegreso ? flightDetails?.precio / 2  : flightDetails?.precio}
                                     />
                                 </Box>
 
@@ -157,7 +157,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                             getEstimatedArrivalTime={getEstimatedArrivalTime}
                                             isReturn={true}
                                             status={flightDetails?.estado}
-                                            price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                            price={flightDetails?.fechaRegreso ? flightDetails?.precio / 2 : flightDetails?.precio }
                                         />
                                     </Box>
                                 )}
