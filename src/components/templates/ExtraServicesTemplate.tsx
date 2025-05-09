@@ -41,15 +41,15 @@ export default function ExtraServicesTemplate() {
 						<meta name="keywords" content={`${service.title}, Holbox Air, extra services`} />
 						<meta name="author" content="Holbox Air" />
 						<link rel="canonical" href={`https://holboxair.com/extraServices/${name}`} />
-						<meta name="og:title" content={`${service.title} | Holbox Air`} />
+						<meta property="og:title" content={`${service.title} | Holbox Air`} />
 						<meta
-							name="og:description"
+							property="og:description"
 							content={service.content?.substring(0, 150) || "Learn more about this extra service on Holbox Air."}
 						/>
-						<meta name="og:image" content={service.img} />
-						<meta name="og:url" content={`https://holboxair.com/extraServices/${name}`} />
-						<meta name="og:type" content="website" />
-						<meta name="og:site_name" content="Holbox Air" />
+						<meta property="og:image" content={service.img} />
+						<meta property="og:url" content={`https://holboxair.com/extraServices/${name}`} />
+						<meta property="og:type" content="website" />
+						<meta property="og:site_name" content="Holbox Air" />
 					</Helmet>
 					<Grid2
 						container

@@ -90,6 +90,11 @@ export default function Deals() {
         }
     };
 
+    const monthOrder = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     return (
         <Box sx={{
             display: "flex",
@@ -164,103 +169,105 @@ export default function Deals() {
                             </ListSubheader>
                             <Collapse in={open[year]} timeout="auto" unmountOnExit sx={{ mt: "10px" }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", px: "3vw" }}>
-                                    {Object.keys(dealsByYearAndMonth[year]).map(month => (
-                                        <Box key={month} sx={{ marginBottom: "20px" }}>
-                                            <ListSubheader component="div" sx={{ display: "flex", alignItems: "center", textTransform: "capitalize", position: "relative" }}>
-                                                {month}
-                                                <IconButton onClick={() => handleToggle(`${year}-${month}`)}>
-                                                    {open[`${year}-${month}`] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                                                </IconButton>
-                                            </ListSubheader>
-                                            <Collapse in={open[`${year}-${month}`]} timeout="auto" unmountOnExit>
-                                                <List component="div" disablePadding sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "20px" }}>
-                                                    {dealsByYearAndMonth[year][month].map((deal: any, index: any) => (
-                                                        <ListItem key={index} sx={{ width: "fit-content" }}>
-                                                            <Card
-                                                                key={deal.id}
-                                                                className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
-                                                                shadow="sm"
-                                                            >
-                                                                <CardBody>
-                                                                    <Box className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
-                                                                        <Box className="relative col-span-6 md:col-span-4">
-                                                                            <Image
-                                                                                alt="Album cover"
-                                                                                className="object-cover"
-                                                                                height={200}
-                                                                                shadow="md"
-                                                                                src={FlightDealImg}	
-                                                                                width="100%"
-                                                                                style={{ objectPosition: 'left' }}
-                                                                            />
+                                    {Object.keys(dealsByYearAndMonth[year])
+                                        .sort((a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b))
+                                        .map(month => (
+                                            <Box key={month} sx={{ marginBottom: "20px" }}>
+                                                <ListSubheader component="div" sx={{ display: "flex", alignItems: "center", textTransform: "capitalize", position: "relative" }}>
+                                                    {month}
+                                                    <IconButton onClick={() => handleToggle(`${year}-${month}`)}>
+                                                        {open[`${year}-${month}`] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                                                    </IconButton>
+                                                </ListSubheader>
+                                                <Collapse in={open[`${year}-${month}`]} timeout="auto" unmountOnExit>
+                                                    <List component="div" disablePadding sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "20px" }}>
+                                                        {dealsByYearAndMonth[year][month].map((deal: any, index: any) => (
+                                                            <ListItem key={index} sx={{ width: "fit-content" }}>
+                                                                <Card
+                                                                    key={deal.id}
+                                                                    className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
+                                                                    shadow="sm"
+                                                                >
+                                                                    <CardBody>
+                                                                        <Box className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
+                                                                            <Box className="relative col-span-6 md:col-span-4">
+                                                                                <Image
+                                                                                    alt="Album cover"
+                                                                                    className="object-cover"
+                                                                                    height={200}
+                                                                                    shadow="md"
+                                                                                    src={FlightDealImg}	
+                                                                                    width="100%"
+                                                                                    style={{ objectPosition: 'left' }}
+                                                                                />
+                                                                            </Box>
+                                                                            <Grid2 container spacing={2} className="col-span-6 md:col-span-8">
+                                                                                <Grid2 size={12}>
+                                                                                    <Typography sx={{ fontSize: '3.5vh', fontWeight: '700', color: '#000' }} className="Lato">
+                                                                                        <FlightTakeoffIcon sx={{ color: '#e68a00' }} /> {deal.departure} to {deal.arrival}
+                                                                                    </Typography>
+                                                                                </Grid2>
+                                                                                <Grid2 size={6}>
+                                                                                    <Typography variant="body1" className="text-justify Lato">
+                                                                                        <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {formatDateTime(deal.dateTime).date}
+                                                                                    </Typography>
+                                                                                </Grid2>
+                                                                                <Grid2 size={6}>
+                                                                                    <Typography variant="body1" className="text-justify Lato">
+                                                                                        <ScheduleIcon sx={{ color: '#e68a00' }} />  {formatDateTime(deal.dateTime).time}
+                                                                                    </Typography>
+                                                                                </Grid2>
+                                                                                <Grid2 size={6}>
+                                                                                    <Typography variant="body1" className="text-justify Lato">
+                                                                                        <GroupIcon sx={{ color: '#E68A00' }} /> {deal.passengers} {deal.passengers > 1 ? "seats" : "seat"} left
+                                                                                    </Typography>
+                                                                                </Grid2>
+                                                                                <Grid2 size={6}>
+                                                                                    <Typography variant="body1" className="text-justify Lato">
+                                                                                        <AttachMoneyIcon sx={{ color: '#E68A00' }} /> {deal.price} USD
+                                                                                    </Typography>
+                                                                                </Grid2>
+                                                                            </Grid2>
                                                                         </Box>
-                                                                        <Grid2 container spacing={2} className="col-span-6 md:col-span-8">
-                                                                            <Grid2 size={12}>
-                                                                                <Typography sx={{ fontSize: '3.5vh', fontWeight: '700', color: '#000' }} className="Lato">
-                                                                                    <FlightTakeoffIcon sx={{ color: '#e68a00' }} /> {deal.departure} to {deal.arrival}
-                                                                                </Typography>
-                                                                            </Grid2>
-                                                                            <Grid2 size={6}>
-                                                                                <Typography variant="body1" className="text-justify Lato">
-                                                                                    <CalendarMonthIcon sx={{ color: '#e68a00' }} /> {formatDateTime(deal.dateTime).date}
-                                                                                </Typography>
-                                                                            </Grid2>
-                                                                            <Grid2 size={6}>
-                                                                                <Typography variant="body1" className="text-justify Lato">
-                                                                                    <ScheduleIcon sx={{ color: '#e68a00' }} />  {formatDateTime(deal.dateTime).time}
-                                                                                </Typography>
-                                                                            </Grid2>
-                                                                            <Grid2 size={6}>
-                                                                                <Typography variant="body1" className="text-justify Lato">
-                                                                                    <GroupIcon sx={{ color: '#E68A00' }} /> {deal.passengers} {deal.passengers > 1 ? "seats" : "seat"} left
-                                                                                </Typography>
-                                                                            </Grid2>
-                                                                            <Grid2 size={6}>
-                                                                                <Typography variant="body1" className="text-justify Lato">
-                                                                                    <AttachMoneyIcon sx={{ color: '#E68A00' }} /> {deal.price} USD
-                                                                                </Typography>
-                                                                            </Grid2>
-                                                                        </Grid2>
-                                                                    </Box>
-                                                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                                                        <Button className="Lato" sx={{
-                                                                            mt: '10px',
-                                                                            width: 'fit-content',
-                                                                            padding: '10px 20px',
-                                                                            borderRadius: '10px',
-                                                                            backgroundColor: '#e68a00',
-                                                                            textTransform: 'none',
-                                                                            fontWeight: 'bold',
-                                                                            color: 'white',
-                                                                            '&:hover': {
-                                                                                bgcolor: "white",
-                                                                                color: "#e68a00",
-                                                                            }
-                                                                        }}
-                                                                            onClick={() => {
-                                                                                navigate('/checkoutDeal', {
-                                                                                    state: {
-                                                                                        ofertaID: deal.id,
-                                                                                        origen: deal.departure,
-                                                                                        destino: deal.arrival,
-                                                                                        fechaSalida: deal.dateTime,
-                                                                                        disponibilidad: deal.passengers,
-                                                                                        precio: deal.price
-                                                                                    }
-                                                                                });
+                                                                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                                                            <Button className="Lato" sx={{
+                                                                                mt: '10px',
+                                                                                width: 'fit-content',
+                                                                                padding: '10px 20px',
+                                                                                borderRadius: '10px',
+                                                                                backgroundColor: '#e68a00',
+                                                                                textTransform: 'none',
+                                                                                fontWeight: 'bold',
+                                                                                color: 'white',
+                                                                                '&:hover': {
+                                                                                    bgcolor: "white",
+                                                                                    color: "#e68a00",
+                                                                                }
                                                                             }}
-                                                                        >
-                                                                            Book Now
-                                                                        </Button>
-                                                                    </Box>
-                                                                </CardBody>
-                                                            </Card>
-                                                        </ListItem>
-                                                    ))}
-                                                </List>
-                                            </Collapse>
-                                        </Box>
-                                    ))}
+                                                                                onClick={() => {
+                                                                                    navigate('/checkoutDeal', {
+                                                                                        state: {
+                                                                                            ofertaID: deal.id,
+                                                                                            origen: deal.departure,
+                                                                                            destino: deal.arrival,
+                                                                                            fechaSalida: deal.dateTime,
+                                                                                            disponibilidad: deal.passengers,
+                                                                                            precio: deal.price
+                                                                                        }
+                                                                                    });
+                                                                                }}
+                                                                            >
+                                                                                Book Now
+                                                                            </Button>
+                                                                        </Box>
+                                                                    </CardBody>
+                                                                </Card>
+                                                            </ListItem>
+                                                        ))}
+                                                    </List>
+                                                </Collapse>
+                                            </Box>
+                                        ))}
                                 </Box>
                             </Collapse>
                         </Box>

@@ -34,12 +34,12 @@ export default function AirportsTemplate() {
                         <meta name="keywords" content={`${airport.name}, airport, Holbox Air`} />
                         <meta name="author" content="Holbox Air" />
                         <link rel="canonical" href={`https://holboxair.com/airports/${name}`} />
-                        <meta name="og:title" content={`${airport.name} | Holbox Air`} />
-                        <meta name="og:description" content={airport.content || "Discover more about this airport."} />
-                        <meta name="og:image" content={airport.gallery[0]} />
-                        <meta name="og:url" content={`https://holboxair.com/airports/${name}`} />
-                        <meta name="og:type" content="website" />
-                        <meta name="og:site_name" content="Holbox Air" />
+                        <meta property="og:title" content={`${airport.name} | Holbox Air`} />
+                        <meta property="og:description" content={airport.content || "Discover more about this airport."} />
+                        <meta property="og:image" content={airport.gallery[0]} />
+                        <meta property="og:url" content={`https://holboxair.com/airports/${name}`} />
+                        <meta property="og:type" content="website" />
+                        <meta property="og:site_name" content="Holbox Air" />
                     </Helmet>
                     <Box sx={{
                         display: 'flex',
