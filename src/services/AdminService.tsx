@@ -271,6 +271,86 @@ const ConfirmFlightAdmin = async (data: any) => {
     }
 } 
 
+const GetPromotionsCodes = async () => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.get(`${apiURL}/CodigoDescuento/Admin`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data.result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const CreatePromotionCode = async (data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.post(`${apiURL}/CodigoDescuento`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const ChangeStatusPromotionCode = async (data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.put(`${apiURL}/CodigoDescuento/Estado`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const UpdatePromotionCode = async (data: any) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.put(`${apiURL}/CodigoDescuento`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+const DeletePromotionCode = async (id: number) => {
+    try {
+        const profile = JSON.parse(localStorage.getItem('profile') || '{}');
+        const token = profile.token;
+        const response = await axios.delete(`${apiURL}/CodigoDescuento/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     ChangeStatusCotizacion, GetCotizaciones,
     ChangeDateCotizacion, CreateReservacion,
@@ -281,5 +361,8 @@ export {
     SendEmailReservation, UpdateCostos,
     GetAllCostos, UpdateDeal, DeleteDeal,
     GetPassengersByDeal, GetGeneralStats,
-    GetDashboardGraphs, ConfirmFlightAdmin
+    GetDashboardGraphs, ConfirmFlightAdmin,
+    GetPromotionsCodes, CreatePromotionCode,
+    ChangeStatusPromotionCode, UpdatePromotionCode,
+    DeletePromotionCode
 };

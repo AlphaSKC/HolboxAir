@@ -35,6 +35,7 @@ import AirportsTemplate from "./components/templates/AirportsTemplate";
 import PricesPage from "./pages/PricesPage";
 import PrivacyPolicy from "./pages/PrivacyPolicyPage";
 import CashPayment from "./pages/CashPayment";
+import PromotionsCodePage from "./pages/PromotionsCodePage";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
   <>
@@ -54,6 +55,8 @@ function App() {
     || location.pathname === "/dashboard/reservations"
     || location.pathname === "/dashboard/quotes"
     || location.pathname === "/dashboard/deals"
+    || location.pathname === "/dashboard/prices"
+    || location.pathname === "/dashboard/promotions"
     ;
 
   const RequireAuth = ({ children }: any) => {
@@ -171,6 +174,7 @@ function App() {
         <Route path="/dashboard/quotes" element={<RequireAuth><DashboardLayout><QuotesPage /></DashboardLayout></RequireAuth>} />
         <Route path="/dashboard/deals" element={<RequireAuth><DashboardLayout><DealsPage /></DashboardLayout></RequireAuth>} />
         <Route path="/dashboard/prices" element={<RequireAuth><DashboardLayout><PricesPage /></DashboardLayout></RequireAuth>} />
+        <Route path="/dashboard/promotions" element={<RequireAuth><DashboardLayout><PromotionsCodePage /></DashboardLayout></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideNavbarFooter && <Slogan />}

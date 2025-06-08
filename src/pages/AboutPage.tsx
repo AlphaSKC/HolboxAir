@@ -16,6 +16,7 @@ export default function AboutPage() {
         <>
             <Helmet>
                 <title>Holbox Air: About</title>
+                <meta name="title" content="About Us | Holbox Air" />
                 <meta name="description" content="We are a company based in Cancun international airport committed to giving the customer the best air transportation experience." />
                 <meta name="keywords" content="about us, company history, fleet" />
                 <meta name="author" content="Holbox Air" />

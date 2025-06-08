@@ -75,20 +75,20 @@ const ReservationCard: React.FC<ReservationCardProps> = ({ reservation, onView, 
                 <Image alt="Card background" className="object-cover rounded-xl" src={DefaultFlight} width={"100%"} />
             </CardBody>
             <CardFooter className={`text-small ${reservation.estado === "Pagado" && !reservation.ofertaCreada ? "justify-between" : "justify-around"}`}>
-                <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#a8a8a8", borderColor: "#a8a8a8" }} onClick={onView}>
+                <Button variant="outlined" size="small" sx={{ borderRadius: "20px", color: "#a8a8a8", borderColor: "#a8a8a8", '&:hover': { backgroundColor: 'rgba(168, 168, 168, 0.1)', borderColor: '#a8a8a8', color: '#a8a8a8' } }} onClick={onView}>
                     <ViewIcon />
                 </Button>
                 {reservation.estado === "Pagado" && !reservation.ofertaCreada && dayjs().isBefore(dayjs(reservation.fechaSalida)) && (!reservation.fechaRegreso || dayjs().isBefore(dayjs(reservation.fechaRegreso))) && (
-                    <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3" }} onClick={onCreateOffer}>
+                    <Button variant="outlined" size="small" sx={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3", '&:hover': { backgroundColor: 'rgba(33, 150, 243, 0.1)', borderColor: '#2196F3', color: '#2196F3' } }} onClick={onCreateOffer}>
                         <ShoppingBasketAdd01Icon />
                     </Button>
                 )}
                 {(dayjs().isAfter(dayjs(reservation.fechaSalida)) && (!reservation.fechaRegreso || dayjs().isAfter(dayjs(reservation.fechaRegreso)))) && (
-                    <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#10E5A5", borderColor: "#10E5A5" }} onClick={onCompleted}>
+                    <Button variant="outlined" size="small" sx={{ borderRadius: "20px", color: "#10E5A5", borderColor: "#10E5A5", '&:hover': { backgroundColor: 'rgba(22, 220, 163, 0.1)', borderColor: '#10E5A5', color: '#10E5A5' } }} onClick={onCompleted}>
                         <CheckmarkCircle03Icon />
                     </Button>
                 )}
-                <Button variant="outlined" size="small" style={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F" }} onClick={onCancel}>
+                <Button variant="outlined" size="small" sx={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F", '&:hover': { backgroundColor: 'rgba(255, 77, 79, 0.1)', borderColor: '#FF4D4F', color: '#FF4D4F' } }} onClick={onCancel}>
                     <CancelCircleIcon />
                 </Button>
             </CardFooter>

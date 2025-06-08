@@ -77,6 +77,18 @@ export interface GeneralStats {
     tasaConversion: number;
 }
 
+export interface PromotionCode {
+    codigoID: number;
+    codigo: string;
+    descuentoUSD: number;
+    fechaInicio: string;
+    fechaFin: string;
+    usosTotales: number;
+    usosRealizados: number;
+    activo: boolean;
+    creadoEl: string;
+}
+
 export const defaultReservation: Reservation = {
     reservacionID: 0,
     pasajeroPrincipal: "",
