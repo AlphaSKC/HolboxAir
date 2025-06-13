@@ -16,8 +16,9 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { GetCostos } from "../../services/UserService";
+import { GetCostos, GetPromotionsCodes } from "../../services/UserService";
 import CustomDateTimePicker from "../general/CustomDateTimePicker";
+import { PromotionCode } from "../../types/types";
 
 const places = [
     {
@@ -107,13 +108,15 @@ export default function ReservationsForm() {
         dayjs().add(1, "day").add(4, "hour")
     );
     const [passengers, setPassengers] = useState(0);
-    const [promoCode, setPromoCode] = useState("");
-
+    const [promoCode, setPromoCode] = useState<PromotionCode | null>(null);
     const [isSending, setIsSending] = useState(false);
 
+    const [promotionsCodes, setPromotionsCodes] = useState<PromotionCode[]>([]);
+    
     useEffect(() => {
         setDeparture(dayjs().add(1, "day"));
         setReturnDate(dayjs().add(1, "day").add(4, "hour"));
+        getPromotionsCodes();
     }, []);
 
     useEffect(() => {
@@ -123,6 +126,17 @@ export default function ReservationsForm() {
             setReturnDate(dayjs(departure).add(4, "hour"));
         }
     }, [isSencillo, departure]);
+
+    const getPromotionsCodes = async () => {
+        try {
+            const response = await GetPromotionsCodes();
+            if (response.success) {
+                setPromotionsCodes(response.result);
+            }
+        } catch (error) {
+            setPromotionsCodes([]);
+        }
+    }
 
     const sendData = async () => {
         setIsSending(true);
@@ -134,6 +148,7 @@ export default function ReservationsForm() {
             fechaRegreso: isSencillo ? null : returnDate ? returnDate.format() : null,
             numeroPasajeros: passengers,
             precioEstimado,
+            promocion: promoCode,
         };
         localStorage.setItem("reservationFormCompleted", "true");
         navigate("/checkout", { state: data });
@@ -176,7 +191,6 @@ export default function ReservationsForm() {
         const tempDestination = destination;
         setOrigin(tempDestination);
         setDestination(tempOrigin);
-        console.log(origin, destination);
     };
 
     return (
@@ -392,50 +406,24 @@ export default function ReservationsForm() {
                         />
                     </Grid2>
                     <Grid2 size={{ xs: 12, md: 6 }}>
-                        <Input
-                            classNames={{
-                                label: "text-black/50 dark:text-white/90",
-                                input: [
-                                    "bg-transparent",
-                                    "text-black/90 dark:text-white/90",
-                                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-                                ],
-                                innerWrapper: "bg-transparent",
-                                inputWrapper: [
-                                    "shadow-xl",
-                                    "bg-default-200/50",
-                                    "dark:bg-default/60",
-                                    "backdrop-blur-xl",
-                                    "backdrop-saturate-200",
-                                    "hover:bg-default-200/70",
-                                    "dark:hover:bg-default/70",
-                                    "group-data-[focus=true]:bg-default-200/50",
-                                    "dark:group-data-[focus=true]:bg-default/60",
-                                    "!cursor-text",
-                                ],
-                            }}
+                        <Autocomplete
+                            className="max-w-lg"
+                            size="md"
+                            defaultItems={promotionsCodes}
                             label="Promo Code"
-                            placeholder="Enter promo code"
-                            radius="lg"
-                            value={promoCode}
-                            onChange={(e) => setPromoCode(e.target.value)}
-                            endContent={
-                                promoCode && (
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            height: "100%",
-                                        }}
-                                    >
-                                        <Button sx={{ fontSize: "1.3vh", color: "#E68A00" }}>
-                                            Validate Code
-                                        </Button>
-                                    </Box>
-                                )
-                            }
-                        />
+                            inputValue={promoCode?.codigo}
+                            value={promoCode?.codigo}
+                            onSelectionChange={(key) => {
+                                const selectedCode = promotionsCodes.find((code) => code.codigoID === Number(key));
+                                setPromoCode(selectedCode ?? null);
+                            }}
+                        >
+                            {(item) => (
+                                <AutocompleteItem key={item.codigoID}>
+                                    {item.codigo}
+                                </AutocompleteItem>
+                            )}
+                        </Autocomplete>
                     </Grid2>
                 </Grid2>
                 <Button

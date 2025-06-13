@@ -7,12 +7,13 @@ import EventIcon from '@mui/icons-material/Event';
 import PersonIcon from '@mui/icons-material/Person';
 import { Input } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { CreateCotizacion } from "../../services/UserService";
+import { CreateCotizacion, UsePromotionCode } from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { formatDateTimeUS } from "../../utils/utils";
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css'
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
+import { PromotionCode } from "../../types/types";
 
 interface CheckoutFormProps {
     origen: string;
@@ -21,6 +22,7 @@ interface CheckoutFormProps {
     fechaRegreso: string;
     numeroPasajeros: number;
     precioEstimado: number;
+    promocion: PromotionCode | null;
 }
 const toUTCString = (dateTime: string) => {
     const date = new Date(dateTime);
@@ -46,8 +48,15 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         correoPasajero: "",
         telefonoPasajero: ""
     });
+
+    const [precioEstimado, setPrecioEstimado] = useState(props.precioEstimado);
+    
     const [additionalPassengers, setAdditionalPassengers] = useState<string[]>([]);
     const [countryCode, setCountryCode] = useState<CountryCode>('MX');
+
+    useEffect(() => {
+        props.promocion ? setPrecioEstimado(props.precioEstimado - props.promocion.descuentoUSD) : setPrecioEstimado(props.precioEstimado);
+    }, []);
 
     useEffect(() => {
         setAdditionalPassengers(Array(props.numeroPasajeros - 1).fill(""));
@@ -105,6 +114,9 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         };
         try {
             const response = await CreateCotizacion(combinedData);
+            if (props.promocion) {
+                await UsePromotionCode(props.promocion.codigo);
+            }
             if (response.success) {
                 localStorage.setItem("quoteCompleted", 'true');
                 localStorage.removeItem("reservationFormCompleted");
@@ -119,7 +131,9 @@ export default function CheckoutForm(props: CheckoutFormProps) {
             }
         }
         catch (error) {
-            console.log(error);
+            setAlertMessage('Error al crear cotización. Inténtalo de nuevo.');
+            setAlertSeverity('error');
+            setAlertOpen(true);
         }
         finally {
             setIsLoading(false);
@@ -235,7 +249,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                         <Divider />
                         <Grid2 size={12} display={'flex'} justifyContent={'space-between'} marginY={2}>
                             <Typography sx={labelStyle}>Total:</Typography>
-                            <Typography>${props.precioEstimado} USD</Typography>
+                            <Typography>${precioEstimado} USD</Typography>
                         </Grid2>
                         <Divider />
                         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
