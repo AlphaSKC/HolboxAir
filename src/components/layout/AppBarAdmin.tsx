@@ -305,6 +305,32 @@ export default function HeaderAdmin() {
                             />
                         </ListItemButton>
                     </ListItem>
+                    {/* Promotions code */}
+                    <ListItem disablePadding sx={{ display: "block" }}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                            onClick={() => navigate("/dashboard/promotions")}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
+                                }}
+                                onClick={() => navigate("/dashboard/promotions")}
+                            >
+                                <DiscountTag02Icon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Promotions"}
+                                sx={{ opacity: open ? 1 : 0 }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
                 <Divider />
             </Drawer>

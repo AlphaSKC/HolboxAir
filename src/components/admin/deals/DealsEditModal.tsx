@@ -126,6 +126,11 @@ const DealsEditModal: React.FC<DealsEditModalProps> = ({ open, onClose, selected
                             ":disabled": {
                                 color: "#a8a8a8",
                                 borderColor: "#a8a8a8",
+                            },
+                            '&:hover': {
+                                backgroundColor: 'rgba(22, 220, 163, 0.1)',
+                                borderColor: '#10E5A5',
+                                color: '#10E5A5'
                             }
                         }}>
                         Confirmar

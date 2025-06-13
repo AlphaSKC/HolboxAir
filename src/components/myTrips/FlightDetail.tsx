@@ -143,7 +143,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                         fecha={flightDetails?.fechaSalida}
                                         getEstimatedArrivalTime={getEstimatedArrivalTime}
                                         status={flightDetails?.estado}
-                                        price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                        price={flightDetails?.fechaRegreso ? flightDetails?.precio / 2  : flightDetails?.precio}
                                     />
                                 </Box>
 
@@ -157,7 +157,7 @@ export default function FlightDetail(props: FlightDetailProps) {
                                             getEstimatedArrivalTime={getEstimatedArrivalTime}
                                             isReturn={true}
                                             status={flightDetails?.estado}
-                                            price={fullPrice ? flightDetails?.precio : flightDetails?.precio / 2}
+                                            price={flightDetails?.fechaRegreso ? flightDetails?.precio / 2 : flightDetails?.precio }
                                         />
                                     </Box>
                                 )}
@@ -208,10 +208,10 @@ export default function FlightDetail(props: FlightDetailProps) {
                             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
                                 {flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Revision' && (
                                     <>
-                                        <Button variant="outlined" size="large" style={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F" }} onClick={() => changeEstadoReservacion('Cancelado')}>
+                                        <Button variant="outlined" size="large" sx={{ borderRadius: "20px", color: "#FF4D4F", borderColor: "#FF4D4F", '&:hover': { backgroundColor: 'rgba(255, 77, 79, 0.1)', borderColor: '#FF4D4F', color: '#FF4D4F' } }} onClick={() => changeEstadoReservacion('Cancelado')}>
                                             <CancelCircleIcon />
                                         </Button>
-                                        <Button variant="outlined" size="large" style={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3' }} onClick={() => changeEstadoReservacion('Disponible')}>
+                                        <Button variant="outlined" size="large" sx={{ borderRadius: '20px', color: '#2196F3', borderColor: '#2196F3', '&:hover': { backgroundColor: 'rgba(33, 150, 243, 0.1)', borderColor: '#2196F3', color: '#2196F3' } }} onClick={() => changeEstadoReservacion('Disponible')}>
                                             <CheckmarkSquare03Icon />
                                         </Button>
                                     </>

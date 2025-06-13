@@ -57,6 +57,13 @@ export default function TermsOfUse() {
                         </Box>
                     </Typography>
                     <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        <strong>• Flights Deals Cancellations:</strong><br />
+                        <Box pl={2}>
+                            o Cancellations are not accepted for seats purchased through the "Flight Deals" section.<br />
+                            o Seats purchased under this option are only eligible for a refund if the flight cannot be operated due to weather conditions.
+                        </Box>
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
                         <strong>• Peak Season Cancellations:</strong><br />
                         <Box pl={2}>
                             o Flights reserved during <b>peak season</b> (December 24 – January 7) and cancellations made less than <b>72 hours</b> before departure are <b>non-refundable</b>.
@@ -149,6 +156,14 @@ export default function TermsOfUse() {
                     </Typography>
                     <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
                         Any baggage exceeding these limits may not be permitted on the aircraft. In such cases, the company will not be held responsible, and any costs associated with transporting excess or oversized luggage will be borne solely by the passenger.
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography className='Lato' variant="body1" sx={{ mt: 2, textAlign: "justify" }}>
+                        <strong>10. FLIGHT DEALS</strong>
+                    </Typography>
+                    <Typography className='Lato' variant="body2" sx={{ mt: 1, textAlign: "justify" }}>
+                        Please note that flights listed in the "Flight Deals" section are subject to changes in schedule, date, and even cancellations. For this reason, please ensure you have enough flexibility in your itinerary to avoid any inconvenience.
                     </Typography>
                 </Box>
             </Box>

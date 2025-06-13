@@ -106,7 +106,12 @@ export default function PopularTopics() {
             >
               <NavLink
                 to={topic.route}
-                onClick={() => window.scrollTo(0, 0)}
+                onClick={() => {
+                  if (!topic.route.startsWith("http")) {
+                    window.scrollTo(0, 0);
+                  }
+                }}
+                target={topic.route.startsWith("http") ? "_blank" : "_self"}
               >
                 <Box
                   sx={{

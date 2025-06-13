@@ -65,4 +65,22 @@ const SendContactForm = async (data: any) => {
   }
 }
 
-export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta, SendContactForm };
+const GetPromotionsCodes = async () => {
+  try {
+    const response = await axios.get(`${apiURL}/CodigoDescuento`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const UsePromotionCode = async (codigo: string) => {
+  try {
+    const response = await axios.post(`${apiURL}/CodigoDescuento`, codigo);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta, SendContactForm, GetPromotionsCodes, UsePromotionCode};

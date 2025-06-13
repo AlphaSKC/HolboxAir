@@ -249,7 +249,7 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
                         }
                         label={
                             <Typography>
-                                I have read and accept the <NavLink to="/terms-of-use" target="_blank" style={{ color: '#E68A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
+                                I have read and accept the <NavLink to="/terms&conditions" target="_blank" style={{ color: '#E68A00', textDecoration: 'underline' }}>terms and conditions</NavLink>
                             </Typography>
                         }
                     />

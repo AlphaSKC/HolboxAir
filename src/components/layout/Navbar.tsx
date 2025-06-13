@@ -19,7 +19,7 @@ const menuItems = [
   { name: "About", route: "/about" },
   { name: "Gallery", route: "/gallery" },
   { name: "My Trips", route: "/myTrips" },
-  { name: "Flight Deals", route: "/flights" },
+  { name: "Flight Deals", route: "/flight-deals" },
   { name: "Contact", route: "/contact" },
 ];
 

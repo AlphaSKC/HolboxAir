@@ -348,7 +348,8 @@ export default function ReservationList() {
                                             newOferta[1].fechaSalida = date.format();
                                             return newOferta;
                                         })}
-                                        minDateTime={dayjs(selectedReservation.fechaRegreso)}
+                                        minDateTime={dayjs(selectedReservation.fechaSalida)}
+                                        maxDateTime={dayjs(selectedReservation.fechaRegreso)}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>
@@ -432,7 +433,7 @@ export default function ReservationList() {
                         >
                             Reservaciones
                         </Typography>
-                        <Button className="Lato" variant="outlined" onClick={() => setOpenModalConfirm(true)} size="medium" style={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3", padding: "10px 20px" }}>
+                        <Button className="Lato" variant="outlined" onClick={() => setOpenModalConfirm(true)} size="medium" sx={{ borderRadius: "20px", color: "#2196F3", borderColor: "#2196F3", padding: "10px 20px", '&:hover': { backgroundColor: 'rgba(33, 150, 243, 0.1)', borderColor: '#2196F3', color: '#2196F3' } }}>
                             Confirmar vuelo
                             <TickDouble03Icon style={{ marginLeft: '5px' }} />
                         </Button>

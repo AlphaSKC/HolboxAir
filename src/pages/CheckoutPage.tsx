@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 export default function CheckoutPage() {
     const location = useLocation();
-    const { origen, destino, fechaSalida, fechaRegreso, numeroPasajeros, precioEstimado } = location.state || {};
+    const { origen, destino, fechaSalida, fechaRegreso, numeroPasajeros, precioEstimado, promocion } = location.state || {};
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingX: '10vw', paddingY: '10vh' }}>
@@ -15,6 +15,7 @@ export default function CheckoutPage() {
                 fechaRegreso={fechaRegreso}
                 numeroPasajeros={numeroPasajeros}
                 precioEstimado={precioEstimado}
+                promocion={promocion}
             />
         </Box>
     );

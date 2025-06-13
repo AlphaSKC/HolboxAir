@@ -408,10 +408,15 @@ export default function QuoteList() {
                                                             <Button
                                                                 variant="outlined"
                                                                 size="small"
-                                                                style={{
+                                                                sx={{
                                                                     borderRadius: "20px",
                                                                     color: "#a8a8a8",
                                                                     borderColor: "#a8a8a8",
+                                                                    '&:hover': {
+                                                                        backgroundColor: 'rgba(168, 168, 168, 0.1)',
+                                                                        borderColor: '#a8a8a8',
+                                                                        color: '#a8a8a8'
+                                                                    }
                                                                 }}
                                                                 onClick={() => {
                                                                     setSelectedQuote(quote);
@@ -425,10 +430,15 @@ export default function QuoteList() {
                                                                     <Button
                                                                         variant="outlined"
                                                                         size="small"
-                                                                        style={{
+                                                                        sx={{
                                                                             borderRadius: "20px",
                                                                             color: "#FF4D4F",
                                                                             borderColor: "#FF4D4F",
+                                                                            '&:hover': {
+                                                                                backgroundColor: 'rgba(255, 77, 79, 0.1)',
+                                                                                borderColor: '#FF4D4F',
+                                                                                color: '#FF4D4F'
+                                                                            }
                                                                         }}
                                                                         onClick={() => {
                                                                             setSelectedQuote(quote);
@@ -442,10 +452,15 @@ export default function QuoteList() {
                                                                     <Button
                                                                         variant="outlined"
                                                                         size="small"
-                                                                        style={{
+                                                                        sx={{
                                                                             borderRadius: "20px",
                                                                             color: "#10E5A5",
                                                                             borderColor: "#10E5A5",
+                                                                            '&:hover': {
+                                                                                backgroundColor: 'rgba(22, 220, 163, 0.1)',
+                                                                                borderColor: '#10E5A5',
+                                                                                color: '#10E5A5'
+                                                                            }
                                                                         }}
                                                                         onClick={() => {
                                                                             setSelectedQuote(quote);
@@ -676,10 +691,15 @@ export default function QuoteList() {
                             <Button
                                 variant="outlined"
                                 size="small"
-                                style={{
+                                sx={{
                                     borderRadius: "20px",
                                     color: "#2196F3",
                                     borderColor: "#2196F3",
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                                        borderColor: '#2196F3',
+                                        color: '#2196F3'
+                                    }
                                 }}
                                 onClick={() => {
                                     setFechaSalidaAnterior(selectedQuote.fechaSalida);
@@ -692,10 +712,15 @@ export default function QuoteList() {
                             <Button
                                 variant="outlined"
                                 size="small"
-                                style={{
+                                sx={{
                                     borderRadius: "20px",
                                     color: "#FF4D4F",
                                     borderColor: "#FF4D4F",
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(255, 77, 79, 0.1)',
+                                        borderColor: '#FF4D4F',
+                                        color: '#FF4D4F'
+                                    }
                                 }}
                                 onClick={() => {
                                     setDialogContent("cancelar");
@@ -708,10 +733,15 @@ export default function QuoteList() {
                             <Button
                                 variant="outlined"
                                 size="small"
-                                style={{
+                                sx={{
                                     borderRadius: "20px",
                                     color: "#10E5A5",
                                     borderColor: "#10E5A5",
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(22, 220, 163, 0.1)',
+                                        borderColor: '#10E5A5',
+                                        color: '#10E5A5'
+                                    }
                                 }}
                                 onClick={() => {
                                     setDialogContent("aprobar");
