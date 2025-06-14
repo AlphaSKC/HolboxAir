@@ -36,9 +36,6 @@ export default function ForgotPassword() {
         navigate("/verify-code");
       }
     }
-    catch (error) {
-      console.log(error);
-    }
     finally {
       setIsLoading(false);
     }

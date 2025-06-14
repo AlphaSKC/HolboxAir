@@ -59,7 +59,7 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertSeverity, setAlertSeverity] = useState<"success" | "error">("success");
     const [alertMessage, setAlertMessage] = useState("");
-    
+
     const [dollarPrice, setDollarPrice] = useState(0);
 
     const navigate = useNavigate();
@@ -80,13 +80,8 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
     }, []);
 
     const getDollarPrice = async () => {
-        try {
-            const response = await GetDollarPrice();
-            setDollarPrice(response.tipoCambio);
-        }
-        catch (error) {
-            console.log(error);
-        }
+        const response = await GetDollarPrice();
+        setDollarPrice(response.tipoCambio);
     }
 
     const isValidPhone = (phone: string, countryCode: CountryCode) => {
@@ -139,7 +134,7 @@ export default function CheckoutDealForm(props: CheckoutDealFormProps) {
             if (response.success) {
                 localStorage.setItem("payCompleted", "true");
                 navigate('/confirmationFlight');
-            }else{
+            } else {
                 setAlertSeverity("error");
                 setAlertMessage("An error occurred while processing your payment. Please try again later.");
                 setAlertOpen(true);

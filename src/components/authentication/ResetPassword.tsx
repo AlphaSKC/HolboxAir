@@ -41,9 +41,6 @@ export default function ResetPassword() {
                 }, 100);
             }
         }
-        catch(error){
-            console.log(error);
-        }
         finally{
             setIsLoading(false);
         }

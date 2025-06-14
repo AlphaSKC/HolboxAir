@@ -6,9 +6,7 @@ const AdminLogin = async (data: any) => {
         const response = await axios.post(`${apiURL}/Administrador/Login`, data);
         return response.data;
     }
-    catch (error) {
-        console.log(error);
-    }
+    catch (error) {}
 }
 
 const SendCode = async (data: any) => {
@@ -16,9 +14,7 @@ const SendCode = async (data: any) => {
         const response = await axios.post(`${apiURL}/Administrador/ForgotPassword`, data);
         return response.data;
     }
-    catch (error) {
-        console.log(error);
-    }
+    catch (error) {}
 };
 
 
@@ -27,9 +23,7 @@ const VerifyCodePassword = async (data: any) => {
         const response = await axios.post(`${apiURL}/Codigo/VerificarCodigo`, data);
         return response.data;
     }
-    catch (error) {
-        console.log(error);
-    }
+    catch (error) {}
 }
 
 const ChangePassword = async (data: any) => {
@@ -37,9 +31,7 @@ const ChangePassword = async (data: any) => {
         const response = await axios.put(`${apiURL}/Administrador/ChangePassword`, data);
         return response.data;
     }
-    catch (error) {
-        console.log(error);
-    }
+    catch (error) {}
 }
 
 export { AdminLogin, SendCode, VerifyCodePassword, ChangePassword };

@@ -107,6 +107,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         setIsLoading(true);
         const combinedData = {
             ...props,
+            precioEstimado: precioEstimado,
             fechaSalida: toUTCString(props.fechaSalida),
             fechaRegreso: props.fechaRegreso ? toUTCString(props.fechaRegreso) : null,
             ...formData,
@@ -116,6 +117,7 @@ export default function CheckoutForm(props: CheckoutFormProps) {
             const response = await CreateCotizacion(combinedData);
             if (props.promocion) {
                 await UsePromotionCode(props.promocion.codigo);
+                
             }
             if (response.success) {
                 localStorage.setItem("quoteCompleted", 'true');
