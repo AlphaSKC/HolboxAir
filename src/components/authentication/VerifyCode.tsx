@@ -15,7 +15,7 @@ export default function VerifyCode() {
 
     const isCodeComplete = code.every(digit => digit !== "");
 
-    const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const fullCode = code.join("");
         const data = {
@@ -23,7 +23,7 @@ export default function VerifyCode() {
             code: fullCode,
         }
         const response = await VerifyCodePassword(data);
-        if (response.success){
+        if (response.success) {
             localStorage.setItem("verifyCodeCompleted", 'true');
             navigate("/reset-password");
         }
@@ -55,18 +55,13 @@ export default function VerifyCode() {
 
     const handleResend = async () => {
         if (canResend) {
-            try {
-                const data = {
-                    emailAdmin: email,
-                }
-                const response = await SendCode(data);
-                if (response.result) {
-                    setTimeLeft(300);
-                    setCanResend(false);
-                }
+            const data = {
+                emailAdmin: email,
             }
-            catch (error) {
-                console.log(error);
+            const response = await SendCode(data);
+            if (response.result) {
+                setTimeLeft(300);
+                setCanResend(false);
             }
         }
     };

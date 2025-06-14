@@ -36,13 +36,8 @@ export default function FlightDetail(props: FlightDetailProps) {
     }, []);
 
     const getDollarPrice = async () => {
-        try {
-            const response = await GetDollarPrice();
-            setDollarPrice(response.tipoCambio);
-        }
-        catch (error) {
-            console.log(error);
-        }
+        const response = await GetDollarPrice();
+        setDollarPrice(response.tipoCambio);
     }
 
     const getFilghtDetails = async () => {
@@ -54,9 +49,6 @@ export default function FlightDetail(props: FlightDetailProps) {
             }
             const response = await GetFlightDetails(data);
             setFlightDetails(response.result);
-        }
-        catch (error) {
-            console.log(error);
         }
         finally {
             setLoading(false);
@@ -86,14 +78,9 @@ export default function FlightDetail(props: FlightDetailProps) {
     const showActionButtons = (flightDetails?.tipo === 'Reservacion' && flightDetails?.estado === 'Revision');
 
     const changeEstadoReservacion = async (nuevoEstado: string) => {
-        try {
-            const status = { status: nuevoEstado };
-            await ChangeStatusReservacion(props.identificador, status);
-            setFlightDetails({ ...flightDetails, estado: nuevoEstado });
-        }
-        catch (error) {
-            console.log(error);
-        }
+        const status = { status: nuevoEstado };
+        await ChangeStatusReservacion(props.identificador, status);
+        setFlightDetails({ ...flightDetails, estado: nuevoEstado });
     }
 
     const handlePaymentComplete = async () => {

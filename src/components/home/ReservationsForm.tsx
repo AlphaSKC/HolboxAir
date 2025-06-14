@@ -92,7 +92,6 @@ const getPrecioVuelo = async (origen: string, destino: string, numeroPasajeros: 
             return 0;
         }
     } catch (error) {
-        console.log(error);
         return 0;
     }
 };

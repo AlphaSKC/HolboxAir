@@ -82,9 +82,6 @@ export default function Deals() {
             const response = await GetDeals();
             setDeals(response);
         }
-        catch (error) {
-            console.log(error);
-        }
         finally {
             setLoading(false);
         }
