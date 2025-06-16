@@ -16,9 +16,9 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { GetCostos, GetPromotionsCodes } from "../../services/UserService";
+import { GetCostos, ValidatePromotionCode } from "../../services/UserService";
 import CustomDateTimePicker from "../general/CustomDateTimePicker";
-import { PromotionCode } from "../../types/types";
+import AlertSnackbar from "../general/AlertSnackbar";
 
 const places = [
     {
@@ -107,15 +107,20 @@ export default function ReservationsForm() {
         dayjs().add(1, "day").add(4, "hour")
     );
     const [passengers, setPassengers] = useState(0);
-    const [promoCode, setPromoCode] = useState<PromotionCode | null>(null);
+    const [promoCode, setPromoCode] = useState<string>("");
     const [isSending, setIsSending] = useState(false);
+    const [isValidatingCode, setIsValidatingCode] = useState(false);
+    const [validatedPromoCode, setValidatedPromoCode] = useState<number>(0);
+    const [isCodeValidated, setIsCodeValidated] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+        "success"
+    );
 
-    const [promotionsCodes, setPromotionsCodes] = useState<PromotionCode[]>([]);
-    
     useEffect(() => {
         setDeparture(dayjs().add(1, "day"));
         setReturnDate(dayjs().add(1, "day").add(4, "hour"));
-        getPromotionsCodes();
     }, []);
 
     useEffect(() => {
@@ -126,16 +131,40 @@ export default function ReservationsForm() {
         }
     }, [isSencillo, departure]);
 
-    const getPromotionsCodes = async () => {
+
+    const validatePromoCode = async () => {
+        setIsValidatingCode(true);
         try {
-            const response = await GetPromotionsCodes();
+            const response = await ValidatePromotionCode(promoCode);
             if (response.success) {
-                setPromotionsCodes(response.result);
+                setValidatedPromoCode(response.result);
+                setAlertMessage("Promo code applied!");
+                setAlertSeverity("success");
+                setIsCodeValidated(true);
+            }
+            else {
+                setValidatedPromoCode(0);
+                setPromoCode("");
+                setAlertMessage("Invalid promo code");
+                setAlertSeverity("error");
+                setIsCodeValidated(false);
             }
         } catch (error) {
-            setPromotionsCodes([]);
+            setValidatedPromoCode(0);
+            setPromoCode("");
+            setAlertMessage("Invalid promo code");
+            setAlertSeverity("error");
+            setIsCodeValidated(false);
         }
-    }
+        finally {
+            setAlertOpen(true);
+        }
+        setIsValidatingCode(false);
+    };
+
+    const handleAlertClose = () => {
+        setAlertOpen(false);
+    };
 
     const sendData = async () => {
         setIsSending(true);
@@ -147,7 +176,8 @@ export default function ReservationsForm() {
             fechaRegreso: isSencillo ? null : returnDate ? returnDate.format() : null,
             numeroPasajeros: passengers,
             precioEstimado,
-            promocion: promoCode,
+            codigo: promoCode,
+            descuento: validatedPromoCode,
         };
         localStorage.setItem("reservationFormCompleted", "true");
         navigate("/checkout", { state: data });
@@ -405,24 +435,71 @@ export default function ReservationsForm() {
                         />
                     </Grid2>
                     <Grid2 size={{ xs: 12, md: 6 }}>
-                        <Autocomplete
-                            className="max-w-lg"
-                            size="md"
-                            defaultItems={promotionsCodes}
-                            label="Promo Code"
-                            inputValue={promoCode?.codigo}
-                            value={promoCode?.codigo}
-                            onSelectionChange={(key) => {
-                                const selectedCode = promotionsCodes.find((code) => code.codigoID === Number(key));
-                                setPromoCode(selectedCode ?? null);
+                        <Input
+                            classNames={{
+                                label: "text-black/50 dark:text-white/90",
+                                input: [
+                                    "bg-transparent",
+                                    "text-black/90 dark:text-white/90",
+                                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                                ],
+                                innerWrapper: "bg-transparent",
+                                inputWrapper: [
+                                    "shadow-xl",
+                                    "bg-default-200/50",
+                                    "dark:bg-default/60",
+                                    "backdrop-blur-xl",
+                                    "backdrop-saturate-200",
+                                    "hover:bg-default-200/70",
+                                    "dark:hover:bg-default/70",
+                                    "group-data-[focus=true]:bg-default-200/50",
+                                    "dark:group-data-[focus=true]:bg-default/60",
+                                    "!cursor-text",
+                                ],
                             }}
-                        >
-                            {(item) => (
-                                <AutocompleteItem key={item.codigoID}>
-                                    {item.codigo}
-                                </AutocompleteItem>
-                            )}
-                        </Autocomplete>
+                            label="Promo Code"
+                            placeholder="Enter promo code"
+                            radius="lg"
+                            value={promoCode}
+                            onChange={(e) => {
+                                setPromoCode(e.target.value);
+                                setIsCodeValidated(false);
+                            }}
+                            endContent={
+                                promoCode && !isCodeValidated && (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            height: "100%",
+                                        }}
+                                    >
+                                        <Button 
+                                            sx={{ 
+                                                fontSize: "1.3vh", 
+                                                color: "#E68A00",
+                                                textTransform: "none",
+                                                minWidth: "auto",
+                                                padding: "0 10px",
+                                                ":hover": {
+                                                    backgroundColor: "transparent",
+                                                    color: "#b36b00"
+                                                }
+                                            }}
+                                            onClick={validatePromoCode}
+                                            disabled={isValidatingCode}
+                                        >
+                                            {isValidatingCode ? (
+                                                <CircularProgress size={16} sx={{ color: "#E68A00" }} />
+                                            ) : (
+                                                "Validate Code"
+                                            )}
+                                        </Button>
+                                    </Box>
+                                )
+                            }
+                        />
                     </Grid2>
                 </Grid2>
                 <Button
@@ -454,6 +531,12 @@ export default function ReservationsForm() {
                     )}
                 </Button>
             </Box>
+            <AlertSnackbar
+                open={alertOpen}
+                onClose={handleAlertClose}
+                severity={alertSeverity}
+                message={alertMessage}
+            />
         </Box>
     );
 }

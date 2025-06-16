@@ -13,7 +13,7 @@ import { formatDateTimeUS } from "../../utils/utils";
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css'
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
-import { PromotionCode } from "../../types/types";
+import { DiscountTag02Icon } from "hugeicons-react";
 
 interface CheckoutFormProps {
     origen: string;
@@ -22,7 +22,8 @@ interface CheckoutFormProps {
     fechaRegreso: string;
     numeroPasajeros: number;
     precioEstimado: number;
-    promocion: PromotionCode | null;
+    codigo: string;
+    descuento: number;
 }
 const toUTCString = (dateTime: string) => {
     const date = new Date(dateTime);
@@ -50,12 +51,12 @@ export default function CheckoutForm(props: CheckoutFormProps) {
     });
 
     const [precioEstimado, setPrecioEstimado] = useState(props.precioEstimado);
-    
+
     const [additionalPassengers, setAdditionalPassengers] = useState<string[]>([]);
     const [countryCode, setCountryCode] = useState<CountryCode>('MX');
 
     useEffect(() => {
-        props.promocion ? setPrecioEstimado(props.precioEstimado - props.promocion.descuentoUSD) : setPrecioEstimado(props.precioEstimado);
+        props.descuento !== 0 ? setPrecioEstimado(props.precioEstimado - props.descuento) : setPrecioEstimado(props.precioEstimado);
     }, []);
 
     useEffect(() => {
@@ -115,9 +116,8 @@ export default function CheckoutForm(props: CheckoutFormProps) {
         };
         try {
             const response = await CreateCotizacion(combinedData);
-            if (props.promocion) {
-                await UsePromotionCode(props.promocion.codigo);
-                
+            if (props.codigo !== "") {
+                await UsePromotionCode(props.codigo);
             }
             if (response.success) {
                 localStorage.setItem("quoteCompleted", 'true');
@@ -249,6 +249,12 @@ export default function CheckoutForm(props: CheckoutFormProps) {
                             </Grid2>
                         </Grid2>
                         <Divider />
+                        {props.descuento !== 0 && (
+                            <Box display={'flex'} marginY={2} alignItems={'center'} gap={1}>
+                                <DiscountTag02Icon style={{ color: '#737373', fontSize: '1.5vh' }} />
+                                <Typography sx={{ color: '#737373', fontSize: '1.5vh' }}>¡Discount applied! {props.descuento} USD</Typography>
+                            </Box>
+                        )}
                         <Grid2 size={12} display={'flex'} justifyContent={'space-between'} marginY={2}>
                             <Typography sx={labelStyle}>Total:</Typography>
                             <Typography>${precioEstimado} USD</Typography>
