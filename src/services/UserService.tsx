@@ -72,4 +72,15 @@ const UsePromotionCode = async (codigo: string) => {
   } catch (error) {}
 }
 
-export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta, SendContactForm, GetPromotionsCodes, UsePromotionCode};
+const ValidatePromotionCode = async (codigo: string) => {
+  try {
+    const response = await axios.post(`${apiURL}/CodigoDescuento/ValidarCodigoDescuento`, codigo, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data;
+  } catch (error) {}
+}
+
+export { CreateCotizacion, GetCostos, GetFlight, GetFlightDetails, GetDollarPrice, CreateReservacionOferta, SendContactForm, GetPromotionsCodes, UsePromotionCode, ValidatePromotionCode};
