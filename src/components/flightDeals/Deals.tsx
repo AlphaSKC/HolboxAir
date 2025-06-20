@@ -39,6 +39,22 @@ const classifyDealsByYearAndMonth = (deals: any) => {
     }, {});
 };
 
+const sortDealsByDate = (dealsByYearAndMonth: any) => {
+    const sorted = { ...dealsByYearAndMonth };
+    
+    Object.keys(sorted).forEach(year => {
+        Object.keys(sorted[year]).forEach(month => {
+            sorted[year][month].sort((a: any, b: any) => {
+                const dateA = new Date(a.dateTime);
+                const dateB = new Date(b.dateTime);
+                return dateA.getTime() - dateB.getTime();
+            });
+        });
+    });
+    
+    return sorted;
+};
+
 const formatDateTime = (dateTime: string | null) => {
     if (!dateTime) return { date: "N/A", time: "" };
     const date = new Date(dateTime);
@@ -63,7 +79,7 @@ export default function Deals() {
     const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
     const [open, setOpen] = useState<{ [key: string]: boolean }>({ [currentYear]: true, [`${currentYear}-${currentMonth}`]: true });
     const [deals, setDeals] = useState<Deal[]>([]);
-    const dealsByYearAndMonth = classifyDealsByYearAndMonth(deals);
+    const dealsByYearAndMonth = sortDealsByDate(classifyDealsByYearAndMonth(deals));
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
